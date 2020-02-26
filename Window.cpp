@@ -23,7 +23,7 @@ Window::Window(int width = SCR_WIDTH, int height = SCR_HEIGHT, const char * titl
     }
     glfwMakeContextCurrent(m_window);
     
-
+ 
 }
 
 Window::~Window() {

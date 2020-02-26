@@ -20,10 +20,16 @@
 #define xtest(...)
 #endif
 #include "Debug.h"
+enum SystemType {
+	TranslationSystemType,
+	CameraSystemType,
+	RenderSystemType
+};
 
 #include "Shader.h"
 #include "Camera.h"
-#include "RenderSystem.h"
 #include "Renderer.h"
+
+
 #include "Window.h"
 
