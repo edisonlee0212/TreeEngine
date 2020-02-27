@@ -141,25 +141,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="CameraSystem.h" />
+    <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="6.1.coordinate_systems.vs" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Translation.h" />
     <ClInclude Include="World.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemBase.h" />
     <ClInclude Include="TreeEngine.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="6.1.coordinate_systems.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="awesomeface.png" />
+    <Image Include="uv-test.jpg" />
+    <Image Include="uv-test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

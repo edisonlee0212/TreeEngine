@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iostream>
 
-class Shader
+class Shader : public ComponentBase
 {
 public:
     unsigned int ID;
@@ -94,12 +94,6 @@ public:
         if (geometryPath != nullptr)
             glDeleteShader(geometry);
 
-    }
-    // activate the shader
-    // ------------------------------------------------------------------------
-    void use()
-    {
-        glUseProgram(ID);
     }
     // utility uniform functions
     // ------------------------------------------------------------------------
@@ -187,4 +181,4 @@ private:
         }
     }
 };
-#endif
+#endif SHADER_H

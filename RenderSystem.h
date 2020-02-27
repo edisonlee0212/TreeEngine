@@ -1,39 +1,38 @@
 #ifndef RENDERSYSYEM_H
+#define RENDERSYSTEM_H
 #include <vector>
-#include "SystemBase.h"
+
+#include <glad/include/glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 class RenderSystem : public SystemBase
 {
 public:
-	RenderSystem();
+	RenderSystem(Time* time, EntityManager* entityManager = nullptr, Window* window = nullptr) : SystemBase(time, entityManager, window) {
+		_SystemType = SystemType::RenderSystemType;
+	}
 	~RenderSystem();
-	void addRenderer(Renderer *);
 	void Update();
-private:
-	std::vector<Renderer *> m_renderers;
+	Camera* _Camera;
 };
 
-
-RenderSystem::RenderSystem()
-{
-
-}
-
-void RenderSystem::addRenderer(Renderer* renderer) {
-	m_renderers.push_back(renderer);
-}
-
 void RenderSystem::Update() {
-	for (int i = 0; i < m_renderers.size(); i++) {
-		m_renderers[i]->render();
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glm::mat4 projection = glm::perspective(45.0f, (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+	glm::mat4 view = _Camera->GetViewMatrix();
+	for (auto i : _EntityManager->_Entities) {
+		glUseProgram(i->_Shader->ID);
+		glBindVertexArray(i->_Mesh->_VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
+	glfwSwapBuffers(_Window->window());
 }
 
 RenderSystem::~RenderSystem()
 {
-	for (int i = 0; i < m_renderers.size(); i++) {
-		delete m_renderers[i];
-	}
-	m_renderers.clear();
+
 }
 
 #endif RENDERSYSYEM_H

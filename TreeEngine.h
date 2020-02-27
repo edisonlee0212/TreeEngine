@@ -1,4 +1,7 @@
-/*
+#ifndef TREEENGINE_H
+#define TREEENGINE_H
+
+
 #include <glad/include/glad/glad.h>
 
 #include <glfw-3.3/include/GLFW/glfw3.h>
@@ -8,7 +11,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-*/
+
 
 
 #define XTEST 0 
@@ -20,16 +23,8 @@
 #define xtest(...)
 #endif
 #include "Debug.h"
-enum SystemType {
-	TranslationSystemType,
-	CameraSystemType,
-	RenderSystemType
-};
+#include "Enums.h"
 
-#include "Shader.h"
-#include "Camera.h"
-#include "Renderer.h"
+#include "World.h"
 
-
-#include "Window.h"
-
+#endif TREEENGINE_H
