@@ -1,8 +1,7 @@
 #include "TreeEngine.h"
 
 
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
+
 bool firstMouse = true;
 
 Window* window = new Window();
@@ -27,7 +26,6 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    glEnable(GL_DEPTH_TEST);
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -74,13 +72,18 @@ int main()
 
     // configure global opengl state
     // -----------------------------
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     Entity* entity = world._EntityManager->AddEntity();
     entity->_Mesh = new Mesh(sizeof(vertices), vertices);
-    entity->_Shader = new Shader("6.1.coordinate_systems.vs", "6.1.coordinate_systems.fs");
+    entity->_Shader = new Shader("fragment.vs", "vertex.fs");
     entity->_Texture = new Texture("uv-test.jpg");
     entity->_Translation = new Translation(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)));
-
+    Entity* entity2 = world._EntityManager->AddEntity();
+    entity2->_Mesh = new Mesh(sizeof(vertices), vertices);
+    entity2->_Shader = new Shader("6.1.coordinate_systems.vs", "6.1.coordinate_systems.fs");
+    entity2->_Texture = new Texture("cat.jpg");
+    entity2->_Translation = new Translation(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0)));
+    std::cout << entity->_Shader->ID << " and " << entity2->_Shader->ID << std::endl;
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window->window()))
@@ -105,25 +108,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-
-// glfw: whenever the mouse moves, this callback is called
-// -------------------------------------------------------
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastX = xpos;
-    lastY = ypos;
-
-}
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------

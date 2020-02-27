@@ -113,14 +113,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="6.1.coordinate_systems.vs">
+    <ClInclude Include="vertex.vs">
       <Filter>Resource Files\Shaders</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="6.1.coordinate_systems.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="uv-test.jpg">
@@ -132,5 +127,13 @@
     <Image Include="awesomeface.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="cat.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragment.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

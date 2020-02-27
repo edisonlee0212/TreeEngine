@@ -26,7 +26,9 @@ public:
 			_Camera->ProcessKeyboard(LEFT, _Time->deltaTime);
 		if (glfwGetKey(_Window->window(), GLFW_KEY_D) == GLFW_PRESS)
 			_Camera->ProcessKeyboard(RIGHT, _Time->deltaTime);
-
+		double xpos, ypos;
+		glfwGetCursorPos(_Window->window(), &xpos, &ypos);
+		//_Camera->ProcessMouseMovement(xpos, ypos);
 	}
 	Camera* _Camera;
 };

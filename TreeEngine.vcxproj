@@ -155,7 +155,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="6.1.coordinate_systems.vs" />
+    <ClInclude Include="vertex.vs" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
@@ -168,10 +168,11 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="6.1.coordinate_systems.fs" />
+    <None Include="fragment.fs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />
+    <Image Include="cat.jpg" />
     <Image Include="uv-test.jpg" />
     <Image Include="uv-test.png" />
   </ItemGroup>
