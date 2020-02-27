@@ -6,7 +6,6 @@
 class Texture : public ComponentBase {
 public:
 	Texture(const char* path) : ComponentBase(){
-		unsigned int _Index;
 		// texture 1
 		// ---------
 		glGenTextures(1, &_Index);

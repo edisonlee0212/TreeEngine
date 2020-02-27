@@ -83,7 +83,7 @@ int main()
     entity2->_Shader = new Shader("vertex.vs", "fragment.fs");
     entity2->_Texture = new Texture("cat.jpg");
     entity2->_Translation = new Translation(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, 0)));
-    std::cout << entity->_Shader->ID << " and " << entity2->_Shader->ID << std::endl;
+    std::cout << entity->_Texture->_Index << " and " << entity2->_Texture->_Index << std::endl;
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window->window()))
