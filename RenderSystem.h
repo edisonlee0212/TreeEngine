@@ -23,9 +23,13 @@ void RenderSystem::Update() {
 	glm::mat4 projection = glm::perspective(45.0f, (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	glm::mat4 view = _Camera->GetViewMatrix();
 	for (auto i : _EntityManager->_Entities) {
+
 		glUseProgram(i->_Shader->ID);
+		i->_Shader->setMat4("projection", projection);
+		i->_Shader->setMat4("view", view);
+		i->_Shader->setMat4("model", i->_Translation->_Value);
 		glBindVertexArray(i->_Mesh->_VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 	glfwSwapBuffers(_Window->window());
 }
