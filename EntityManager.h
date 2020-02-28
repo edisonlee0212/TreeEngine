@@ -10,6 +10,7 @@ public:
 		_Entities.push_back(retVal);
 		return retVal;
 	}
+
 	std::vector<Entity *> _Entities;
 };
 #endif ENTITYMANAGER_H

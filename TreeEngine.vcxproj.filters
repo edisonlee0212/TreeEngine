@@ -57,9 +57,6 @@
     <ClCompile Include="src\stb.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="CameraSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TimeManager.h">
       <Filter>Header Files\World\Manager\Managers</Filter>
     </ClCompile>

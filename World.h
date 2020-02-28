@@ -6,8 +6,8 @@
 class World
 {
 public:
-	World(Managers* managers) {
-		this->managers = managers;
+	World() {
+		managers = new Managers();
 	}
 	template <class T>
 	T* CreateSystem() {
@@ -40,6 +40,7 @@ public:
 	}
 	~World() {
 		for (auto i : _Systems) {
+			i->OnDestroy();
 			delete i;
 		}
 		delete managers;

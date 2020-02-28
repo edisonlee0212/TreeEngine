@@ -27,13 +27,7 @@ WindowManager::WindowManager(int width, int height)
 {
     // glfw: initialize and configure
     // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-#endif
+    
     // glfw window creation
     // --------------------
     _Window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
@@ -43,13 +37,12 @@ WindowManager::WindowManager(int width, int height)
     {
         xdebug("Failed to create GLFW window");
         glfwTerminate();
-        return;
+        exit(-1);
     }
     glfwMakeContextCurrent(_Window);
 }
 
 WindowManager::~WindowManager() {
-    glfwTerminate();
 }
 
 #endif WINDOW_H
