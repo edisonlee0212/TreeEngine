@@ -24,7 +24,20 @@
 #endif
 #include "Debug.h"
 #include "Enums.h"
-#include "Input.h"
+
+#include "InputManager.h"
+#include "TimeManager.h"
+#include "CameraManager.h"
+#include "WindowManager.h"
+#include "EntityManager.h"
+#include "Managers.h"
+
+#include "SystemBase.h"
+#include "TranslationSystem.h"
+#include "RenderSystem.h"
+#include "CameraSystem.h"
+
 #include "World.h"
+
 
 #endif TREEENGINE_H

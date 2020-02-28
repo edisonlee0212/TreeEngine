@@ -1,15 +1,11 @@
 #ifndef WINDOW_H
 #define	WINDOW_H
 #include <glfw-3.3/include/GLFW/glfw3.h>
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-class Window
+class WindowManager
 {
 public:
-	Window(int, int);
-	~Window();
+	WindowManager(int, int);
+	~WindowManager();
     int Width;
     int Height;
 	GLFWwindow* window(){
@@ -21,15 +17,14 @@ private:
 };
 
 
-void Window::Resize(int width, int height) {
+void WindowManager::Resize(int width, int height) {
     Width = width;
     Height = height;
     glViewport(0, 0, width, height);
 }
 
-Window::Window(int width = SCR_WIDTH, int height = SCR_HEIGHT)
+WindowManager::WindowManager(int width, int height)
 {
-    
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -53,7 +48,7 @@ Window::Window(int width = SCR_WIDTH, int height = SCR_HEIGHT)
     glfwMakeContextCurrent(_Window);
 }
 
-Window::~Window() {
+WindowManager::~WindowManager() {
     glfwTerminate();
 }
 

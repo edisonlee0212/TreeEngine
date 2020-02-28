@@ -3,7 +3,7 @@
 
 class TranslationSystem : SystemBase {
 public:
-    TranslationSystem(Camera* camera, Input* input, Time* time, EntityManager* entityManager, Window* window) : SystemBase(camera, input, time, entityManager, window) {
+    TranslationSystem(Managers* managers) : SystemBase(managers) {
         _SystemType = SystemType::TranslationSystemType;
     }
 

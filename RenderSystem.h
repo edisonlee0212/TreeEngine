@@ -9,7 +9,7 @@
 class RenderSystem : public SystemBase
 {
 public:
-	RenderSystem(Camera* camera, Input* input, Time* time, EntityManager* entityManager = nullptr, Window* window = nullptr) : SystemBase(camera, input, time, entityManager, window) {
+	RenderSystem(Managers* managers) : SystemBase(managers){
 		_SystemType = SystemType::RenderSystemType;
 	}
 
@@ -28,9 +28,9 @@ public:
 void RenderSystem::Update() {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glm::mat4 projection = glm::perspective(glm::radians(_Camera->Zoom), (float)_Window->Width / (float)_Window->Height, 0.1f, 100.0f);
-	glm::mat4 view = _Camera->GetViewMatrix();
-	for (auto i : _EntityManager->_Entities) {
+	glm::mat4 projection = glm::perspective((float)glm::radians(managers->cameraManager->Zoom), (float)((float)managers->windowManager->Width / (float)managers->windowManager->Height), 0.1f, 100.0f);
+	glm::mat4 view = managers->cameraManager->GetViewMatrix();
+	for (auto i : managers->entityManager->_Entities) {
 		glUseProgram(i->_Shader->ID);
 		i->_Shader->setInt("texture1", 0);
 		glActiveTexture(GL_TEXTURE0);
@@ -42,7 +42,7 @@ void RenderSystem::Update() {
 		glBindVertexArray(i->_Mesh->_VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
-	glfwSwapBuffers(_Window->window());
+	glfwSwapBuffers(managers->windowManager->window());
 }
 
 RenderSystem::~RenderSystem()

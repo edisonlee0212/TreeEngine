@@ -19,29 +19,35 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{56e2041f-bd8c-4934-aed7-0dd479e26e76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Entity">
-      <UniqueIdentifier>{64a301ac-a6a0-458d-ac02-711d2dda2248}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Component">
-      <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\World">
       <UniqueIdentifier>{25bd7c84-d460-46d3-a5f9-6813fd39cceb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\System\Systems">
-      <UniqueIdentifier>{bf543052-8e03-4907-ab35-62b68bbdc2f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Component\Components">
-      <UniqueIdentifier>{0c77beb1-dcda-4c39-814b-ae75ebd488d1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{f9901f40-cf1f-4ab1-a501-16fd62e166a1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{41a32cef-2a14-4774-8cf8-e51548ef23e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Manager">
+      <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Manager\Managers">
+      <UniqueIdentifier>{740273e8-17ce-4e42-afa2-aaee82c3e1e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\System">
+      <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\System\Systems">
+      <UniqueIdentifier>{bf543052-8e03-4907-ab35-62b68bbdc2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Entity">
+      <UniqueIdentifier>{64a301ac-a6a0-458d-ac02-711d2dda2248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Component">
+      <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Component\Components">
+      <UniqueIdentifier>{0c77beb1-dcda-4c39-814b-ae75ebd488d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +63,8 @@
     <ClCompile Include="CameraSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Time.h">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="TimeManager.h">
+      <Filter>Header Files\World\Manager\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,55 +75,58 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files\System\Systems</Filter>
+      <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
     <ClInclude Include="SystemBase.h">
-      <Filter>Header Files\System</Filter>
+      <Filter>Header Files\World\System</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Header Files\World\Entity</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files\World</Filter>
+      <Filter>Header Files\World\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraSystem.h">
-      <Filter>Header Files\System\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
     <ClInclude Include="ComponentBase.h">
-      <Filter>Header Files\Component</Filter>
+      <Filter>Header Files\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Component\Components</Filter>
+      <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files\Component\Components</Filter>
+      <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Translation.h">
-      <Filter>Header Files\Component\Components</Filter>
+      <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="vertex.vs">
       <Filter>Resource Files\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TranslationSystem.h">
-      <Filter>Header Files\System\Systems</Filter>
+      <Filter>Header Files\World\System\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\World\Manager\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files\World\Manager\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Header Files\World\Manager\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers.h">
+      <Filter>Header Files\World\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

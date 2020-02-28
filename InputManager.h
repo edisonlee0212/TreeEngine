@@ -1,10 +1,10 @@
 #ifndef INPUTSYSTEM_H
 #define INPUTSYSTEM_H
 #include <glfw-3.3/include/GLFW/glfw3.h>
-class Input
+class InputManager
 {
 public:
-	Input(){
+	InputManager(){
 	}
 	void KeyCallback(GLFWwindow*, int, int, int, int);
     void MouseButtonCallback(GLFWwindow*, int, int, int);
@@ -63,7 +63,7 @@ private:
     double _CursorX, _CursorY, _CursorScrollX, _CursorScrollY;
     bool _CursorMoved, _CursorScrolled;
 };
-void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void InputManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_UNKNOWN) return;
     if (action == GLFW_PRESS) {
         _KeyPressed[key] = true;
@@ -75,7 +75,7 @@ void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, i
     }
 }
 
-void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+void InputManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_KEY_UNKNOWN) return;
     if (action == GLFW_PRESS) {
         _MousePressed[button] = true;
@@ -87,13 +87,13 @@ void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int 
     }
 }
 
-void Input::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
+void InputManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
     _CursorMoved = true;
     _CursorX = xpos;
     _CursorY = ypos;
 }
 
-void Input::MouseScrollCallback(GLFWwindow* window, double xpos, double ypos) {
+void InputManager::MouseScrollCallback(GLFWwindow* window, double xpos, double ypos) {
     _CursorScrolled = true;
     _CursorScrollX = xpos;
     _CursorScrollY = ypos;

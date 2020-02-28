@@ -145,10 +145,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
-    <ClCompile Include="Time.h" />
+    <ClCompile Include="TimeManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="Debug.h" />
@@ -157,7 +157,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="TranslationSystem.h" />
     <ClInclude Include="vertex.vs" />
-    <ClInclude Include="Input.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Translation.h" />
@@ -166,7 +166,8 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemBase.h" />
     <ClInclude Include="TreeEngine.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="Managers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.fs" />
