@@ -8,30 +8,28 @@ const unsigned int SCR_HEIGHT = 600;
 class Window
 {
 public:
-	Window();
+	Window(int, int);
 	~Window();
-
+    int Width;
+    int Height;
 	GLFWwindow* window(){
 		return _Window;
 	}
-    void FramebufferResizeCallback(GLFWwindow* window, int width, int height);
-    void Update();
+    void Resize(int, int);
 private:
 	GLFWwindow* _Window;
 };
 
-void Window::FramebufferResizeCallback(GLFWwindow* window, int width, int height)
-{
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
+
+void Window::Resize(int width, int height) {
+    Width = width;
+    Height = height;
     glViewport(0, 0, width, height);
 }
-void Window::Update() {
 
-}
-
-Window::Window()
+Window::Window(int width = SCR_WIDTH, int height = SCR_HEIGHT)
 {
+    
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -43,7 +41,9 @@ Window::Window()
 #endif
     // glfw window creation
     // --------------------
-    _Window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Tree Engine", NULL, NULL);
+    _Window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
+    Width = width;
+    Height = height;
     if (_Window == NULL)
     {
         xdebug("Failed to create GLFW window");

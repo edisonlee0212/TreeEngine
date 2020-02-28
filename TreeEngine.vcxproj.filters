@@ -86,9 +86,6 @@
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>Header Files\System\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="CameraSystem.h">
       <Filter>Header Files\System\Systems</Filter>
     </ClInclude>
@@ -115,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="vertex.vs">
       <Filter>Resource Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TranslationSystem.h">
+      <Filter>Header Files\System\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

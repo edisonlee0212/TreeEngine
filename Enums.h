@@ -2,7 +2,6 @@
 #define ENUMS_H
 enum class SystemType {
 	DefaultSystemType,
-	InputSystemType,
 	TranslationSystemType,
 	CameraSystemType,
 	RenderSystemType

@@ -10,12 +10,18 @@ class CameraSystem : public SystemBase
 public:
 
 	// Constructor with vectors
-	CameraSystem(Time * time, EntityManager* entityManager, Window* window) : SystemBase(time, entityManager, window)
+	CameraSystem(Camera* camera, Input* input, Time* time, EntityManager* entityManager, Window* window) : SystemBase(camera, input, time, entityManager, window)
 	{
 		_SystemType = SystemType::CameraSystemType;
-		_Camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 	}
-	
+
+	void OnCreate(){
+		Enable();
+	}
+
+	void OnDestroy() {
+		Disable();
+	}
 
 	void Update() {
 		if (glfwGetKey(_Window->window(), GLFW_KEY_W) == GLFW_PRESS)
@@ -28,8 +34,7 @@ public:
 			_Camera->ProcessKeyboard(RIGHT, _Time->deltaTime);
 		double xpos, ypos;
 		glfwGetCursorPos(_Window->window(), &xpos, &ypos);
-		//_Camera->ProcessMouseMovement(xpos, ypos);
+		_Camera->ProcessMouseMovement(xpos, ypos);
 	}
-	Camera* _Camera;
 };
 #endif CAMERASYSTEM_H

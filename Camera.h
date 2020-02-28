@@ -80,7 +80,7 @@ public:
             Position += Right * velocity;
     }
     double _LastX, _LastY;
-    bool startMouse;
+    bool startMouse = false;
     // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
     void ProcessMouseMovement(double x, double y, GLboolean constrainPitch = true)
     {
@@ -91,7 +91,7 @@ public:
             startMouse = true;
         }
         xoffset = x - _LastX;
-        yoffset = y - _LastY;
+        yoffset = -y + _LastY;
         _LastX = x;
         _LastY = y;
         xoffset *= MouseSensitivity;

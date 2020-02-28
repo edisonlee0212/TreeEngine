@@ -4,79 +4,82 @@
 #include "Time.h"
 #include "Camera.h"
 #include "SystemBase.h"
+#include "TranslationSystem.h"
 #include "RenderSystem.h"
 #include "CameraSystem.h"
-#include "InputSystem.h"
+
 class World
 {
 public:
-	World(Window *);
+	World(Camera*, Time*, Window*, Input*);
 	void CreateSystem(SystemType type);
 	void DestroySystem(SystemType type);
-	SystemBase * GetSystem(SystemType type) {
-		/*for (auto i : _Systems) {
+	SystemBase* GetSystem(SystemType type) {
+		for (auto i : _Systems) {
 			if (i->GetSystemType() == type) {
 				return i;
 			}
-		}*/
+		}
 	}
 	~World();
 	void Update();
-	RenderSystem* _RenderSystem;
-	CameraSystem* _CameraSystem;
-	InputSystem* _InputSystem;
 	EntityManager* _EntityManager = nullptr;
+	Camera* _Camera;
 	Window* _Window;
+	Input* _Input;
 	Time* _Time;
 private:
-	//std::vector<SystemBase *> _Systems;
-	
+	std::vector<SystemBase*> _Systems;
+
 };
 
-World::World(Window * window)
+World::World(Camera* camera, Time* time, Window* window, Input* input)
 {
 	_EntityManager = new EntityManager();
-	_Time = new Time();
+	_Camera = camera;
+	_Time = time;
+	_Input = input;
 	_Window = window;
 	_Time->deltaTime = 0.0f;
 	_Time->lastFrameTime = 0.0f;
-	_RenderSystem = new RenderSystem(_Time, _EntityManager, _Window);
-	_CameraSystem = new CameraSystem(_Time, _EntityManager, _Window);
-	_InputSystem = new InputSystem(_Time, _EntityManager, _Window);
-	_RenderSystem->_Camera = _CameraSystem->_Camera;
 }
 
 World::~World()
 {
-	/*for (auto i : _Systems) {
+	for (auto i : _Systems) {
 		delete i;
 	}
-	delete _EntityManager;*/
+	delete _EntityManager;
 }
 
 void World::CreateSystem(SystemType type) {
-	/*switch (type)
+	switch (type)
 	{
 	case SystemType::RenderSystemType:
-		_Systems.push_back((SystemBase*)new RenderSystem(_EntityManager, _Window));
-		break;
+	{
+		auto renderSystem = new RenderSystem(_Camera, _Input, _Time, _EntityManager, _Window);
+		renderSystem->_Camera = ((CameraSystem*)GetSystem(SystemType::CameraSystemType))->_Camera;
+		renderSystem->OnCreate();
+		_Systems.push_back((SystemBase*)renderSystem);
+	}
+	break;
 	case SystemType::CameraSystemType:
-		_Systems.push_back((SystemBase*)new CameraSystem(_EntityManager, _Window));
-		break;
-	case SystemType::InputSystemType:
-		_Systems.push_back((SystemBase*)new InputSystem(_EntityManager, _Window));
-		break;
-	default:
-		break;
-	}*/
+	{
+		auto cameraSystem = new CameraSystem(_Camera, _Input, _Time, _EntityManager, _Window);
+		cameraSystem->OnCreate();
+		_Systems.push_back((SystemBase*)cameraSystem);
+	}
+	break;
+	}
 }
 
 void World::DestroySystem(SystemType type) {
-	/*for (auto i : _Systems) {
+	for (auto i : _Systems) {
 		if (i->GetSystemType() == type) {
+			i->OnDestroy();
 			delete i;
 		}
-	}*/
+	}
 }
 
 void World::Update() {
@@ -84,12 +87,9 @@ void World::Update() {
 	_Time->deltaTime = currentFrame - _Time->lastFrameTime;
 	_Time->lastFrameTime = currentFrame;
 	glfwPollEvents();
-	_InputSystem->Update();
-	_CameraSystem->Update();
-	_RenderSystem->Update();
 
-	/*for (auto i : _Systems) {
-		if (i->Enabled) i->Update(deltaTime);
-	}*/
+	for (auto i : _Systems) {
+		if (i->IsEnabled()) i->Update();
+	}
 }
 #endif WORLD_H

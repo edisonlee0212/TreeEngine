@@ -155,8 +155,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="TranslationSystem.h" />
     <ClInclude Include="vertex.vs" />
-    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Translation.h" />

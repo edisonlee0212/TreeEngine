@@ -24,7 +24,7 @@
 #endif
 #include "Debug.h"
 #include "Enums.h"
-
+#include "Input.h"
 #include "World.h"
 
 #endif TREEENGINE_H
