@@ -86,6 +86,7 @@ int main()
 
 void InitOpenGL(GLFWwindow* window) {
 	glfwSetFramebufferSizeCallback(window, WindowResizeCallback);
+	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetKeyCallback(window, KeyCallback);
 	//glfwSetInputMode(window->window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);

@@ -5,36 +5,48 @@ class InputManager
 {
 public:
 	InputManager(){
+        for (int i = 0; i < 349; i++) {
+            _KeyPressed[i] = false;
+            _KeyDown[i] = false;
+            _KeyUp[i] = false;
+        }
+        for (int i = 0; i < 8; i++) {
+            _MousePressed[i] = false;
+            _MouseDown[i] = false;
+            _MouseUp[i] = false;
+        }
+        _CursorX = _CursorY = _CursorScrollX = _CursorScrollY = 0;
+        _CursorMoved = _CursorScrolled = false;
 	}
 	void KeyCallback(GLFWwindow*, int, int, int, int);
     void MouseButtonCallback(GLFWwindow*, int, int, int);
     void CursorPositionCallback(GLFWwindow*, double, double);
     void MouseScrollCallback(GLFWwindow* window, double, double);
-    bool GetKeyDown(int scancode) {
-        bool down = _KeyDown[scancode];
-        _KeyDown[scancode] = false;
+    bool GetKeyDown(int key) {
+        bool down = _KeyDown[key];
+        _KeyDown[key] = false;
         return down;
     }
-    bool GetKeyUp(int scancode) {
-        bool up = _KeyUp[scancode];
-        _KeyUp[scancode] = false;
+    bool GetKeyUp(int key) {
+        bool up = _KeyUp[key];
+        _KeyUp[key] = false;
         return up;
     }
-    bool GetKey(int scancode) {
-        return _KeyPressed[scancode];
+    bool GetKey(int key) {
+        return _KeyPressed[key];
     }
-    bool GetMouseDown(int scancode) {
-        bool down = _MouseDown[scancode];
-        _MouseDown[scancode] = false;
+    bool GetMouseDown(int button) {
+        bool down = _MouseDown[button];
+        _MouseDown[button] = false;
         return down;
     }
-    bool GetMouseUp(int scancode) {
-        bool up = _MouseUp[scancode];
-        _MouseUp[scancode] = false;
+    bool GetMouseUp(int button) {
+        bool up = _MouseUp[button];
+        _MouseUp[button] = false;
         return up;
     }
-    bool GetMouse(int scancode) {
-        return _MousePressed[scancode];
+    bool GetMouse(int button) {
+        return _MousePressed[button];
     }
     glm::vec2 GetMousePosition() {
         return glm::vec2(_CursorX, _CursorY);

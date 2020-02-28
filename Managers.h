@@ -11,6 +11,13 @@ public:
 		timeManager = new TimeManager();
 		inputManager = new InputManager();
 	}
+	~Managers() {
+		delete entityManager;
+		delete cameraManager;
+		delete windowManager;
+		delete timeManager;
+		delete inputManager;
+	}
 	EntityManager* entityManager;
 	CameraManager* cameraManager;
 	WindowManager* windowManager;

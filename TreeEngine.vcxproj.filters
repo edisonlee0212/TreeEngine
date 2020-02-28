@@ -16,9 +16,6 @@
     <Filter Include="Source Files\Misc">
       <UniqueIdentifier>{27c0c9fd-f6b3-451c-b92e-67f950741c22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scene">
-      <UniqueIdentifier>{56e2041f-bd8c-4934-aed7-0dd479e26e76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\World">
       <UniqueIdentifier>{25bd7c84-d460-46d3-a5f9-6813fd39cceb}</UniqueIdentifier>
     </Filter>
