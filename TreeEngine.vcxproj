@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>includes;$(IncludePath)</IncludePath>
+    <IncludePath>includes;includes\assimp-5.0.1\include;$(IncludePath)</IncludePath>
     <SourcePath>includes\glfw-3.3\src;includes\glad\src;src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -93,7 +93,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;includes\glfw-3.3\build\src\Debug\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;includes\glfw-3.3\build\src\Debug\glfw3.lib;includes\assimp-5.0.1\lib\Debug\assimp-vc142-mtd.lib;includes\assimp-5.0.1\lib\Debug\IrrXMLd.lib;includes\assimp-5.0.1\lib\Debug\zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,9 +142,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="TimeManager.h" />
+    <ClCompile Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraManager.h" />
@@ -154,12 +156,15 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="Rotation.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="TranslationSystem.h" />
     <ClInclude Include="vertex.vs" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Translation.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Shader.h" />
@@ -170,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.fs" />
+    <None Include="nanosuit.fs" />
+    <None Include="nanosuit.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />

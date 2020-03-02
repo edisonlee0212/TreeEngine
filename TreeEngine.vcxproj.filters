@@ -46,6 +46,12 @@
     <Filter Include="Header Files\World\Component\Components">
       <UniqueIdentifier>{0c77beb1-dcda-4c39-814b-ae75ebd488d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tree">
+      <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tree\Skeleton">
+      <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="TimeManager.h">
       <Filter>Header Files\World\Manager\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.h">
+      <Filter>Header Files\World\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +107,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Translation.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
@@ -122,6 +131,18 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Header Files\World\Manager\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\World\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\World\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Tree\Skeleton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="uv-test.jpg">
@@ -139,6 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="nanosuit.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="nanosuit.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

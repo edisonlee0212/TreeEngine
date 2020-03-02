@@ -5,15 +5,19 @@
 #include <glm/gtc/type_ptr.hpp>
 class Translation : public ComponentBase {
 public:
-	Translation(glm::mat4 value) { _Value = value; }
+	Translation(glm::mat4 value) :value(value) {}
 	void SetPosition(glm::vec3 position) {
-		_Value = glm::translate(_Value, position);
+		value = glm::translate(value, position);
+	}
+
+	void SetScale(glm::vec3 scale) {
+		value = glm::scale(value, scale);
 	}
 
 	void RotateAroundAxis(float angle, glm::vec3 axis) {
-		_Value = glm::rotate(_Value, glm::radians(angle), axis);
+		value = glm::rotate(value, glm::radians(angle), axis);
 	}
-	glm::mat4 _Value;
-	
+	glm::mat4 value;
+
 };
 #endif TRANSLATION_H

@@ -4,7 +4,8 @@
 class WindowManager
 {
 public:
-	WindowManager(int, int);
+	WindowManager();
+    GLFWwindow* CreateWindow(int, int);
 	~WindowManager();
     int Width;
     int Height;
@@ -22,12 +23,10 @@ void WindowManager::Resize(int width, int height) {
     Height = height;
     glViewport(0, 0, width, height);
 }
-
-WindowManager::WindowManager(int width, int height)
-{
+GLFWwindow* WindowManager::CreateWindow(int width, int height) {
     // glfw: initialize and configure
     // ------------------------------
-    
+
     // glfw window creation
     // --------------------
     _Window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
@@ -40,6 +39,11 @@ WindowManager::WindowManager(int width, int height)
         exit(-1);
     }
     glfwMakeContextCurrent(_Window);
+    return _Window;
+}
+WindowManager::WindowManager()
+{
+    
 }
 
 WindowManager::~WindowManager() {

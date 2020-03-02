@@ -11,8 +11,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-
+using namespace std;
 
 #define XTEST 0 
 #define XDEBUG 1
@@ -25,11 +24,14 @@
 #include "Debug.h"
 #include "Enums.h"
 
-#include "InputManager.h"
-#include "TimeManager.h"
-#include "CameraManager.h"
-#include "WindowManager.h"
-#include "EntityManager.h"
+#include "ComponentBase.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "Material.h"
+#include "Mesh.h"
+
+#include "Transform.h"
+#include "Skeleton.h"
 #include "Managers.h"
 
 #include "SystemBase.h"
@@ -41,6 +43,7 @@
 
 World* world;
 
+
 void WindowResizeCallback(GLFWwindow*, int, int);
 void MouseScrollCallback(GLFWwindow*, double, double);
 void CursorPositionCallback(GLFWwindow*, double, double);
@@ -48,6 +51,10 @@ void MouseButtonCallback(GLFWwindow*, int, int, int);
 void KeyCallback(GLFWwindow*, int, int, int, int);
 void TreeEngineStart();
 void TreeEngineLoop();
+
+void LoadNanoSuit();
+Mesh* MakeMesh(std::vector<Face*>);
+void LoadCube();
 
 void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
 	world->managers->inputManager->CursorPositionCallback(window, xpos, ypos);
@@ -68,6 +75,8 @@ void WindowResizeCallback(GLFWwindow* window, int width, int height) {
 	world->managers->windowManager->Resize(width, height);
 }
 
+
+
 void TreeEngineStart() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -80,7 +89,7 @@ void TreeEngineStart() {
 	world = new World();
 	world->CreateSystem<CameraSystem>();
 	world->CreateSystem<RenderSystem>();
-	auto window = world->managers->windowManager->window();
+	auto window = world->managers->windowManager->CreateWindow(800, 600);
 	glfwSetFramebufferSizeCallback(window, WindowResizeCallback);
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);

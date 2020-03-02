@@ -1,22 +1,25 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <vector>
-#include "ComponentBase.h"
-#include "Mesh.h"
-#include "Texture.h"
-#include "Shader.h"
-#include "Translation.h"
+
 class Entity {
 public:
-	Mesh* _Mesh;
-	Texture* _Texture;
-	Shader* _Shader;
-	Translation* _Translation;
-	int GetKey() { return _Key; }
-	Entity(int key)
-		: _Key(key)
-	{}
+	Entity* parent;
+	Material* material;
+	Mesh* mesh;
+	bool ToDraw;
+	Entity(unsigned int key) :_Key(key) {
+		_Transform = new Transform();
+		ToDraw = false;
+	}
+	Transform* GetTransform() {
+		return _Transform;
+	}
+	~Entity() {
+		delete _Transform;
+	}
 private:
-	int _Key;
+	unsigned int _Key;
+	Transform* _Transform;
 };
 #endif ENTITY_H

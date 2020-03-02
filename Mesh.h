@@ -1,32 +1,78 @@
 #ifndef MESH_H
 #define MESH_H
 #include <glad/include/glad/glad.h>
-class Mesh : public ComponentBase {
+
+
+struct Vertex {
+    // position
+    glm::vec3 Position;
+    // normal
+    glm::vec3 Normal;
+    // texCoords
+    glm::vec2 TexCoords;
+    // tangent
+    glm::vec3 Tangent;
+    // bitangent
+    glm::vec3 Bitangent;
+};
+
+class Mesh {
 public:
-	Mesh(int size, float * vertices){
-        glGenVertexArrays(1, &_VAO);
-        glGenBuffers(1, &_VBO);
-        // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-        glBindVertexArray(_VAO);
+    /*  Mesh Data  */
+    vector<Vertex> vertices;
+    vector<unsigned int> triangles;
+    unsigned int VAO;
 
-        glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-        glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    /*  Functions  */
+    // constructor
+    Mesh(vector<Vertex> vertices, vector<unsigned int> triangles) : vertices(vertices), triangles(triangles)
+    {
+        // now that we have all the required data, set the vertex buffers and its attribute pointers.
+        setupMesh();
+    }
 
-        // position attribute
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+private:
+    /*  Render data  */
+    unsigned int VBO, EBO;
+
+    /*  Functions    */
+    // initializes all the buffer objects/arrays
+    void setupMesh()
+    {
+        // create buffers/arrays
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+        // load data into vertex buffers
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        // A great thing about structs is that their memory layout is sequential for all its items.
+        // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
+        // again translates to 3/2 floats which translates to a byte array.
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned int), &triangles[0], GL_STATIC_DRAW);
+
+        // set the vertex attribute pointers
+        // vertex Positions
         glEnableVertexAttribArray(0);
-        // texture coord attribute
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        // vertex normals
         glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+        // vertex texture coords
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+        // vertex tangent
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+        // vertex bitangent
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
 
-        // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-        // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
         glBindVertexArray(0);
-	}
-	~Mesh() {
-		glDeleteVertexArrays(1, &_VAO);
-		glDeleteBuffers(1, &_VBO);
-	}
-	unsigned int _VAO, _VBO;
+    }
 };
 #endif MESH_H
