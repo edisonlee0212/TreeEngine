@@ -40,7 +40,7 @@ using namespace std;
 #include "CameraSystem.h"
 
 #include "World.h"
-
+#include "CatmullModel.h"
 World* world;
 
 
@@ -94,7 +94,7 @@ void TreeEngineStart() {
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetKeyCallback(window, KeyCallback);
-	//glfwSetInputMode(window->window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

@@ -54,71 +54,102 @@ int main()
 
 void LoadCube() {
 	Skeleton* skeleton = new Skeleton();
-	Face* f0 = new Face();
-	f0->p0 = glm::vec3(0.0f, 0.0f, 0.0f);
-	f0->p1 = glm::vec3(0.0f, 1.0f, 0.0f);
-	f0->p2 = glm::vec3(0.0f, 1.0f, 1.0f);
-	f0->p3 = glm::vec3(0.0f, 0.0f, 1.0f);
-	/*
-	Face* f1 = new Face();
-	f1->p0 = glm::vec3();
-	f1->p1 = glm::vec3();
-	f1->p2 = glm::vec3();
-	f1->p3 = glm::vec3();
-	Face* f2 = new Face();
-	f2->p0 = glm::vec3();
-	f2->p1 = glm::vec3();
-	f2->p2 = glm::vec3();
-	f2->p3 = glm::vec3();
-	Face* f3 = new Face();
-	f3->p0 = glm::vec3();
-	f3->p1 = glm::vec3();
-	f3->p2 = glm::vec3();
-	f3->p3 = glm::vec3();
-	Face* f4 = new Face();
-	f4->p0 = glm::vec3();
-	f4->p1 = glm::vec3();
-	f4->p2 = glm::vec3();
-	f4->p3 = glm::vec3();
-	Face* f5 = new Face();
-	f5->p0 = glm::vec3(1, 0, 0);
-	f5->p1 = glm::vec3(1, 1, 0);
-	f5->p2 = glm::vec3(1, 1, 1);
-	f5->p3 = glm::vec3(1, 0, 1);*/
+	Point* p0 = new Point(glm::vec3(0.0f, 0.0f, 0.0f));
+	Point* p1 = new Point(glm::vec3(0.0f, 0.0f, 1.0f));
+	Point* p2 = new Point(glm::vec3(0.0f, 1.0f, 0.0f));
+	Point* p3 = new Point(glm::vec3(0.0f, 1.0f, 1.0f));
+	Point* p4 = new Point(glm::vec3(1.0f, 0.0f, 0.0f));
+	Point* p5 = new Point(glm::vec3(1.0f, 0.0f, 1.0f));
+	Point* p6 = new Point(glm::vec3(1.0f, 1.0f, 0.0f));
+	Point* p7 = new Point(glm::vec3(1.0f, 1.0f, 1.0f));
+
+	skeleton->points.push_back(p0);
+	skeleton->points.push_back(p1);
+	skeleton->points.push_back(p2);
+	skeleton->points.push_back(p3);
+	skeleton->points.push_back(p4);
+	skeleton->points.push_back(p5);
+	skeleton->points.push_back(p6);
+	skeleton->points.push_back(p7);
+
+	Face* f0 = new Face(0, p0, p2, p3, p1);
+	f0->AttachPoints();
+	Face* f1 = new Face(1, p1, p5, p4, p0);
+	f1->AttachPoints();
+	Face* f2 = new Face(2, p0, p4, p6, p2);
+	f2->AttachPoints();
+	Face* f3 = new Face(3, p4, p5, p7, p6);
+	f3->AttachPoints();
+	Face* f4 = new Face(4, p6, p7, p3, p2);
+	f4->AttachPoints();
+	Face* f5 = new Face(5, p1, p3, p7, p5);
+	f5->AttachPoints();
+
+	f0->f3 = f1;
+	f1->f3 = f0;
+	
+	f0->f0 = f2;
+	f1->f2 = f2;
+	f2->f3 = f0;
+	f2->f0 = f1;
+
+	f3->f0 = f1;
+	f3->f3 = f2;
+	f2->f1 = f3;
+	f1->f1 = f3;
+
+	f4->f2 = f0;
+	f4->f3 = f2;
+	f4->f0 = f3;
+	f0->f1 = f4;
+	f2->f2 = f4;
+	f3->f2 = f4;
+
+	f5->f0 = f0;
+	f5->f3 = f1;
+	f5->f1 = f4;
+	f5->f2 = f3;
+	f0->f2 = f5;
+	f1->f0 = f5;
+	f3->f1 = f5;
+	f4->f1 = f5;
+
 	skeleton->faces.push_back(f0);
-	/*skeleton->faces.push_back(f1);
+	skeleton->faces.push_back(f1);
 	skeleton->faces.push_back(f2);
 	skeleton->faces.push_back(f3);
 	skeleton->faces.push_back(f4);
-	skeleton->faces.push_back(f5);*/
+	skeleton->faces.push_back(f5);
 	skeleton->CatmullClark();
 	skeleton->CatmullClark();
-	Entity * entity = world->managers->entityManager->CreateEntity();
+	// skeleton->CatmullClark();
+	Entity* entity = world->managers->entityManager->CreateEntity();
 	entity->material = new Material();
-	entity->material->shader = new Shader("nanosuit.vs", "nanosuit.fs");
+	entity->material->shader = new Shader("default.vs", "default.fs");
 	Texture texture;
-	texture.LoadTexture("uv-test.jpg", "");
+	//texture.LoadTexture("border.jpg", "");
+	texture.LoadTexture("direction.jpg", "");
 	entity->material->textures.push_back(texture);
 	vector<Vertex> vertices;
 	vector<unsigned int> triangles;
 	for (auto i : skeleton->faces) {
 		Vertex v0;
-		v0.Position = i->p0;
+		v0.Position = i->pp0();
 		v0.TexCoords = glm::vec2(0.0f, 0.0f);
 		Vertex v1;
-		v1.Position = i->p1;
+		v1.Position = i->pp1();
 		v1.TexCoords = glm::vec2(1.0f, 0.0f);
 		Vertex v2;
-		v2.Position = i->p2;
+		v2.Position = i->pp2();
 		v2.TexCoords = glm::vec2(1.0f, 1.0f);
 		Vertex v3;
-		v3.Position = i->p2;
+		v3.Position = i->pp2();
 		v3.TexCoords = glm::vec2(1.0f, 1.0f);
 		Vertex v4;
-		v4.Position = i->p3;
+		v4.Position = i->pp3();
 		v4.TexCoords = glm::vec2(0.0f, 1.0f);
 		Vertex v5;
-		v5.Position = i->p0;
+		v5.Position = i->pp0();
 		v5.TexCoords = glm::vec2(0.0f, 0.0f);
 
 		vertices.push_back(v0);

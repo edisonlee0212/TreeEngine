@@ -52,6 +52,9 @@
     <Filter Include="Header Files\Tree\Skeleton">
       <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CatmullModel">
+      <UniqueIdentifier>{dc05230c-25db-4c42-b084-4cdf93513cf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,9 +113,6 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
-    <ClInclude Include="vertex.vs">
-      <Filter>Resource Files\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="TranslationSystem.h">
       <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
@@ -159,13 +159,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.fs">
+    <None Include="default.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="nanosuit.vs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="nanosuit.fs">
+    <None Include="default.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

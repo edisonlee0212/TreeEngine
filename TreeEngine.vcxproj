@@ -161,7 +161,6 @@
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="TranslationSystem.h" />
-    <ClInclude Include="vertex.vs" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
@@ -174,9 +173,8 @@
     <ClInclude Include="Managers.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.fs" />
-    <None Include="nanosuit.fs" />
-    <None Include="nanosuit.vs" />
+    <None Include="default.fs" />
+    <None Include="default.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />
