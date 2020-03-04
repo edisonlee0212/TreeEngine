@@ -3,6 +3,6 @@
 class Material {
 public:
 	Shader* shader;
-	vector<Texture> textures;
+	std::vector<Texture> textures;
 };
 #endif MATERIAL_H

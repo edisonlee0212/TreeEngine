@@ -23,14 +23,16 @@ class ModelManager
 public:
     ModelManager(EntityManager* entityManager) : _EntityManager(entityManager)
     {
+        entities = std::vector<Entity*>();
     }
 
     void LoadModel(Entity*, Shader* shader, string const&, bool);
 private:
+    std::vector<Entity*> entities;
     EntityManager* _EntityManager;
     void ProcessNode(string, Shader* shader, Entity*, vector<Texture>*, aiNode*, const aiScene*);
     Entity* ReadMesh(string, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
-    vector<Texture> LoadMaterialTextures(string, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName);
+    std::vector<Texture> LoadMaterialTextures(string, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName);
 };
 
 void ModelManager::LoadModel(Entity* root, Shader* shader, string const& path, bool gamma = false) {
@@ -49,7 +51,7 @@ void ModelManager::LoadModel(Entity* root, Shader* shader, string const& path, b
     ProcessNode(directory, shader, root, texturesLoaded, scene->mRootNode, scene);
 }
 
-void ModelManager::ProcessNode(string directory, Shader* shader, Entity* parent, vector<Texture>* texturesLoaded, aiNode* node, const aiScene* scene)
+void ModelManager::ProcessNode(string directory, Shader* shader, Entity* _Parent, vector<Texture>* texturesLoaded, aiNode* node, const aiScene* scene)
 {
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -57,13 +59,14 @@ void ModelManager::ProcessNode(string directory, Shader* shader, Entity* parent,
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         auto entity = ReadMesh(directory, shader, texturesLoaded, mesh, scene);
-        entity->parent = parent;
-        entity->GetTransform()->SetLocalToWorld(entity->parent->GetTransform()->GetLocalToWorld() * entity->GetTransform()->GetLocalToParent());
+        entities.push_back(entity);
+        entity->_Parent = _Parent;
+        entity->GetTransform()->SetLocalToWorld(entity->_Parent->GetTransform()->GetLocalToWorld() * entity->GetTransform()->GetLocalToParent());
         entity->ToDraw = true;
     }
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(directory, shader, parent, texturesLoaded, node->mChildren[i], scene);
+        ProcessNode(directory, shader, _Parent, texturesLoaded, node->mChildren[i], scene);
     }
 }
 
@@ -111,7 +114,7 @@ Entity* ModelManager::ReadMesh(string directory, Shader* shader, vector<Texture>
         vertex.Bitangent = vector;
         vertices.push_back(vertex);
     }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
+    // now wak through each of the mesh's _Faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for (unsigned int i = 0; i < mesh->mNumFaces; i++)
     {
         aiFace face = mesh->mFaces[i];

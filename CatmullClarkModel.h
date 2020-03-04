@@ -1,22 +1,19 @@
-#ifndef SKELETON_H
-#define SKELETON_H
+#ifndef CATMULLCLARKMODEL_H
+#define CATMULLCLARKMODEL_H
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include "Mesh.h"
 using namespace std;
 
-struct Element {
-
-};
-
+struct Element {};
 struct Point : Element {
 public:
 	Point(glm::vec3 position) : position(position) {}
 	glm::vec3 position = glm::vec3(0.0f);
-	vector<Element*> faces;
+	vector<Element*> _Faces;
 };
-
 struct Face : Element {
 public:
 	bool broken;
@@ -29,10 +26,10 @@ public:
 		f3 = nullptr;
 	}
 	void AttachPoints() {
-		p0->faces.push_back(this);
-		p1->faces.push_back(this);
-		p2->faces.push_back(this);
-		p3->faces.push_back(this);
+		p0->_Faces.push_back(this);
+		p1->_Faces.push_back(this);
+		p2->_Faces.push_back(this);
+		p3->_Faces.push_back(this);
 	}
 	glm::vec3 fp() {
 		return (pp0() + pp1() + pp2() + pp3()) / 4.0f;
@@ -43,32 +40,32 @@ public:
 	glm::vec3 ep2() { return (pp2() + pp3()) / 2.0f; }
 	glm::vec3 ep3() { return (pp3() + pp0()) / 2.0f; }
 	~Face() {
-		for (int i = 0; i < p0->faces.size(); i++) {
-			Face* face = (Face*)p0->faces.at(i);
+		for (int i = 0; i < p0->_Faces.size(); i++) {
+			Face* face = (Face*)p0->_Faces.at(i);
 			if (face->index == index) {
-				p0->faces.at(i) = p0->faces.back();
-				p0->faces.pop_back();
+				p0->_Faces.at(i) = p0->_Faces.back();
+				p0->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p1->faces.size(); i++) {
-			Face* face = (Face*)p1->faces.at(i);
+		for (int i = 0; i < p1->_Faces.size(); i++) {
+			Face* face = (Face*)p1->_Faces.at(i);
 			if (face->index == index) {
-				p1->faces.at(i) = p1->faces.back();
-				p1->faces.pop_back();
+				p1->_Faces.at(i) = p1->_Faces.back();
+				p1->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p2->faces.size(); i++) {
-			Face* face = (Face*)p2->faces.at(i);
+		for (int i = 0; i < p2->_Faces.size(); i++) {
+			Face* face = (Face*)p2->_Faces.at(i);
 			if (face->index == index) {
-				p2->faces.at(i) = p2->faces.back();
-				p2->faces.pop_back();
+				p2->_Faces.at(i) = p2->_Faces.back();
+				p2->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p3->faces.size(); i++) {
-			Face* face = (Face*)p3->faces.at(i);
+		for (int i = 0; i < p3->_Faces.size(); i++) {
+			Face* face = (Face*)p3->_Faces.at(i);
 			if (face->index == index) {
-				p3->faces.at(i) = p3->faces.back();
-				p3->faces.pop_back();
+				p3->_Faces.at(i) = p3->_Faces.back();
+				p3->_Faces.pop_back();
 			}
 		}
 	}
@@ -90,18 +87,32 @@ public:
 	Face* f1;
 	Face* f2;
 	Face* f3;
+
+	Face* nf0;
+	Face* nf1;
+	Face* nf2;
+	Face* nf3;
 };
 
-class Skeleton
+class CatmullClarkModel
 {
 public:
-	std::vector<Point*> points;
-	std::vector<Face*> faces;
-	void CatmullClark() {
+	CatmullClarkModel(std::vector<Point*> _Points, std::vector<Face*> _Faces) : _CurrentLevel(0), _GeneratedMaxLevel(0), _Points(_Points), _Faces(_Faces) {
+		Mesh* mesh = new Mesh();
+		GenerateMesh(mesh);
+		_GeneratedMeshes.push_back(mesh);
+	}
+
+	Mesh* Subdivision() {
+		_CurrentLevel++;
+		if (_CurrentLevel <= _GeneratedMaxLevel) return _GeneratedMeshes[_CurrentLevel];
+		_GeneratedMaxLevel++;
+
 		vector<Face*> newFaces;
 		vector<Point*> newPoints;
 
-		for (auto i : faces) {
+		for (int index = 0; index < _Faces.size(); index++) {
+			auto i = _Faces[index];
 			i->broken = true;
 			Point* p0 = i->p0;
 			Point* p1 = nullptr;
@@ -148,7 +159,9 @@ public:
 				p5 = i->f1->e3;
 			}
 			i->e1 = p5;
+
 			newPoints.push_back(p4);
+
 			if (i->f2 == nullptr || !i->f2->broken) {
 				p7 = new Point((i->pp2() + i->pp3()) / 2.0f);
 				newPoints.push_back(p7);
@@ -184,12 +197,16 @@ public:
 			}
 			i->e3 = p3;
 
-			int index = i->index * 4;
+			if (p0 == nullptr || p1 == nullptr || p4 == nullptr || p3 == nullptr) {
+				printf("hello");
+			}
 
-			Face* f0 = new Face(index, p0, p1, p4, p3);
-			Face* f1 = new Face(index + 1, p1, p2, p5, p4);
-			Face* f2 = new Face(index + 2, p4, p5, p8, p7);
-			Face* f3 = new Face(index + 3, p3, p4, p7, p6);
+			int ni = index * 4;
+
+			Face* f0 = new Face(ni, p0, p1, p4, p3);
+			Face* f1 = new Face(ni + 1, p1, p2, p5, p4);
+			Face* f2 = new Face(ni + 2, p4, p5, p8, p7);
+			Face* f3 = new Face(ni + 3, p3, p4, p7, p6);
 
 			f0->f1 = f1;
 			f0->f2 = f3;
@@ -205,98 +222,103 @@ public:
 			newFaces.push_back(f2);
 			newFaces.push_back(f3);
 
+			i->nf0 = f0;
+			i->nf1 = f1;
+			i->nf2 = f2;
+			i->nf3 = f3;
+
 		}
 
-		for (int i = 0; i < faces.size(); i++) {
-			Face* mainFace = faces[i];
-			Face* f0 = newFaces[i * 4];
-			Face* f1 = newFaces[i * 4 + 1];
-			Face* f2 = newFaces[i * 4 + 2];
-			Face* f3 = newFaces[i * 4 + 3];
-			if (mainFace->f0 != nullptr) {
-				int index = mainFace->f0->index;
+		for (int i = 0; i < _Faces.size(); i++) {
+			Face* mainFace = _Faces[i];
+			Face* f0 = mainFace->f0;
+			Face* f1 = mainFace->f1;
+			Face* f2 = mainFace->f2;
+			Face* f3 = mainFace->f3;
+			Face* nf0 = mainFace->nf0;
+			Face* nf1 = mainFace->nf1;
+			Face* nf2 = mainFace->nf2;
+			Face* nf3 = mainFace->nf3;
+			if (f0 != nullptr) {
 				if (mainFace == mainFace->f0->f0) {
-					f0->f0 = newFaces[index + 1];
-					f1->f0 = newFaces[index];
+					nf0->f0 = f0->nf1;
+					nf1->f0 = f0->nf0;
 				}
 				else if (mainFace == mainFace->f0->f1) {
-					f0->f0 = newFaces[index + 2];
-					f1->f0 = newFaces[index + 1];
+					nf0->f0 = f0->nf2;
+					nf1->f0 = f0->nf1;
 				}
 				else if (mainFace == mainFace->f0->f2) {
-					f0->f0 = newFaces[index + 3];
-					f1->f0 = newFaces[index + 2];
+					nf0->f0 = f0->nf3;
+					nf1->f0 = f0->nf2;
 				}
 				else if (mainFace == mainFace->f0->f3)
 				{
-					f0->f0 = newFaces[index];
-					f1->f0 = newFaces[index + 3];
+					nf0->f0 = f0->nf0;
+					nf1->f0 = f0->nf3;
 				}
 			}
-			if (mainFace->f1 != nullptr) {
-				int index = mainFace->f1->index;
+			if (f1 != nullptr) {
 				if (mainFace == mainFace->f1->f0) {
-					f1->f1 = newFaces[index + 1];
-					f2->f1 = newFaces[index];
+					nf1->f1 = f1->nf1;
+					nf2->f1 = f1->nf0;
 				}
 				else if (mainFace == mainFace->f1->f1) {
-					f1->f1 = newFaces[index + 2];
-					f2->f1 = newFaces[index + 1];
+					nf1->f1 = f1->nf2;
+					nf2->f1 = f1->nf1;
 				}
 				else if (mainFace == mainFace->f1->f2) {
-					f1->f1 = newFaces[index + 3];
-					f2->f1 = newFaces[index + 2];
+					nf1->f1 = f1->nf3;
+					nf2->f1 = f1->nf2;
 				}
 				else if (mainFace == mainFace->f1->f3)
 				{
-					f1->f1 = newFaces[index];
-					f2->f1 = newFaces[index + 3];
+					nf1->f1 = f1->nf0;
+					nf2->f1 = f1->nf3;
 				}
 			}
-			if (mainFace->f2 != nullptr) {
-				int index = mainFace->f2->index;
+			if (f2 != nullptr) {
 				if (mainFace == mainFace->f2->f0) {
-					f2->f2 = newFaces[index + 1];
-					f3->f2 = newFaces[index];
+					nf3->f2 = f2->nf0;
+					nf2->f2 = f2->nf1;
 				}
 				else if (mainFace == mainFace->f2->f1) {
-					f2->f2 = newFaces[index + 2];
-					f3->f2 = newFaces[index + 1];
+					nf3->f2 = f2->nf1;
+					nf2->f2 = f2->nf2;
 				}
 				else if (mainFace == mainFace->f2->f2) {
-					f2->f2 = newFaces[index + 3];
-					f3->f2 = newFaces[index + 2];
+					nf3->f2 = f2->nf2;
+					nf2->f2 = f2->nf3;
 				}
 				else if (mainFace == mainFace->f2->f3)
 				{
-					f2->f2 = newFaces[index];
-					f3->f2 = newFaces[index + 3];
+					nf3->f2 = f2->nf3;
+					nf2->f2 = f2->nf0;
 				}
 			}
-			if (mainFace->f3 != nullptr) {
-				int index = mainFace->f3->index;
+			if (f3 != nullptr) {
 				if (mainFace == mainFace->f3->f0) {
-					f3->f3 = newFaces[index + 1];
-					f0->f3 = newFaces[index];
+					nf0->f3 = f3->nf0;
+					nf3->f3 = f3->nf1;
 				}
 				else if (mainFace == mainFace->f3->f1) {
-					f3->f3 = newFaces[index + 2];
-					f0->f3 = newFaces[index + 1];
+					nf0->f3 = f3->nf1;
+					nf3->f3 = f3->nf2;
 				}
 				else if (mainFace == mainFace->f3->f2) {
-					f3->f3 = newFaces[index + 3];
-					f0->f3 = newFaces[index + 2];
+					nf0->f3 = f3->nf2;
+					nf3->f3 = f3->nf3;
 				}
 				else if (mainFace == mainFace->f3->f3)
 				{
-					f3->f3 = newFaces[index];
-					f0->f3 = newFaces[index + 3];
+					nf0->f3 = f3->nf3;
+					nf3->f3 = f3->nf0;
 				}
 			}
 		}
 
-		for (int i = 0; i < faces.size(); i++) {
-			Face* mainFace = faces[i];
+		for (int i = 0; i < _Faces.size(); i++) {
+			Face* mainFace = _Faces[i];
 			Face* f0 = newFaces[i * 4];
 			Face* f1 = newFaces[i * 4 + 1];
 			Face* f2 = newFaces[i * 4 + 2];
@@ -324,12 +346,12 @@ public:
 				ep3->position = (ep3->position + (cfp + fp3) / 2.0f) / 2.0f;
 			}
 		}
-		/*
-		for (auto i : points) {
-			
-			auto connectedFaces = i->faces;
+
+		for (auto i : _Points) {
+
+			auto connectedFaces = i->_Faces;
 			int facesCount = connectedFaces.size();
-			if (facesCount == 0) continue;
+			if (facesCount <= 1) continue;
 			glm::vec3 facepavg = glm::vec3(0.0f);
 			glm::vec3 edgepavg = glm::vec3(0.0f);
 			for (int j = 0; j < facesCount; j++) {
@@ -355,22 +377,82 @@ public:
 			float m3 = 2.0f / (float)facesCount;
 			i->position = i->position * m1 + facepavg * m2 + edgepavg * m3;
 		}
-		*/
-		
-		for (auto i : faces) {
+
+
+		for (auto i : _Faces) {
 			delete i;
 		}
 
-		faces.clear();
+		_Faces.clear();
 		for (auto i : newFaces) {
 			i->AttachPoints();
-			faces.push_back(i);
+			_Faces.push_back(i);
 		}
 
 		for (auto i : newPoints) {
-			points.push_back(i);
+			_Points.push_back(i);
 		}
+
+		Mesh* mesh = new Mesh();
+		GenerateMesh(mesh);
+		_GeneratedMeshes.push_back(mesh);
+		return mesh;
 	}
 
+	Mesh* Abbreviation() {
+		if (_CurrentLevel > 0) _CurrentLevel--;
+		return _GeneratedMeshes[_CurrentLevel];
+	}
+
+	Mesh* GetCurrentMesh() {
+		return _GeneratedMeshes[_CurrentLevel];
+	}
+
+private:
+	std::vector<Point*> _Points;
+	std::vector<Face*> _Faces;
+	std::vector<Mesh*> _GeneratedMeshes;
+	int _GeneratedMaxLevel;
+	int _CurrentLevel;
+
+	void GenerateMesh(Mesh* mesh) {
+		auto vertices = &mesh->vertices;
+		auto triangles = &mesh->triangles;
+		for (auto i : _Faces) {
+			Vertex v0;
+			v0.Position = i->pp0();
+			v0.TexCoords = glm::vec2(0.0f, 0.0f);
+			Vertex v1;
+			v1.Position = i->pp1();
+			v1.TexCoords = glm::vec2(1.0f, 0.0f);
+			Vertex v2;
+			v2.Position = i->pp2();
+			v2.TexCoords = glm::vec2(1.0f, 1.0f);
+			Vertex v3;
+			v3.Position = i->pp2();
+			v3.TexCoords = glm::vec2(1.0f, 1.0f);
+			Vertex v4;
+			v4.Position = i->pp3();
+			v4.TexCoords = glm::vec2(0.0f, 1.0f);
+			Vertex v5;
+			v5.Position = i->pp0();
+			v5.TexCoords = glm::vec2(0.0f, 0.0f);
+
+			vertices->push_back(v0);
+			vertices->push_back(v1);
+			vertices->push_back(v2);
+			vertices->push_back(v3);
+			vertices->push_back(v4);
+			vertices->push_back(v5);
+			triangles->push_back(i->index * 6);
+			triangles->push_back(i->index * 6 + 1);
+			triangles->push_back(i->index * 6 + 2);
+			triangles->push_back(i->index * 6 + 3);
+			triangles->push_back(i->index * 6 + 4);
+			triangles->push_back(i->index * 6 + 5);
+		}
+	}
 };
-#endif SKELETON_H
+
+
+#endif CATMULLCLARKMODEL_H

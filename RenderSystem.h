@@ -21,6 +21,7 @@ public:
 		Disable();
 	}
 	void DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* material) {
+
         glUseProgram(material->shader->ID);
 
         glm::mat4 projection = glm::perspective(glm::radians(managers->cameraManager->Zoom), (float)managers->windowManager->Width / (float)managers->windowManager->Height, 0.1f, 100.0f);
@@ -55,7 +56,7 @@ public:
             glBindTexture(GL_TEXTURE_2D, material->textures[i].ID());
         }
         // draw mesh
-        glBindVertexArray(mesh->VAO);
+        glBindVertexArray(mesh->VAO());
         glDrawElements(GL_TRIANGLES, mesh->triangles.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 

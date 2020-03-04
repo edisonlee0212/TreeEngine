@@ -72,9 +72,6 @@
     <ClCompile Include="Transform.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeEngine.h">
@@ -140,7 +137,10 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
+    <ClInclude Include="CatmullClarkModel.h">
+      <Filter>Header Files\Tree\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeSkeleton.h">
       <Filter>Header Files\Tree\Skeleton</Filter>
     </ClInclude>
   </ItemGroup>

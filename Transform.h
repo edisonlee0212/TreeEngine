@@ -14,6 +14,14 @@ public:
 		_NeedUpdate = true;
 	}
 
+	void LookAt(glm::vec3 position) {
+
+	}
+
+	void LookFrom(glm::vec3 position) {
+
+	}
+
 	void SetPosition(glm::vec3 position) {
 		_LocalToWorld = glm::translate(_LocalToWorld, position);
 	}

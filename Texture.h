@@ -10,11 +10,11 @@ public:
 	}
 
 	unsigned int ID() { return _ID; }
-    string Path() { return _Path; }
-    string Type() { return _Type; }
-    void LoadTexture(const char* path, const string& directory)
+    std::string Path() { return _Path; }
+    std::string Type() { return _Type; }
+    void LoadTexture(const char* path, const std::string& directory)
     {
-        string filename = string(path);
+        std::string filename = std::string(path);
         if(!directory._Equal(""))
         filename = directory + '/' + filename;
         glGenTextures(1, &_ID);
@@ -50,7 +50,7 @@ public:
     }
 private:
 	unsigned int _ID;
-	string _Type;
-	string _Path;
+    std::string _Type;
+    std::string _Path;
 };
 #endif TEXTURE_H

@@ -142,7 +142,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="TimeManager.h" />
@@ -159,7 +158,8 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Rotation.h" />
-    <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="CatmullClarkModel.h" />
+    <ClInclude Include="TreeSkeleton.h" />
     <ClInclude Include="TranslationSystem.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />

@@ -1,7 +1,12 @@
 #ifndef MESH_H
 #define MESH_H
-#include <glad/include/glad/glad.h>
 
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glad/include/glad/glad.h>
+#include <cstddef>
 
 struct Vertex {
     // position
@@ -19,40 +24,53 @@ struct Vertex {
 class Mesh {
 public:
     /*  Mesh Data  */
-    vector<Vertex> vertices;
-    vector<unsigned int> triangles;
-    unsigned int VAO;
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> triangles;
+   
 
     /*  Functions  */
     // constructor
-    Mesh(vector<Vertex> vertices, vector<unsigned int> triangles) : vertices(vertices), triangles(triangles)
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> triangles) : vertices(vertices), triangles(triangles)
     {
-        // now that we have all the required data, set the vertex buffers and its attribute pointers.
-        setupMesh();
+        _VAO = 0;
     }
+
+    unsigned int VAO() {
+        if (_VAO == 0) SetupMesh();
+        return _VAO;
+    }
+
+    Mesh() {
+        vertices = std::vector<Vertex>();
+        triangles = std::vector<unsigned int>();
+    } 
 
 private:
     /*  Render data  */
-    unsigned int VBO, EBO;
-
+    unsigned int _VBO, _EBO, _VAO;
     /*  Functions    */
     // initializes all the buffer objects/arrays
-    void setupMesh()
+    void SetupMesh()
     {
+        if (_VAO != 0) {
+            glDeleteVertexArrays(1, &_VAO);
+            glDeleteBuffers(1, &_VBO);
+            glDeleteBuffers(1, &_EBO);
+        }
         // create buffers/arrays
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
+        glGenVertexArrays(1, &_VAO);
+        glGenBuffers(1, &_VBO);
+        glGenBuffers(1, &_EBO);
 
-        glBindVertexArray(VAO);
+        glBindVertexArray(_VAO);
         // load data into vertex buffers
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, _VBO);
         // A great thing about structs is that their memory layout is sequential for all its items.
         // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
         // again translates to 3/2 floats which translates to a byte array.
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned int), &triangles[0], GL_STATIC_DRAW);
 
         // set the vertex attribute pointers

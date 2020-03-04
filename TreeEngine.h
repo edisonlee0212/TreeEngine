@@ -11,7 +11,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-using namespace std;
 
 #define XTEST 0 
 #define XDEBUG 1
@@ -31,7 +30,9 @@ using namespace std;
 #include "Mesh.h"
 
 #include "Transform.h"
-#include "Skeleton.h"
+
+
+
 #include "Managers.h"
 
 #include "SystemBase.h"
@@ -40,10 +41,11 @@ using namespace std;
 #include "CameraSystem.h"
 
 #include "World.h"
-#include "CatmullModel.h"
+#include "CatmullClarkModel.h"
+#include "TreeSkeleton.h"
 World* world;
 
-
+#pragma region CallbackFunctions
 void WindowResizeCallback(GLFWwindow*, int, int);
 void MouseScrollCallback(GLFWwindow*, double, double);
 void CursorPositionCallback(GLFWwindow*, double, double);
@@ -52,9 +54,8 @@ void KeyCallback(GLFWwindow*, int, int, int, int);
 void TreeEngineStart();
 void TreeEngineLoop();
 
-void LoadNanoSuit();
-Mesh* MakeMesh(std::vector<Face*>);
-void LoadCube();
+void LoadNanoSuit(glm::vec3, glm::vec3);
+CatmullClarkModel* LoadCubeModel();
 
 void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
 	world->managers->inputManager->CursorPositionCallback(window, xpos, ypos);
@@ -74,8 +75,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 void WindowResizeCallback(GLFWwindow* window, int width, int height) {
 	world->managers->windowManager->Resize(width, height);
 }
-
-
+#pragma endregion
 
 void TreeEngineStart() {
 	glfwInit();

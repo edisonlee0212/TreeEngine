@@ -4,7 +4,7 @@
 
 class Entity {
 public:
-	Entity* parent;
+	Entity* _Parent;
 	Material* material;
 	Mesh* mesh;
 	bool ToDraw;

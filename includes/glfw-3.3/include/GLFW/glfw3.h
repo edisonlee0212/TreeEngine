@@ -4225,7 +4225,7 @@ GLFWAPI void glfwSetCursorPos(GLFWwindow* window, double xpos, double ypos);
  *
  *  The cursor hotspot is specified in pixels, relative to the upper-left corner
  *  of the cursor image.  Like all other coordinate systems in GLFW, the X-axis
- *  points to the right and the Y-axis points down.
+ *  _Points to the right and the Y-axis _Points down.
  *
  *  @param[in] image The desired cursor image.
  *  @param[in] xhot The desired x-coordinate, in pixels, of the cursor hotspot.
