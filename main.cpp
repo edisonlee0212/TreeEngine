@@ -3,96 +3,19 @@
 int main()
 {
 	TreeEngineStart();
-	Entity* entity = world->managers->entityManager->CreateEntity();
-	entity->material = new Material();
-	entity->material->shader = new Shader("default.vs", "default.fs");
-	Texture texture;
-	texture.LoadTexture("treesurface.jpg", "");
-	entity->material->textures.push_back(texture);
-
 	
-	auto cubeModel = LoadCubeModel();
-	
-	TreeSkeleton skeleton = TreeSkeleton();
-	skeleton.AddBranch(1.0f, glm::vec3(-3.0f, 2.0f, 0.0f), 1);
-	
-	auto mainBranch = skeleton.AddBranch(0.9f, glm::vec3(0.0f, 4.0f, 0.0f), 0);
-	//mainBranch->AddBranch(1.0f, glm::vec3(-3.0f, 6.0f, 0.0f), 1);
-	mainBranch = mainBranch->AddBranch(0.5f, glm::vec3(1.0f, 6.0f, 1.0f), 0);
 
+	LoadNanoSuit(glm::vec3(0.0f, -12.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
 	
-	skeleton.GenerateSurface();
-	CatmullClarkModel* model = new CatmullClarkModel(skeleton.GetPoints(), skeleton.GetFaces());
-	entity->mesh = model->GetCurrentMesh();
-	entity->ToDraw = true;
-	
-	float width = 0.9f;
-	float x = -3.0f;
-	//LoadNanoSuit(glm::vec3(0.0f, -1.75f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f));
-
-	while (!glfwWindowShouldClose(world->managers->windowManager->window()))
-	{
-		world->Update();
-		if (world->managers->inputManager->GetKeyUp(GLFW_KEY_COMMA) && x < -2.0f) {
-			x += 1.0f;
-			delete model;
-			TreeSkeleton skeleton = TreeSkeleton();
-			skeleton.AddBranch(width, glm::vec3(x, 2.0f, 0.0f), 1);
-			auto mainBranch = skeleton.AddBranch(0.9f, glm::vec3(0.0f, 4.0f, 0.0f), 0);
-			mainBranch = mainBranch->AddBranch(0.5f, glm::vec3(1.0f, 6.0f, 1.0f), 0);
-			skeleton.GenerateSurface();
-			model = new CatmullClarkModel(skeleton.GetPoints(), skeleton.GetFaces());
-			entity->mesh = model->GetCurrentMesh();
-		}else if (world->managers->inputManager->GetKeyUp(GLFW_KEY_PERIOD) && x > -9.0f) {
-			x -= 1.0f;
-			delete model;
-			TreeSkeleton skeleton = TreeSkeleton();
-			skeleton.AddBranch(width, glm::vec3(x, 2.0f, 0.0f), 1);
-			auto mainBranch = skeleton.AddBranch(0.9f, glm::vec3(0.0f, 4.0f, 0.0f), 0);
-			mainBranch = mainBranch->AddBranch(0.5f, glm::vec3(1.0f, 6.0f, 1.0f), 0);
-			skeleton.GenerateSurface();
-			model = new CatmullClarkModel(skeleton.GetPoints(), skeleton.GetFaces());
-			entity->mesh = model->GetCurrentMesh();
-		}else if (world->managers->inputManager->GetKeyUp(GLFW_KEY_EQUAL) && width < 1.0f) {
-			width += 0.1f;
-			delete model;
-			TreeSkeleton skeleton = TreeSkeleton();
-			skeleton.AddBranch(width, glm::vec3(x, 2.0f, 0.0f), 1);
-			auto mainBranch = skeleton.AddBranch(0.9f, glm::vec3(0.0f, 4.0f, 0.0f), 0);
-			mainBranch = mainBranch->AddBranch(0.5f, glm::vec3(1.0f, 6.0f, 1.0f), 0);
-			skeleton.GenerateSurface();
-			model = new CatmullClarkModel(skeleton.GetPoints(), skeleton.GetFaces());
-			entity->mesh = model->GetCurrentMesh();
-		}
-		else if (world->managers->inputManager->GetKeyUp(GLFW_KEY_MINUS) && width > 0.3f) {
-			width -= 0.1f;
-			delete model;
-			TreeSkeleton skeleton = TreeSkeleton();
-			skeleton.AddBranch(width, glm::vec3(x, 2.0f, 0.0f), 1);
-			auto mainBranch = skeleton.AddBranch(0.9f, glm::vec3(0.0f, 4.0f, 0.0f), 0);
-			mainBranch = mainBranch->AddBranch(0.5f, glm::vec3(1.0f, 6.0f, 1.0f), 0);
-			skeleton.GenerateSurface();
-			model = new CatmullClarkModel(skeleton.GetPoints(), skeleton.GetFaces());
-			entity->mesh = model->GetCurrentMesh();
-		}
-		else if (world->managers->inputManager->GetKeyUp(GLFW_KEY_9)) {
-			model->Abbreviation();
-			entity->mesh = model->GetCurrentMesh();
-		}
-		else if (world->managers->inputManager->GetKeyUp(GLFW_KEY_0)) {
-			model->Subdivision();
-			entity->mesh = model->GetCurrentMesh();
-		}
-
-
-	}
+	//entity->ToDraw = true;
+	TreeEngineLoop();
 	TreeEngineEnd();
 	return 0;
 }
 
 
 
-CatmullClarkModel* LoadCubeModel() {
+void LoadCubeModel() {
 	std::vector<Point*> _Points = std::vector<Point*>();
 	std::vector<Face*> _Faces = std::vector<Face*>();
 
@@ -165,20 +88,23 @@ CatmullClarkModel* LoadCubeModel() {
 	_Faces.push_back(f3);
 	_Faces.push_back(f4);
 	CatmullClarkModel* model = new CatmullClarkModel(_Points, _Faces);
-	
-	return model;
+	Entity* entity = world->managers->entityManager->CreateEntity();
+	entity->material = new Material();
+	entity->material->shader = new Shader("default.vs", "default.fs");
+	Texture texture;
+	texture.LoadTexture("treesurface.jpg", "");
+	entity->material->textures.push_back(texture);
+	entity->mesh = model->GetCurrentMesh();
+	entity->ToDraw = true;
+	return;
 }
 
 
 void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	Entity* entity = world->managers->entityManager->CreateEntity();
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.3f, 0.2f, 0.1f));	// it's a bit too big for our scene, so scale it down
 	entity->GetTransform()->SetPosition(position);
 	entity->GetTransform()->SetScale(scale);
 	Shader* modelShader = new Shader("default.vs", "default.fs");
-
 	world->managers->modelManager->LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
-
 }

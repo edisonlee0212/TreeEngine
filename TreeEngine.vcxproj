@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelSaver.h" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="TimeManager.h" />

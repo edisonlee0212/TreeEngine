@@ -55,7 +55,7 @@ void TreeEngineStart();
 void TreeEngineLoop();
 
 void LoadNanoSuit(glm::vec3, glm::vec3);
-CatmullClarkModel* LoadCubeModel();
+void LoadCubeModel();
 
 void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
 	world->managers->inputManager->CursorPositionCallback(window, xpos, ypos);

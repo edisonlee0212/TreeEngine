@@ -52,9 +52,6 @@
     <Filter Include="Header Files\Tree\Skeleton">
       <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\CatmullModel">
-      <UniqueIdentifier>{dc05230c-25db-4c42-b084-4cdf93513cf5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Transform.h">
       <Filter>Header Files\World\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelSaver.h">
+      <Filter>Header Files\Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

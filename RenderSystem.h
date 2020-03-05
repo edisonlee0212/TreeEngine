@@ -39,8 +39,8 @@ public:
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
             // retrieve texture number (the N in diffuse_textureN)
-            string number;
-            string name = material->textures[i].Type();
+            std::string number;
+            std::string name = material->textures[i].Type();
             if (name == "texture_diffuse")
                 number = std::to_string(diffuseNr++);
             else if (name == "texture_specular")
