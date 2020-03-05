@@ -148,13 +148,16 @@
     <Image Include="uv-test.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="uv-test.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="awesomeface.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
     <Image Include="cat.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="border.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="direction.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="treesurface.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

@@ -17,8 +17,7 @@ public:
 struct Face : Element {
 public:
 	bool broken;
-	int index;
-	Face(int index, Point* p0, Point* p1, Point* p2, Point* p3) : index(index), p0(p0), p1(p1), p2(p2), p3(p3) {
+	Face(Point* p0, Point* p1, Point* p2, Point* p3) : p0(p0), p1(p1), p2(p2), p3(p3) {
 		broken = false;
 		f0 = nullptr;
 		f1 = nullptr;
@@ -42,28 +41,28 @@ public:
 	~Face() {
 		for (int i = 0; i < p0->_Faces.size(); i++) {
 			Face* face = (Face*)p0->_Faces.at(i);
-			if (face->index == index) {
+			if (face == this) {
 				p0->_Faces.at(i) = p0->_Faces.back();
 				p0->_Faces.pop_back();
 			}
 		}
 		for (int i = 0; i < p1->_Faces.size(); i++) {
 			Face* face = (Face*)p1->_Faces.at(i);
-			if (face->index == index) {
+			if (face == this) {
 				p1->_Faces.at(i) = p1->_Faces.back();
 				p1->_Faces.pop_back();
 			}
 		}
 		for (int i = 0; i < p2->_Faces.size(); i++) {
 			Face* face = (Face*)p2->_Faces.at(i);
-			if (face->index == index) {
+			if (face == this) {
 				p2->_Faces.at(i) = p2->_Faces.back();
 				p2->_Faces.pop_back();
 			}
 		}
 		for (int i = 0; i < p3->_Faces.size(); i++) {
 			Face* face = (Face*)p3->_Faces.at(i);
-			if (face->index == index) {
+			if (face == this) {
 				p3->_Faces.at(i) = p3->_Faces.back();
 				p3->_Faces.pop_back();
 			}
@@ -101,6 +100,15 @@ public:
 		Mesh* mesh = new Mesh();
 		GenerateMesh(mesh);
 		_GeneratedMeshes.push_back(mesh);
+	}
+
+	~CatmullClarkModel() {
+		for (auto i : _Points) delete i;
+		//for (auto i : _Faces) delete i;
+		for (auto i : _GeneratedMeshes) delete i;
+		_Points.clear();
+		_Faces.clear();
+		_GeneratedMeshes.clear();
 	}
 
 	Mesh* Subdivision() {
@@ -203,10 +211,10 @@ public:
 
 			int ni = index * 4;
 
-			Face* f0 = new Face(ni, p0, p1, p4, p3);
-			Face* f1 = new Face(ni + 1, p1, p2, p5, p4);
-			Face* f2 = new Face(ni + 2, p4, p5, p8, p7);
-			Face* f3 = new Face(ni + 3, p3, p4, p7, p6);
+			Face* f0 = new Face(p0, p1, p4, p3);
+			Face* f1 = new Face(p1, p2, p5, p4);
+			Face* f2 = new Face(p4, p5, p8, p7);
+			Face* f3 = new Face(p3, p4, p7, p6);
 
 			f0->f1 = f1;
 			f0->f2 = f3;
@@ -418,6 +426,7 @@ private:
 	void GenerateMesh(Mesh* mesh) {
 		auto vertices = &mesh->vertices;
 		auto triangles = &mesh->triangles;
+		int index = 0;
 		for (auto i : _Faces) {
 			Vertex v0;
 			v0.Position = i->pp0();
@@ -444,12 +453,13 @@ private:
 			vertices->push_back(v3);
 			vertices->push_back(v4);
 			vertices->push_back(v5);
-			triangles->push_back(i->index * 6);
-			triangles->push_back(i->index * 6 + 1);
-			triangles->push_back(i->index * 6 + 2);
-			triangles->push_back(i->index * 6 + 3);
-			triangles->push_back(i->index * 6 + 4);
-			triangles->push_back(i->index * 6 + 5);
+			triangles->push_back(index * 6);
+			triangles->push_back(index * 6 + 1);
+			triangles->push_back(index * 6 + 2);
+			triangles->push_back(index * 6 + 3);
+			triangles->push_back(index * 6 + 4);
+			triangles->push_back(index * 6 + 5);
+			index++;
 		}
 	}
 };

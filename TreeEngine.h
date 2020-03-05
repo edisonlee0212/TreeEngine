@@ -110,6 +110,7 @@ void TreeEngineLoop() {
 	while (!glfwWindowShouldClose(world->managers->windowManager->window()))
 	{
 		world->Update();
+		
 	}
 }
 

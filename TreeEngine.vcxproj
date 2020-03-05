@@ -177,10 +177,11 @@
     <None Include="default.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="awesomeface.png" />
+    <Image Include="border.jpg" />
     <Image Include="cat.jpg" />
+    <Image Include="direction.jpg" />
+    <Image Include="treesurface.jpg" />
     <Image Include="uv-test.jpg" />
-    <Image Include="uv-test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
