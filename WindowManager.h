@@ -4,19 +4,20 @@
 class WindowManager
 {
 public:
-	WindowManager();
-    GLFWwindow* CreateWindow(int, int);
-	~WindowManager();
-    int Width;
-    int Height;
-	GLFWwindow* window(){
-		return _Window;
-	}
-    void Resize(int, int);
+    static GLFWwindow* CreateWindow(int, int);
+    static int GetWidth() { return Width; }
+    static int GetHeight() { return Height; }
+    static GLFWwindow* GetWindow() { return window; }
+    static void Resize(int, int);
 private:
-	GLFWwindow* _Window;
+    static int Width;
+    static int Height;
+	static GLFWwindow* window;
 };
 
+int WindowManager::Height;
+int WindowManager::Width;
+GLFWwindow* WindowManager::window;
 
 void WindowManager::Resize(int width, int height) {
     Width = width;
@@ -29,25 +30,19 @@ GLFWwindow* WindowManager::CreateWindow(int width, int height) {
 
     // glfw window creation
     // --------------------
-    _Window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
     Width = width;
     Height = height;
-    if (_Window == NULL)
+    if (window == NULL)
     {
         xdebug("Failed to create GLFW window");
         glfwTerminate();
         exit(-1);
     }
-    glfwMakeContextCurrent(_Window);
-    return _Window;
-}
-WindowManager::WindowManager()
-{
-    
+    glfwMakeContextCurrent(window);
+    return window;
 }
 
-WindowManager::~WindowManager() {
-}
 
 #endif WINDOW_H
 

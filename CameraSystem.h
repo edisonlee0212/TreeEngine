@@ -3,10 +3,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 class CameraSystem : public SystemBase
 {
 public:
-	CameraSystem(Managers* managers) : SystemBase(managers)
+	CameraSystem() : SystemBase()
 	{
 		_SystemType = SystemType::CameraSystemType;
 	}
@@ -21,16 +22,16 @@ public:
 
 	void Update() {
 		#pragma region Handle Movement
-		if (managers->inputManager->GetKey(GLFW_KEY_W))
-			managers->cameraManager->ProcessKeyboard(FORWARD, managers->timeManager->deltaTime);
-		if (managers->inputManager->GetKey(GLFW_KEY_S))
-			managers->cameraManager->ProcessKeyboard(BACKWARD, managers->timeManager->deltaTime);
-		if (managers->inputManager->GetKey(GLFW_KEY_A))
-			managers->cameraManager->ProcessKeyboard(LEFT, managers->timeManager->deltaTime);
-		if (managers->inputManager->GetKey(GLFW_KEY_D))
-			managers->cameraManager->ProcessKeyboard(RIGHT, managers->timeManager->deltaTime);
+		if (Input::GetKey(GLFW_KEY_W))
+			World::camera->ProcessKeyboard(FORWARD, Time::deltaTime);
+		if (Input::GetKey(GLFW_KEY_S))
+			World::camera->ProcessKeyboard(BACKWARD, Time::deltaTime);
+		if (Input::GetKey(GLFW_KEY_A))
+			World::camera->ProcessKeyboard(LEFT, Time::deltaTime);
+		if (Input::GetKey(GLFW_KEY_D))
+			World::camera->ProcessKeyboard(RIGHT, Time::deltaTime);
 
-		auto pos = managers->inputManager->GetMousePosition();
+		auto pos = Input::GetMousePosition();
 		#pragma endregion
 
 		#pragma region HandleMouse
@@ -43,9 +44,9 @@ public:
 		float yoffset = -pos.y + _LastY;
 		_LastX = pos.x;
 		_LastY = pos.y;
-		if (xoffset != 0 || yoffset != 0)managers->cameraManager->ProcessMouseMovement(xoffset, yoffset);
+		if (xoffset != 0 || yoffset != 0)World::camera->ProcessMouseMovement(xoffset, yoffset);
 
-		pos = managers->inputManager->GetMouseScroll();
+		pos = Input::GetMouseScroll();
 
 		if (!startScroll) {
 			_LastScrollY = pos.y;
@@ -53,12 +54,12 @@ public:
 		}
 		float yscrolloffset = -pos.y + _LastScrollY;
 		_LastScrollY = pos.y;
-		if (yscrolloffset != 0)managers->cameraManager->ProcessMouseScroll(yscrolloffset);
+		if (yscrolloffset != 0)World::camera->ProcessMouseScroll(yscrolloffset);
 #pragma endregion
 	}
 
 private:
-	float _LastX, _LastY, _LastScrollY;
+	float _LastX = 0, _LastY = 0, _LastScrollY = 0;
 	bool startMouse = false;
 	bool startScroll = false;
 };

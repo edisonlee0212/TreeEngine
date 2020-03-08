@@ -6,10 +6,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+
 class RenderSystem : public SystemBase
 {
 public:
-	RenderSystem(Managers* managers) : SystemBase(managers){
+	RenderSystem() : SystemBase(){
 		_SystemType = SystemType::RenderSystemType;
 	}
 
@@ -24,8 +26,8 @@ public:
 
         glUseProgram(material->shader->ID);
 
-        glm::mat4 projection = glm::perspective(glm::radians(managers->cameraManager->Zoom), (float)managers->windowManager->Width / (float)managers->windowManager->Height, 0.1f, 100.0f);
-        glm::mat4 view = managers->cameraManager->GetViewMatrix();
+        glm::mat4 projection = glm::perspective(glm::radians(World::camera->Zoom), (float)WindowManager::GetWidth() / (float)WindowManager::GetHeight(), 0.1f, 100.0f);
+        glm::mat4 view = World::camera->GetViewMatrix();
         material->shader->setMat4("projection", projection);
         material->shader->setMat4("view", view);
 
@@ -70,14 +72,14 @@ public:
 void RenderSystem::Update() {
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    size_t size = managers->entityManager->GetEntitySize();
+    size_t size = World::entityManager->GetEntitySize();
     for (int i = 0; i < size; i++) {
-        Entity* entity = managers->entityManager->GetEntity(i);
+        Entity* entity = World::entityManager->GetEntity(i);
         if (entity->ToDraw) {
             DrawMesh(entity->mesh, entity->GetTransform()->GetLocalToWorld(), entity->material);
         }
     }
-	glfwSwapBuffers(managers->windowManager->window());
+	glfwSwapBuffers(WindowManager::GetWindow());
 }
 
 RenderSystem::~RenderSystem()

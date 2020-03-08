@@ -3,7 +3,7 @@
 
 class TranslationSystem : SystemBase {
 public:
-    TranslationSystem(Managers* managers) : SystemBase(managers) {
+    TranslationSystem() : SystemBase() {
         _SystemType = SystemType::TranslationSystemType;
     }
 

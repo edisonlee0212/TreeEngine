@@ -2,12 +2,15 @@
 #define SYSTEMMANAGER_H
 #include <vector>
 
+double Time::deltaTime;
+double Time::lastFrameTime;
 
 class World
 {
 public:
 	World() {
-		managers = new Managers();
+		entityManager = new EntityManager();
+		camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 	}
 	template <class T>
 	T* CreateSystem() {
@@ -16,7 +19,7 @@ public:
 				return dynamic_cast<T*>(i);
 			}
 		}
-		T* system = new T(managers);
+		T* system = new T();
 		system->OnCreate();
 		_Systems.push_back(dynamic_cast<SystemBase*>(system));
 		return system;
@@ -43,22 +46,27 @@ public:
 			i->OnDestroy();
 			delete i;
 		}
-		delete managers;
+		delete entityManager;
+		delete camera;
+
 	}
 	void Update() {
 		float currentFrame = glfwGetTime();
-		managers->timeManager->deltaTime = currentFrame - managers->timeManager->lastFrameTime;
-		managers->timeManager->lastFrameTime = currentFrame;
+		Time::deltaTime = currentFrame - Time::lastFrameTime;
+		Time::lastFrameTime = currentFrame;
 		glfwPollEvents();
 
 		for (auto i : _Systems) {
 			if (i->IsEnabled()) i->Update();
 		}
 	}
-	Managers* managers;
+	static EntityManager* entityManager;
+	static Camera* camera;
 private:
 	std::vector<SystemBase*> _Systems;
 };
 
+Camera* World::camera;
+EntityManager* World::entityManager;
 
 #endif SYSTEMMANAGER_H

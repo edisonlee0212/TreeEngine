@@ -21,19 +21,20 @@ using namespace std;
 class ModelManager
 {
 public:
-    ModelManager(EntityManager* entityManager) : _EntityManager(entityManager)
+    ModelManager()
     {
         entities = std::vector<Entity*>();
     }
 
-    void LoadModel(Entity*, Shader* shader, string const&, bool);
+    static void LoadModel(Entity*, Shader* shader, string const&, bool);
 private:
-    std::vector<Entity*> entities;
-    EntityManager* _EntityManager;
-    void ProcessNode(string, Shader* shader, Entity*, vector<Texture>*, aiNode*, const aiScene*);
-    Entity* ReadMesh(string, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
-    std::vector<Texture> LoadMaterialTextures(string, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName);
+    static std::vector<Entity*> entities;
+    static void ProcessNode(string, Shader* shader, Entity*, vector<Texture>*, aiNode*, const aiScene*);
+    static Entity* ReadMesh(string, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
+    static std::vector<Texture> LoadMaterialTextures(string, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName);
 };
+
+std::vector<Entity*> ModelManager::entities = std::vector<Entity*>();
 
 void ModelManager::LoadModel(Entity* root, Shader* shader, string const& path, bool gamma = false) {
     // read file via ASSIMP
@@ -71,7 +72,7 @@ void ModelManager::ProcessNode(string directory, Shader* shader, Entity* _Parent
 }
 
 Entity* ModelManager::ReadMesh(string directory, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene) {
-    Entity* entity = _EntityManager->CreateEntity();
+    Entity* entity = World::entityManager->CreateEntity();
     vector<Vertex> vertices;
     vector<unsigned int> indices;
 
@@ -170,4 +171,6 @@ vector<Texture> ModelManager::LoadMaterialTextures(string directory, vector<Text
     }
     return textures;
 }
+
+
 #endif MODELMANAGER_H

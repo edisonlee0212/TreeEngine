@@ -145,11 +145,11 @@
     <ClCompile Include="ModelSaver.h" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
-    <ClCompile Include="TimeManager.h" />
+    <ClCompile Include="Time.h" />
     <ClCompile Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="Debug.h" />
@@ -162,7 +162,7 @@
     <ClInclude Include="CatmullClarkModel.h" />
     <ClInclude Include="TreeSkeleton.h" />
     <ClInclude Include="TranslationSystem.h" />
-    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="World.h" />
@@ -171,7 +171,6 @@
     <ClInclude Include="SystemBase.h" />
     <ClInclude Include="TreeEngine.h" />
     <ClInclude Include="WindowManager.h" />
-    <ClInclude Include="Managers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.fs" />

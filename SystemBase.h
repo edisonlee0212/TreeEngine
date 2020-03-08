@@ -3,13 +3,12 @@
 
 class SystemBase {
 public:
-	SystemBase(Managers * managers) : managers(managers) { _Enabled = false; }
+	SystemBase() { _Enabled = false; }
 	virtual void OnCreate() {}
 	virtual void OnDestroy() {}
 	virtual void OnStartRunning() {}
 	virtual void OnStopRuning() {}
 	virtual void Update() = 0;
-	EntityManager* GetEntityManager() { return managers->entityManager; }
 	SystemType GetSystemType() { return _SystemType; }
 	void Enable() {
 		if (!_Enabled) {
@@ -30,7 +29,6 @@ public:
 
 public:
 	bool _Enabled;
-	Managers* managers;
 	SystemType _SystemType = SystemType::DefaultSystemType;
 };
 #endif SYSTEMBASE_H

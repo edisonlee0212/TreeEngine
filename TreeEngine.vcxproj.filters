@@ -25,20 +25,11 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{41a32cef-2a14-4774-8cf8-e51548ef23e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\Manager">
-      <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\Manager\Managers">
-      <UniqueIdentifier>{740273e8-17ce-4e42-afa2-aaee82c3e1e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\World\System">
       <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\World\System\Systems">
       <UniqueIdentifier>{bf543052-8e03-4907-ab35-62b68bbdc2f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\Entity">
-      <UniqueIdentifier>{64a301ac-a6a0-458d-ac02-711d2dda2248}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\World\Component">
       <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
@@ -52,6 +43,9 @@
     <Filter Include="Header Files\Tree\Skeleton">
       <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World\Entity">
+      <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,14 +57,14 @@
     <ClCompile Include="src\stb.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="TimeManager.h">
-      <Filter>Header Files\World\Manager\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.h">
       <Filter>Header Files\World\Component\Components</Filter>
     </ClCompile>
     <ClCompile Include="ModelSaver.h">
       <Filter>Header Files\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.h">
+      <Filter>Header Files\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,12 +79,6 @@
     </ClInclude>
     <ClInclude Include="SystemBase.h">
       <Filter>Header Files\World\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\World\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\World\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
@@ -113,23 +101,8 @@
     <ClInclude Include="TranslationSystem.h">
       <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files\World\Manager\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\World\Manager\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Header Files\World\Manager\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers.h">
-      <Filter>Header Files\World\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>Header Files\World\Manager\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Rotation.h">
       <Filter>Header Files\World\Component\Components</Filter>
@@ -142,6 +115,24 @@
     </ClInclude>
     <ClInclude Include="TreeSkeleton.h">
       <Filter>Header Files\Tree\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\World\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\World\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -28,19 +28,26 @@
 #include "Texture.h"
 #include "Material.h"
 #include "Mesh.h"
-
 #include "Transform.h"
 
+#include "Time.h"
+#include "Input.h"
+#include "Camera.h"
+#include "WindowManager.h"
+
+#include "EntityManager.h"
 
 
-#include "Managers.h"
 
 #include "SystemBase.h"
+#include "World.h"
+
+
 #include "TranslationSystem.h"
 #include "RenderSystem.h"
 #include "CameraSystem.h"
 
-#include "World.h"
+#include "ModelManager.h"
 #include "CatmullClarkModel.h"
 #include "TreeSkeleton.h"
 World* world;
@@ -58,22 +65,22 @@ void LoadNanoSuit(glm::vec3, glm::vec3);
 void LoadCubeModel();
 
 void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
-	world->managers->inputManager->CursorPositionCallback(window, xpos, ypos);
+	Input::CursorPositionCallback(window, xpos, ypos);
 }
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-	world->managers->inputManager->MouseButtonCallback(window, button, action, mods);
+	Input::MouseButtonCallback(window, button, action, mods);
 }
 
 void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-	world->managers->inputManager->MouseScrollCallback(window, xoffset, yoffset);
+	Input::MouseScrollCallback(window, xoffset, yoffset);
 }
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	world->managers->inputManager->KeyCallback(window, key, scancode, action, mods);
+	Input::KeyCallback(window, key, scancode, action, mods);
 }
 
 void WindowResizeCallback(GLFWwindow* window, int width, int height) {
-	world->managers->windowManager->Resize(width, height);
+	WindowManager::Resize(width, height);
 }
 #pragma endregion
 
@@ -89,7 +96,7 @@ void TreeEngineStart() {
 	world = new World();
 	world->CreateSystem<CameraSystem>();
 	world->CreateSystem<RenderSystem>();
-	auto window = world->managers->windowManager->CreateWindow(800, 600);
+	auto window = WindowManager::CreateWindow(800, 600);
 	glfwSetFramebufferSizeCallback(window, WindowResizeCallback);
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
@@ -107,7 +114,7 @@ void TreeEngineStart() {
 }
 
 void TreeEngineLoop() {
-	while (!glfwWindowShouldClose(world->managers->windowManager->window()))
+	while (!glfwWindowShouldClose(WindowManager::GetWindow()))
 	{
 		world->Update();
 		

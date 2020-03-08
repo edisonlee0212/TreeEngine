@@ -7,7 +7,7 @@
 
 #include <vector>
 
-// Defines several possible options for cameraManager movement. Used as abstraction to stay away from window-system specific inputManager methods
+// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific inputManager methods
 enum Camera_Movement {
     FORWARD,
     BACKWARD,
@@ -15,7 +15,7 @@ enum Camera_Movement {
     RIGHT
 };
 
-// Default cameraManager values
+// Default camera values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float SPEED = 2.5f;
@@ -23,11 +23,11 @@ const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
 
-// An abstract cameraManager class that processes inputManager and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class CameraManager
+// An abstract camera class that processes inputManager and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
+class Camera
 {
 public:
-    // cameraManager Attributes
+    // camera Attributes
     glm::vec3 Position;
     glm::vec3 Front;
     glm::vec3 Up;
@@ -36,13 +36,13 @@ public:
     // Euler Angles
     float Yaw;
     float Pitch;
-    // cameraManager options
+    // camera options
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
 
     // Constructor with vectors
-    CameraManager(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
         Position = position;
         WorldUp = up;
@@ -51,7 +51,7 @@ public:
         updateCameraVectors();
     }
     // Constructor with scalar values
-    CameraManager(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
@@ -66,7 +66,7 @@ public:
         return glm::lookAt(Position, Position + Front, Up);
     }
 
-    // Processes inputManager received from any keyboard-like inputManager system. Accepts inputManager parameter in the form of cameraManager defined ENUM (to abstract it from windowing systems)
+    // Processes inputManager received from any keyboard-like inputManager system. Accepts inputManager parameter in the form of camera defined ENUM (to abstract it from windowing systems)
     void ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
@@ -114,7 +114,7 @@ public:
     }
 
 private:
-    // Calculates the front vector from the cameraManager's (updated) Euler Angles
+    // Calculates the front vector from the camera's (updated) Euler Angles
     void updateCameraVectors()
     {
         // Calculate the new Front vector

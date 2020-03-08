@@ -1,5 +1,7 @@
 #include "TreeEngine.h"
 
+
+
 int main()
 {
 	TreeEngineStart();
@@ -88,7 +90,7 @@ void LoadCubeModel() {
 	_Faces.push_back(f3);
 	_Faces.push_back(f4);
 	CatmullClarkModel* model = new CatmullClarkModel(_Points, _Faces);
-	Entity* entity = world->managers->entityManager->CreateEntity();
+	Entity* entity = World::entityManager->CreateEntity();
 	entity->material = new Material();
 	entity->material->shader = new Shader("default.vs", "default.fs");
 	Texture texture;
@@ -101,10 +103,10 @@ void LoadCubeModel() {
 
 
 void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
-	Entity* entity = world->managers->entityManager->CreateEntity();
+	Entity* entity = World::entityManager->CreateEntity();
 	glm::mat4 model = glm::mat4(1.0f);
 	entity->GetTransform()->SetPosition(position);
 	entity->GetTransform()->SetScale(scale);
 	Shader* modelShader = new Shader("default.vs", "default.fs");
-	world->managers->modelManager->LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
+	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
 }
