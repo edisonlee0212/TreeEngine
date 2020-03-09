@@ -152,14 +152,15 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="ModelManager.h" />
-    <ClInclude Include="Rotation.h" />
     <ClInclude Include="CatmullClarkModel.h" />
+    <ClInclude Include="SharedComponentBase.h" />
     <ClInclude Include="TreeSkeleton.h" />
     <ClInclude Include="TranslationSystem.h" />
     <ClInclude Include="Input.h" />

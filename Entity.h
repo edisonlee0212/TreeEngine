@@ -4,11 +4,17 @@
 
 class Entity {
 public:
+	Translation translation;
+	Rotation rotation;
+	Scale scale;
+	LocalToParent localToParent;
+	LocalToWorld localToWorld;
+
 	Entity* _Parent;
 	Material* material;
 	Mesh* mesh;
 	bool ToDraw;
-	Entity(unsigned int key) :_Key(key) {
+	Entity(unsigned int key) :_Index(key) {
 		_Transform = new Transform();
 		ToDraw = false;
 	}
@@ -18,8 +24,10 @@ public:
 	~Entity() {
 		delete _Transform;
 	}
+	unsigned int GetKey() { return _Index; }
 private:
-	unsigned int _Key;
+	unsigned int _Index;
 	Transform* _Transform;
+	friend class EntityManager;
 };
 #endif ENTITY_H

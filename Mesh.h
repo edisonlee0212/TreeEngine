@@ -21,18 +21,20 @@ struct Vertex {
     glm::vec3 Bitangent;
 };
 
-class Mesh {
+class Mesh : SharedComponentBase{
 public:
     /*  Mesh Data  */
     std::vector<Vertex> vertices;
     std::vector<unsigned int> triangles;
-   
+    std::size_t hash_code() { return _VAO; }
 
     /*  Functions  */
     // constructor
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> triangles) : vertices(vertices), triangles(triangles)
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> triangles) : vertices(vertices), triangles(triangles), SharedComponentBase()
     {
         _VAO = 0;
+        _EBO = 0;
+        _VBO = 0;
     }
 
     unsigned int VAO() {

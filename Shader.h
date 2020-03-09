@@ -8,13 +8,14 @@
 #include <sstream>
 #include <iostream>
 
-class Shader : public ComponentBase
+class Shader : public SharedComponentBase
 {
 public:
+    std::size_t hash_code() { return ID; }
     unsigned int ID;
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
-    Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
+    Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr) : SharedComponentBase()
     {
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;

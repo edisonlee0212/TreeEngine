@@ -3,12 +3,12 @@
 #include <glad/include/glad/glad.h>
 #include <stb/stb_image.h>
 #include <vector>
-class Texture : public ComponentBase {
+class Texture : public SharedComponentBase {
 public:
-	Texture() : ComponentBase(){
+	Texture() : SharedComponentBase(){
 		
 	}
-
+    std::size_t hash_code() { return _ID; }
 	unsigned int ID() { return _ID; }
     std::string Path() { return _Path; }
     std::string Type() { return _Type; }

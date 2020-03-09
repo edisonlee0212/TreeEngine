@@ -23,11 +23,15 @@
 #include "Debug.h"
 #include "Enums.h"
 
-#include "ComponentBase.h"
+#include "SharedComponentBase.h"
+
 #include "Shader.h"
 #include "Texture.h"
 #include "Material.h"
 #include "Mesh.h"
+
+#include "ComponentBase.h"
+#include "Components.h"
 #include "Transform.h"
 
 #include "Time.h"

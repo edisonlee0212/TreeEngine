@@ -1,6 +1,6 @@
 #ifndef COMPONENTBASE_H
 #define COMPONENTBASE_H
-class ComponentBase
+struct ComponentBase
 {
 
 };

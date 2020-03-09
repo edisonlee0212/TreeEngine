@@ -34,9 +34,6 @@
     <Filter Include="Header Files\World\Component">
       <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\Component\Components">
-      <UniqueIdentifier>{0c77beb1-dcda-4c39-814b-ae75ebd488d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tree">
       <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="Header Files\World\Entity">
       <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Component\SharedComponents">
+      <UniqueIdentifier>{9a98a8a2-e999-4e7a-99dd-9870913f8384}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +57,14 @@
     <ClCompile Include="src\stb.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ModelSaver.h">
       <Filter>Header Files\Tree</Filter>
     </ClCompile>
     <ClCompile Include="Time.h">
       <Filter>Header Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.h">
+      <Filter>Header Files\World\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,26 +89,11 @@
     <ClInclude Include="ComponentBase.h">
       <Filter>Header Files\World\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClInclude>
     <ClInclude Include="TranslationSystem.h">
       <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Rotation.h">
-      <Filter>Header Files\World\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\World\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="CatmullClarkModel.h">
       <Filter>Header Files\Tree\Skeleton</Filter>
@@ -133,6 +118,24 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\World\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedComponentBase.h">
+      <Filter>Header Files\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\World\Component\SharedComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\World\Component\SharedComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\World\Component\SharedComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\World\Component\SharedComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files\World\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
