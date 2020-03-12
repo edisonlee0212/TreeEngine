@@ -6,13 +6,13 @@
 struct LocalToParent : ComponentBase
 {
 public:
-    glm::mat4 value;
+    glm::mat4 Value;
 };
 
 struct LocalToWorld : ComponentBase
 {
 public:
-	glm::mat4 value;
+	glm::mat4 Value;
 };
 
 struct Rotation : ComponentBase {

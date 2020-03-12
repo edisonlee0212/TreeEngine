@@ -5,10 +5,13 @@
 
 struct TreeNode {
 	TreeNode(float thickness, glm::vec3 position, glm::vec3 fromPosition) {
-		transform = Transform();
-		transform.SetPosition(position);
-		transform.SetScale(glm::vec3(thickness));
-		transform.LookAt(position);
+		//transform = Transform();
+		//transform.SetPosition(position);
+		//transform.SetScale(glm::vec3(thickness));
+		//transform.LookAt(position);
+		translation.Value = position;
+		scale.Value = glm::vec3(thickness);
+
 		p0 = nullptr;
 		p1 = nullptr;
 		p2 = nullptr;
@@ -25,13 +28,13 @@ struct TreeNode {
 		f5 = nullptr;
 	}
 	void ConstructBox5(std::vector<Point*>* points, Face* fromFace, int fromDirection) {
-		float scale = transform.GetScale().x;
-		glm::vec3 position = transform.GetPosition();
+		//float scale = transform.GetScale().x;
+		//glm::vec3 position = transform.GetPosition();
 		
-		p0 = new Point(glm::vec3(-0.5f, 0.5f, -0.5f) * scale + position);
-		p1 = new Point(glm::vec3(-0.5f, 0.5f, 0.5f) * scale + position);
-		p2 = new Point(glm::vec3(0.5f, 0.5f, -0.5f) * scale + position);
-		p3 = new Point(glm::vec3(0.5f, 0.5f, 0.5f) * scale + position);
+		p0 = new Point(glm::vec3(-0.5f, 0.5f, -0.5f) * scale.Value + translation.Value);
+		p1 = new Point(glm::vec3(-0.5f, 0.5f, 0.5f) * scale.Value + translation.Value);
+		p2 = new Point(glm::vec3(0.5f, 0.5f, -0.5f) * scale.Value + translation.Value);
+		p3 = new Point(glm::vec3(0.5f, 0.5f, 0.5f) * scale.Value + translation.Value);
 		points->push_back(p0);
 		points->push_back(p1);
 		points->push_back(p2);
@@ -163,16 +166,14 @@ struct TreeNode {
 	}
 
 	void ConstructBox6(std::vector<Point*>* points) {
-		float scale = transform.GetScale().x;
-		glm::vec3 position = transform.GetPosition();
-		p0 = new Point(glm::vec3(-0.5f, 0.5f, -0.5f) * scale + position);
-		p1 = new Point(glm::vec3(-0.5f, 0.5f, 0.5f) * scale + position);
-		p2 = new Point(glm::vec3(0.5f, 0.5f, -0.5f) * scale + position);
-		p3 = new Point(glm::vec3(0.5f, 0.5f, 0.5f) * scale + position);
-		p4 = new Point(glm::vec3(-0.5f, -0.5f, -0.5f) * scale + position);
-		p5 = new Point(glm::vec3(-0.5f, -0.5f, 0.5f) * scale + position);
-		p6 = new Point(glm::vec3(0.5f, -0.5f, -0.5f) * scale + position);
-		p7 = new Point(glm::vec3(0.5f, -0.5f, 0.5f) * scale + position);
+		p0 = new Point(glm::vec3(-0.5f, 0.5f, -0.5f) * scale.Value + translation.Value);
+		p1 = new Point(glm::vec3(-0.5f, 0.5f, 0.5f) * scale.Value + translation.Value);
+		p2 = new Point(glm::vec3(0.5f, 0.5f, -0.5f) * scale.Value + translation.Value);
+		p3 = new Point(glm::vec3(0.5f, 0.5f, 0.5f) * scale.Value + translation.Value);
+		p4 = new Point(glm::vec3(-0.5f, -0.5f, -0.5f) * scale.Value + translation.Value);
+		p5 = new Point(glm::vec3(-0.5f, -0.5f, 0.5f) * scale.Value + translation.Value);
+		p6 = new Point(glm::vec3(0.5f, -0.5f, -0.5f) * scale.Value + translation.Value);
+		p7 = new Point(glm::vec3(0.5f, -0.5f, 0.5f) * scale.Value + translation.Value);
 		points->push_back(p0);
 		points->push_back(p1);
 		points->push_back(p2);
@@ -226,7 +227,11 @@ struct TreeNode {
 
 	}
 
-	Transform transform;
+	Translation translation;
+	Scale scale;
+	Rotation rotation;
+
+	//Transform transform;
 	Point* p0;
 	Point* p1;
 	Point* p2;
@@ -251,7 +256,7 @@ public:
 		, _ThickNess(thickNess)
 		, _Parent(_Parent)
 		, _SelfNode(TreeNode(thickNess, position,
-			_Parent == nullptr ? position : _Parent->GetSelfNode()->transform.GetPosition()))
+			_Parent == nullptr ? position : _Parent->GetSelfNode()->translation.Value))
 		, _FromDirection(fromDirection)
 	{
 		_Chain = std::vector<TreeNode*>();
@@ -267,19 +272,19 @@ public:
 			switch (fromDirection)
 			{
 			case 0:
-				parentPosition = _Parent->GetSelfNode()->transform.GetPosition() + glm::vec3(0.0f, 1.0f, 0.0f) * thickNess;
+				parentPosition = _Parent->GetSelfNode()->translation.Value + glm::vec3(0.0f, 1.0f, 0.0f) * thickNess;
 				break;
 			case 1:
-				parentPosition = _Parent->GetSelfNode()->transform.GetPosition() + glm::vec3(-1.0f, 0.0f, 0.0f) * thickNess;
+				parentPosition = _Parent->GetSelfNode()->translation.Value + glm::vec3(-1.0f, 0.0f, 0.0f) * thickNess;
 				break;
 			case 2:
-				parentPosition = _Parent->GetSelfNode()->transform.GetPosition() + glm::vec3(0.0f, 0.0f, -1.0f) * thickNess;
+				parentPosition = _Parent->GetSelfNode()->translation.Value + glm::vec3(0.0f, 0.0f, -1.0f) * thickNess;
 				break;
 			case 3:
-				parentPosition = _Parent->GetSelfNode()->transform.GetPosition() + glm::vec3(1.0f, 0.0f, 0.0f) * thickNess;
+				parentPosition = _Parent->GetSelfNode()->translation.Value + glm::vec3(1.0f, 0.0f, 0.0f) * thickNess;
 				break;
 			case 4:
-				parentPosition = _Parent->GetSelfNode()->transform.GetPosition() + glm::vec3(0.0f, 0.0f, 1.0f) * thickNess;
+				parentPosition = _Parent->GetSelfNode()->translation.Value + glm::vec3(0.0f, 0.0f, 1.0f) * thickNess;
 				break;
 			default:
 				break;
@@ -287,7 +292,6 @@ public:
 
 			float distance = glm::distance(position, parentPosition);
 			ConstructChain(distance, parentPosition, thickNess, fromDirection);
-			_SelfNode.transform.LookAt(parentPosition);
 		}
 		else {
 			_SelfNode.ConstructBox6(_Points);
@@ -353,8 +357,8 @@ public:
 private:
 	void ConstructChain(float distance, glm::vec3 parentPosition, float thickNess, int fromDirection) {
 		int size = distance / thickNess - 1;
-		glm::vec3 positionDifference = (_SelfNode.transform.GetPosition() - parentPosition) / (float) (size + 1);
-		glm::vec3 scaleDifference = (_SelfNode.transform.GetScale() - _Parent->GetSelfNode()->transform.GetScale()) / (float)(size+1);
+		glm::vec3 positionDifference = (_SelfNode.translation.Value - parentPosition) / (float) (size + 1);
+		glm::vec3 scaleDifference = (_SelfNode.scale.Value - _Parent->GetSelfNode()->scale.Value) / (float)(size+1);
 
 		TreeNode* lastNode = new TreeNode(thickNess, parentPosition + positionDifference, parentPosition);
 

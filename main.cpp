@@ -9,8 +9,7 @@ int main()
 
 	LoadNanoSuit(glm::vec3(0.0f, -12.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
 	
-	//entity->ToDraw = true;
-	TreeEngineLoop();
+ 	TreeEngineLoop();
 	TreeEngineEnd();
 	return 0;
 }
@@ -104,9 +103,12 @@ void LoadCubeModel() {
 
 void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	Entity* entity = World::entityManager->CreateEntity();
-	glm::mat4 model = glm::mat4(1.0f);
-	entity->GetTransform()->SetPosition(position);
-	entity->GetTransform()->SetScale(scale);
+	Translation t;
+	t.Value = position;
+	Scale s;
+	s.Value = scale;
+	World::entityManager->SetComponent<Translation>(entity, t);
+	World::entityManager->SetComponent<Scale>(entity, s);
 	Shader* modelShader = new Shader("default.vs", "default.fs");
 	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
 }

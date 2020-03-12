@@ -12,7 +12,6 @@ class RenderSystem : public SystemBase
 {
 public:
 	RenderSystem() : SystemBase(){
-		_SystemType = SystemType::RenderSystemType;
 	}
 
 	void OnCreate() {
@@ -76,7 +75,7 @@ void RenderSystem::Update() {
     for (int i = 0; i < size; i++) {
         Entity* entity = World::entityManager->GetEntity(i);
         if (entity->ToDraw) {
-            DrawMesh(entity->mesh, entity->GetTransform()->GetLocalToWorld(), entity->material);
+            DrawMesh(entity->mesh, World::entityManager->GetComponent<LocalToWorld>(entity).Value, entity->material);
         }
     }
 	glfwSwapBuffers(WindowManager::GetWindow());

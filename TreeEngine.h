@@ -23,16 +23,24 @@
 #include "Debug.h"
 #include "Enums.h"
 
+
+#include "Mathemetics.h"
+
+
+
 #include "SharedComponentBase.h"
+
+
 
 #include "Shader.h"
 #include "Texture.h"
 #include "Material.h"
 #include "Mesh.h"
 
+#include "Graphics.h"
+
 #include "ComponentBase.h"
 #include "Components.h"
-#include "Transform.h"
 
 #include "Time.h"
 #include "Input.h"
@@ -46,14 +54,18 @@
 #include "SystemBase.h"
 #include "World.h"
 
-
-#include "TranslationSystem.h"
+#include "TRSToLocalToParentSystem.h"
+#include "TRSToLocalToWorldSystem.h"
+#include "LocalToParentSystem.h"
 #include "RenderSystem.h"
 #include "CameraSystem.h"
 
 #include "ModelManager.h"
 #include "CatmullClarkModel.h"
 #include "TreeSkeleton.h"
+
+#include "Envelope.h"
+#include "SurfaceOfRevolutionEnvelope.h"
 World* world;
 
 #pragma region CallbackFunctions
@@ -98,6 +110,9 @@ void TreeEngineStart() {
 #endif
 
 	world = new World();
+	world->CreateSystem<TRSToLocalToWorldSystem>();
+	world->CreateSystem<TRSToLocalToParentSystem>();
+	world->CreateSystem<LocalToParentSystem>();
 	world->CreateSystem<CameraSystem>();
 	world->CreateSystem<RenderSystem>();
 	auto window = WindowManager::CreateWindow(800, 600);

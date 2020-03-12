@@ -9,7 +9,6 @@ class CameraSystem : public SystemBase
 public:
 	CameraSystem() : SystemBase()
 	{
-		_SystemType = SystemType::CameraSystemType;
 	}
 
 	void OnCreate(){

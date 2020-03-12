@@ -47,6 +47,18 @@ public:
         triangles = std::vector<unsigned int>();
     } 
 
+    void Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles) {
+        this->vertices.clear();
+        this->triangles.clear();
+        for (auto i : *vertices) {
+            this->vertices.push_back(i);
+        }
+        for (auto i : *triangles) {
+            this->triangles.push_back(i);
+        }
+        SetupMesh();
+    }
+
 private:
     /*  Render data  */
     unsigned int _VBO, _EBO, _VAO;

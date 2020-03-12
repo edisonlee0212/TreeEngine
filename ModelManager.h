@@ -61,8 +61,10 @@ void ModelManager::ProcessNode(string directory, Shader* shader, Entity* _Parent
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         auto entity = ReadMesh(directory, shader, texturesLoaded, mesh, scene);
         entities.push_back(entity);
-        entity->_Parent = _Parent;
-        entity->GetTransform()->SetLocalToWorld(entity->_Parent->GetTransform()->GetLocalToWorld() * entity->GetTransform()->GetLocalToParent());
+        LocalToParent ltp;
+        ltp.Value = glm::mat4(1.0f);
+        World::entityManager->SetComponent<LocalToParent>(entity, ltp);
+        entity->parent = _Parent;
         entity->ToDraw = true;
     }
     for (unsigned int i = 0; i < node->mNumChildren; i++)

@@ -1,33 +1,32 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <vector>
-
+#include <memory>
 class Entity {
 public:
-	Translation translation;
-	Rotation rotation;
-	Scale scale;
-	LocalToParent localToParent;
-	LocalToWorld localToWorld;
-
-	Entity* _Parent;
+	Entity* parent;
 	Material* material;
 	Mesh* mesh;
 	bool ToDraw;
-	Entity(unsigned int key) :_Index(key) {
-		_Transform = new Transform();
+	Entity(unsigned int key) :_Index(key), parent(nullptr) {
+		components[typeid(Translation).hash_code()] = (ComponentBase*)malloc(sizeof(Translation));
+		components[typeid(Rotation).hash_code()] = (ComponentBase*)malloc(sizeof(Rotation));
+		components[typeid(Scale).hash_code()] = (ComponentBase*)malloc(sizeof(Scale));
+		components[typeid(LocalToParent).hash_code()] = (ComponentBase*)malloc(sizeof(LocalToParent));
+		components[typeid(LocalToWorld).hash_code()] = (ComponentBase*)malloc(sizeof(LocalToWorld));
 		ToDraw = false;
 	}
-	Transform* GetTransform() {
-		return _Transform;
+
+	void SetParent(Entity* parent) {
+		this->parent = parent;
 	}
+
 	~Entity() {
-		delete _Transform;
 	}
 	unsigned int GetKey() { return _Index; }
 private:
+	std::unordered_map<std::size_t, ComponentBase*> components;
 	unsigned int _Index;
-	Transform* _Transform;
 	friend class EntityManager;
 };
 #endif ENTITY_H

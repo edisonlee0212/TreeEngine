@@ -46,6 +46,9 @@
     <Filter Include="Header Files\World\Component\SharedComponents">
       <UniqueIdentifier>{9a98a8a2-e999-4e7a-99dd-9870913f8384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tree\Envelope">
+      <UniqueIdentifier>{6cd76c26-17e4-4896-a1b5-ac0fb848d56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="Time.h">
       <Filter>Header Files\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.h">
-      <Filter>Header Files\World\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="ComponentBase.h">
       <Filter>Header Files\World\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="TranslationSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
@@ -136,6 +133,21 @@
     </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TRSToLocalToWorldSystem.h">
+      <Filter>Header Files\World\System\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalToParentSystem.h">
+      <Filter>Header Files\World\System\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathemetics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TRSToLocalToParentSystem.h">
+      <Filter>Header Files\World\System\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Envelope.h">
+      <Filter>Header Files\Tree\Envelope</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

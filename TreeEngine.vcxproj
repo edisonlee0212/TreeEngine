@@ -146,7 +146,6 @@
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="Time.h" />
-    <ClCompile Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -157,15 +156,19 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="Envelope.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Mathemetics.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="CatmullClarkModel.h" />
     <ClInclude Include="SharedComponentBase.h" />
     <ClInclude Include="TreeSkeleton.h" />
-    <ClInclude Include="TranslationSystem.h" />
+    <ClInclude Include="LocalToParentSystem.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TRSToLocalToParentSystem.h" />
+    <ClInclude Include="TRSToLocalToWorldSystem.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Shader.h" />
