@@ -4,6 +4,7 @@
 class WindowManager
 {
 public:
+    
     static GLFWwindow* CreateWindow(int, int);
     static int GetWidth() { return Width; }
     static int GetHeight() { return Height; }

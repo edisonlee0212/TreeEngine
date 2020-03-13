@@ -3,11 +3,12 @@
 
 class SurfaceOfRevelutionEnvelope : public Envelope {
 public:
-	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin) : Envelope(xMax, yMax, zMax, xMin, yMin, zMin) {}
+	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Mesh* mesh, Material* material) : Envelope(xMax, yMax, zMax, xMin, yMin, zMin, mesh, material) {}
 	glm::vec3 GetPoint(float height, float angle);
 	float GetRadius(float height);
 	void GenerateMesh(Mesh* mesh);
 	bool isInEnvelope(glm::vec3 point);
+	
 private:
 
 };
@@ -20,14 +21,14 @@ glm::vec3 SurfaceOfRevelutionEnvelope::GetPoint(float height, float angle) {
 
 float SurfaceOfRevelutionEnvelope::GetRadius(float height) {
 	if (height >= _YMin || height <= _YMax) {
-		return glm::sin(glm::pi<float>() * height / (_YMax - _YMin));
+		return glm::sin(glm::pi<float>() * glm::pow((height - _YMin) / (_YMax - _YMin), 0.6f));
 	}
 	return 0;
 }
 void SurfaceOfRevelutionEnvelope::GenerateMesh(Mesh* mesh) {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> triangles;
-
+	
 
 	mesh->Set(&vertices, &triangles);
 }

@@ -1,5 +1,5 @@
-#ifndef COMPONENTS_H
-#define COMPONENTS_H
+#ifndef INTERNALCOMPONENTS_H
+#define INTERNALCOMPONENTS_H
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -32,4 +32,4 @@ public:
 	glm::vec3 Value;
 };
 
-#endif COMPONENTS_H
+#endif INTERNALCOMPONENTS_H

@@ -25,29 +25,44 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{41a32cef-2a14-4774-8cf8-e51548ef23e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\System">
-      <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\System\Systems">
-      <UniqueIdentifier>{bf543052-8e03-4907-ab35-62b68bbdc2f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\Component">
-      <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tree">
       <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Tree\Skeleton">
       <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\Entity">
-      <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\Component\SharedComponents">
-      <UniqueIdentifier>{9a98a8a2-e999-4e7a-99dd-9870913f8384}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tree\Envelope">
       <UniqueIdentifier>{6cd76c26-17e4-4896-a1b5-ac0fb848d56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS">
+      <UniqueIdentifier>{fe7f0fdb-626f-4358-bdd7-9138525bbbbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\Internal">
+      <UniqueIdentifier>{2dc10e81-1966-4270-8b1e-8bea95d990c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\Internal\Component">
+      <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\Internal\Component\SharedComponents">
+      <UniqueIdentifier>{9a98a8a2-e999-4e7a-99dd-9870913f8384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\Internal\Entity">
+      <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\Internal\System">
+      <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\External">
+      <UniqueIdentifier>{1d12c56f-93f7-43c4-89a4-1956f2a1215b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\External\System">
+      <UniqueIdentifier>{8fc8be71-720d-4c0d-af40-646bfe3110da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\External\Entity">
+      <UniqueIdentifier>{2f907305-d71e-4a39-9330-5a6da3c7c4cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\ECS\External\Component">
+      <UniqueIdentifier>{d05ad54a-0456-4f9c-8f98-1ea54a431484}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,20 +89,14 @@
     <ClInclude Include="Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="SystemBase.h">
-      <Filter>Header Files\World\System</Filter>
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentBase.h">
-      <Filter>Header Files\World\Component</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
@@ -99,7 +108,7 @@
       <Filter>Header Files\Tree\Skeleton</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\World\Entity</Filter>
+      <Filter>Header Files\World\ECS\Internal\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\World</Filter>
@@ -114,40 +123,67 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\World\Entity</Filter>
+      <Filter>Header Files\World\ECS\Internal\Entity</Filter>
     </ClInclude>
     <ClInclude Include="SharedComponentBase.h">
-      <Filter>Header Files\World\Component</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files\World\Component\SharedComponents</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files\World\Component\SharedComponents</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files\World\Component\SharedComponents</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files\World\Component\SharedComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Components.h">
-      <Filter>Header Files\World\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="TRSToLocalToWorldSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="LocalToParentSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
+      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
     <ClInclude Include="Mathemetics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TRSToLocalToParentSystem.h">
-      <Filter>Header Files\World\System\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Envelope.h">
       <Filter>Header Files\Tree\Envelope</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceOfRevolutionEnvelope.h">
+      <Filter>Header Files\Tree\Envelope</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AttractionPointsSet.h">
+      <Filter>Header Files\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="ECSInternal.h">
+      <Filter>Header Files\World\ECS\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="ECSExternal.h">
+      <Filter>Header Files\World\ECS\External</Filter>
+    </ClInclude>
+    <ClInclude Include="SCTResourceSystem.h">
+      <Filter>Header Files\World\ECS\External\System</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalToParentSystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="TRSToLocalToParentSystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="TRSToLocalToWorldSystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalComponents.h">
+      <Filter>Header Files\World\ECS\Internal\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +208,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="default.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DefaultInstanced.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DefaultInstanced.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

@@ -40,7 +40,8 @@ public:
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
-
+    glm::mat4 Projection;
+    glm::mat4 View;
     // Constructor with vectors
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
@@ -58,12 +59,6 @@ public:
         Yaw = yaw;
         Pitch = pitch;
         updateCameraVectors();
-    }
-
-    // Returns the view matrix calculated using Euler Angles and the LookAt Matrix
-    glm::mat4 GetViewMatrix()
-    {
-        return glm::lookAt(Position, Position + Front, Up);
     }
 
     // Processes inputManager received from any keyboard-like inputManager system. Accepts inputManager parameter in the form of camera defined ENUM (to abstract it from windowing systems)
@@ -113,6 +108,13 @@ public:
             Zoom = 45.0f;
     }
 
+    void UpdateViewProj() {
+        View = glm::lookAt(Position, Position + Front, Up);
+        float width = WindowManager::GetWidth();
+        float height = WindowManager::GetHeight();
+        Projection = glm::perspective(glm::radians(Zoom), width / height, 0.1f, 100.0f);
+    }
+
 private:
     // Calculates the front vector from the camera's (updated) Euler Angles
     void updateCameraVectors()
@@ -126,6 +128,8 @@ private:
         // Also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up = glm::normalize(glm::cross(Right, Front));
+        UpdateViewProj();
     }
+
 };
 #endif CAMERA_H

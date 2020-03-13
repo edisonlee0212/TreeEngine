@@ -54,7 +54,8 @@ public:
 		float yscrolloffset = -pos.y + _LastScrollY;
 		_LastScrollY = pos.y;
 		if (yscrolloffset != 0)World::camera->ProcessMouseScroll(yscrolloffset);
-#pragma endregion
+		#pragma endregion
+		World::camera->UpdateViewProj();
 	}
 
 private:

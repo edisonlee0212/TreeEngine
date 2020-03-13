@@ -73,6 +73,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>includes;includes\assimp-5.0.1\include;$(IncludePath)</IncludePath>
     <SourcePath>includes\glfw-3.3\src;includes\glad\src;src;$(SourcePath)</SourcePath>
+    <CodeAnalysisRuleSet>CppCoreCheckArithmeticRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,20 +149,27 @@
     <ClCompile Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttractionPointsSet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
-    <ClInclude Include="Components.h" />
+    <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="ECSExternal.h" />
+    <ClInclude Include="ECSInternal.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Envelope.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Misc.h" />
+    <ClInclude Include="SCTResourceSystem.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mathemetics.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="CatmullClarkModel.h" />
     <ClInclude Include="SharedComponentBase.h" />
+    <ClInclude Include="SurfaceOfRevolutionEnvelope.h" />
     <ClInclude Include="TreeSkeleton.h" />
     <ClInclude Include="LocalToParentSystem.h" />
     <ClInclude Include="Input.h" />
@@ -179,6 +187,8 @@
   <ItemGroup>
     <None Include="default.fs" />
     <None Include="default.vs" />
+    <None Include="DefaultInstanced.fs" />
+    <None Include="DefaultInstanced.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="border.jpg" />
