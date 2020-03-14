@@ -189,7 +189,7 @@ void TreeEngineStart() {
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetKeyCallback(window, KeyCallback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

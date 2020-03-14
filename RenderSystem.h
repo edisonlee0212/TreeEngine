@@ -29,7 +29,7 @@ void RenderSystem::Update() {
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     size_t size = World::entityManager->GetEntitySize();
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         Entity* entity = World::entityManager->GetEntity(i);
         if (entity->ToDraw) {
             Graphics::DrawMesh(entity->mesh, World::entityManager->GetComponent<LocalToWorld>(entity).Value, entity->material, World::camera);

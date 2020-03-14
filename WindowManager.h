@@ -10,12 +10,12 @@ public:
     static int GetHeight() { return Height; }
     static GLFWwindow* GetWindow() { return window; }
     static void Resize(int, int);
+    
 private:
     static int Width;
     static int Height;
 	static GLFWwindow* window;
 };
-
 int WindowManager::Height;
 int WindowManager::Width;
 GLFWwindow* WindowManager::window;
@@ -32,8 +32,8 @@ GLFWwindow* WindowManager::CreateWindow(int width, int height) {
     // glfw window creation
     // --------------------
     window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);
-    Width = width;
-    Height = height;
+    WindowManager::Width = width;
+    WindowManager::Height = height;
     if (window == NULL)
     {
         xdebug("Failed to create GLFW window");

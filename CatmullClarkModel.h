@@ -39,28 +39,28 @@ public:
 	glm::vec3 ep2() { return (pp2() + pp3()) / 2.0f; }
 	glm::vec3 ep3() { return (pp3() + pp0()) / 2.0f; }
 	~Face() {
-		for (int i = 0; i < p0->_Faces.size(); i++) {
+		for (size_t i = 0; i < p0->_Faces.size(); i++) {
 			Face* face = (Face*)p0->_Faces.at(i);
 			if (face == this) {
 				p0->_Faces.at(i) = p0->_Faces.back();
 				p0->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p1->_Faces.size(); i++) {
+		for (size_t i = 0; i < p1->_Faces.size(); i++) {
 			Face* face = (Face*)p1->_Faces.at(i);
 			if (face == this) {
 				p1->_Faces.at(i) = p1->_Faces.back();
 				p1->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p2->_Faces.size(); i++) {
+		for (size_t i = 0; i < p2->_Faces.size(); i++) {
 			Face* face = (Face*)p2->_Faces.at(i);
 			if (face == this) {
 				p2->_Faces.at(i) = p2->_Faces.back();
 				p2->_Faces.pop_back();
 			}
 		}
-		for (int i = 0; i < p3->_Faces.size(); i++) {
+		for (size_t i = 0; i < p3->_Faces.size(); i++) {
 			Face* face = (Face*)p3->_Faces.at(i);
 			if (face == this) {
 				p3->_Faces.at(i) = p3->_Faces.back();
@@ -119,7 +119,7 @@ public:
 		vector<Face*> newFaces;
 		vector<Point*> newPoints;
 
-		for (int index = 0; index < _Faces.size(); index++) {
+		for (size_t index = 0; index < _Faces.size(); index++) {
 			auto i = _Faces[index];
 			i->broken = true;
 			Point* p0 = i->p0;
@@ -237,7 +237,7 @@ public:
 
 		}
 
-		for (int i = 0; i < _Faces.size(); i++) {
+		for (size_t i = 0; i < _Faces.size(); i++) {
 			Face* mainFace = _Faces[i];
 			Face* f0 = mainFace->f0;
 			Face* f1 = mainFace->f1;
@@ -325,7 +325,7 @@ public:
 			}
 		}
 
-		for (int i = 0; i < _Faces.size(); i++) {
+		for (size_t i = 0; i < _Faces.size(); i++) {
 			Face* mainFace = _Faces[i];
 			Face* f0 = newFaces[i * 4];
 			Face* f1 = newFaces[i * 4 + 1];

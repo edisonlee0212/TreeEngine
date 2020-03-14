@@ -11,7 +11,7 @@ public:
 	{
 	}
 
-	void OnCreate(){
+	void OnCreate() {
 		Enable();
 	}
 
@@ -20,7 +20,8 @@ public:
 	}
 
 	void Update() {
-		#pragma region Handle Movement
+#pragma region Handle Movement
+
 		if (Input::GetKey(GLFW_KEY_W))
 			World::camera->ProcessKeyboard(FORWARD, Time::deltaTime);
 		if (Input::GetKey(GLFW_KEY_S))
@@ -29,11 +30,14 @@ public:
 			World::camera->ProcessKeyboard(LEFT, Time::deltaTime);
 		if (Input::GetKey(GLFW_KEY_D))
 			World::camera->ProcessKeyboard(RIGHT, Time::deltaTime);
+		if (Input::GetKey(GLFW_KEY_LEFT_SHIFT))
+			World::camera->ProcessKeyboard(UP, Time::deltaTime);
+		if (Input::GetKey(GLFW_KEY_LEFT_CONTROL))
+			World::camera->ProcessKeyboard(DOWN, Time::deltaTime);
+#pragma endregion
 
+#pragma region HandleMouse
 		auto pos = Input::GetMousePosition();
-		#pragma endregion
-
-		#pragma region HandleMouse
 		if (!startMouse) {
 			_LastX = pos.x;
 			_LastY = pos.y;
@@ -43,18 +47,20 @@ public:
 		float yoffset = -pos.y + _LastY;
 		_LastX = pos.x;
 		_LastY = pos.y;
-		if (xoffset != 0 || yoffset != 0)World::camera->ProcessMouseMovement(xoffset, yoffset);
-
-		pos = Input::GetMouseScroll();
-
-		if (!startScroll) {
+		if (Input::GetMouse(GLFW_MOUSE_BUTTON_RIGHT)) {
+			if (xoffset != 0 || yoffset != 0)World::camera->ProcessMouseMovement(xoffset, yoffset);
+			pos = Input::GetMouseScroll();
+			if (!startScroll) {
+				_LastScrollY = pos.y;
+				startScroll = true;
+			}
+			float yscrolloffset = -pos.y + _LastScrollY;
 			_LastScrollY = pos.y;
-			startScroll = true;
+			if (yscrolloffset != 0)World::camera->ProcessMouseScroll(yscrolloffset);
+
+			
 		}
-		float yscrolloffset = -pos.y + _LastScrollY;
-		_LastScrollY = pos.y;
-		if (yscrolloffset != 0)World::camera->ProcessMouseScroll(yscrolloffset);
-		#pragma endregion
+#pragma endregion
 		World::camera->UpdateViewProj();
 	}
 

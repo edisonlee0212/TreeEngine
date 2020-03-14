@@ -7,13 +7,7 @@
 
 #include <vector>
 
-// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific inputManager methods
-enum Camera_Movement {
-    FORWARD,
-    BACKWARD,
-    LEFT,
-    RIGHT
-};
+
 
 // Default camera values
 const float YAW = -90.0f;
@@ -73,6 +67,10 @@ public:
             Position -= Right * velocity;
         if (direction == RIGHT)
             Position += Right * velocity;
+        if (direction == UP)
+            Position.y += velocity;
+        if (direction == DOWN)
+            Position.y -= velocity;
     }
     
     // Processes inputManager received from a mouse inputManager system. Expects the offset value in both the x and y direction.

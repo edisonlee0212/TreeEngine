@@ -64,6 +64,9 @@
     <Filter Include="Header Files\World\ECS\External\Component">
       <UniqueIdentifier>{d05ad54a-0456-4f9c-8f98-1ea54a431484}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{0f06d84a-981b-49ae-adae-03a4f5131e76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,21 +82,15 @@
       <Filter>Header Files\Tree</Filter>
     </ClCompile>
     <ClCompile Include="Time.h">
-      <Filter>Header Files\World</Filter>
+      <Filter>Header Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SystemBase.h">
       <Filter>Header Files\World\ECS\Internal\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ComponentBase.h">
       <Filter>Header Files\World\ECS\Internal\Component</Filter>
@@ -109,18 +106,6 @@
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Header Files\World\ECS\Internal\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\World\ECS\Internal\Entity</Filter>
@@ -140,17 +125,11 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Mathemetics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Envelope.h">
       <Filter>Header Files\Tree\Envelope</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h">
       <Filter>Header Files\Tree\Envelope</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AttractionPointsSet.h">
       <Filter>Header Files\Tree</Filter>
@@ -182,8 +161,32 @@
     <ClInclude Include="InternalComponents.h">
       <Filter>Header Files\World\ECS\Internal\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathemetics.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
     <ClInclude Include="Misc.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
