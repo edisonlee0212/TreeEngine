@@ -2,10 +2,11 @@
 #define SCTRESOURCESYSTEM_H
 #include "AttractionPointsSet.h"
 #include "Envelope.h"
+#include "SCTree.h"
 #include "SurfaceOfRevolutionEnvelope.h"
-class SCTResourceSystem : public SystemBase {
+class SCTreeSystem : public SystemBase {
 public:
-    SCTResourceSystem() : SystemBase() {
+    SCTreeSystem() : SystemBase() {
     }
     void OnCreate() {
         Mesh* mesh = Default::Primitives::Sphere;
@@ -20,10 +21,11 @@ public:
     }
     void Update();
 private:
-    SurfaceOfRevelutionEnvelope* envelope;
+    Envelope* envelope;
+    SCTree* tree;
 };
 
-void SCTResourceSystem::Update() {
+void SCTreeSystem::Update() {
     envelope->Draw();
 }
 

@@ -1,6 +1,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 #include <iostream>
+#include <vector>
 class Debug
 {
 public:
@@ -10,18 +11,18 @@ public:
 	~Debug() {
 
 	}
-	static void LOG(const char* msg) {
+	static void Log(std::string msg) {
 		std::cout << msg << std::endl;
+		mLogMessages.push_back(msg + "\n");
 	}
-private:
-
+	static void Error(std::string msg) {
+		std::cout << msg << std::endl;
+		mErrorMessages.push_back(msg + "\n");
+	}
+	static std::vector<std::string> mLogMessages;
+	static std::vector<std::string> mErrorMessages;
 };
 
-/* For debugging */
-#if XDEBUG
-#define xdebug(...) Debug::LOG(__VA_ARGS__)
-#else
-#define xdebug(...)
-#endif
-
+std::vector<std::string> Debug::mErrorMessages;
+std::vector<std::string> Debug::mLogMessages;
 #endif DEBUG_H

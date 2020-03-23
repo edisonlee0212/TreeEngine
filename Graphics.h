@@ -2,8 +2,13 @@
 #define GRAPHICS_H
 
 class Graphics {
+
 public:
+	static unsigned int Triangles;
+	static unsigned int DrawCall;
 	static void DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matrices, Camera* camera, size_t count) {
+		Graphics::DrawCall++;
+		Graphics::Triangles += mesh->triangles.size() * count / 3;
 		unsigned int buffer;
 		glGenBuffers(1, &buffer);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -74,6 +79,8 @@ public:
 	}
 
 	static void DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* material, Camera* camera) {
+		Graphics::DrawCall++;
+		Graphics::Triangles += mesh->triangles.size() / 3;
 		glUseProgram(material->shader->ID);
 		material->shader->setMat4("projection", camera->Projection);
 		material->shader->setMat4("view", camera->View);
@@ -123,5 +130,6 @@ public:
 		glActiveTexture(GL_TEXTURE0);
 	}
 };
-
+unsigned int Graphics::Triangles;
+unsigned int Graphics::DrawCall;
 #endif GRAPHICS_H

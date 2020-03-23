@@ -162,6 +162,7 @@
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="Default.h" />
+    <ClInclude Include="ImGUISystem.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="ECSExternal.h" />
@@ -173,8 +174,10 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="SCBranch.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SCTResourceSystem.h" />
+    <ClInclude Include="SCTree.h" />
+    <ClInclude Include="SCTreeSystem.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mathemetics.h" />
     <ClInclude Include="ModelManager.h" />

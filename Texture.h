@@ -54,7 +54,7 @@ public:
         }
         else
         {
-            std::cout << "Texture failed to load at path: " << filename << std::endl;
+            Debug::Log("Texture failed to load at path: " + filename);
             stbi_image_free(data);
         }
     }

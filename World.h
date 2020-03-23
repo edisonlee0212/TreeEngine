@@ -54,11 +54,13 @@ public:
 		float currentFrame = glfwGetTime();
 		Time::deltaTime = currentFrame - Time::lastFrameTime;
 		Time::lastFrameTime = currentFrame;
+		
 		glfwPollEvents();
 
 		for (auto i : _Systems) {
 			if (i->IsEnabled()) i->Update();
 		}
+		
 	}
 	static EntityManager* entityManager;
 	static Camera* camera;

@@ -61,6 +61,9 @@
     <Filter Include="Header Files\Misc">
       <UniqueIdentifier>{0f06d84a-981b-49ae-adae-03a4f5131e76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World\ECS\External\Component\SharedComponents">
+      <UniqueIdentifier>{6686da2c-7f5f-4da1-990a-db94c777b023}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,12 +107,6 @@
     <ClInclude Include="TreeEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SystemBase.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentBase.h">
-      <Filter>Header Files\World\ECS\Internal\Component</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -124,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\World\ECS\Internal\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedComponentBase.h">
-      <Filter>Header Files\World\ECS\Internal\Component</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
@@ -154,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="ECSExternal.h">
       <Filter>Header Files\World\ECS\External</Filter>
-    </ClInclude>
-    <ClInclude Include="SCTResourceSystem.h">
-      <Filter>Header Files\World\ECS\External\System</Filter>
     </ClInclude>
     <ClInclude Include="CameraSystem.h">
       <Filter>Header Files\World\ECS\Internal\System</Filter>
@@ -214,6 +205,27 @@
     </ClInclude>
     <ClInclude Include="Path.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUISystem.h">
+      <Filter>Header Files\World\ECS\Internal\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemBase.h">
+      <Filter>Header Files\World\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentBase.h">
+      <Filter>Header Files\World\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedComponentBase.h">
+      <Filter>Header Files\World\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SCTree.h">
+      <Filter>Header Files\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="SCTreeSystem.h">
+      <Filter>Header Files\World\ECS\External\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SCBranch.h">
+      <Filter>Header Files\Tree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

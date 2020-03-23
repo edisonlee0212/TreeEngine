@@ -34,7 +34,6 @@ public:
         if (action == GLFW_PRESS) {
             _MousePressed[button] = true;
             _MouseDown[button] = true;
-            //std::cout << "Pressed" << std::endl;
         }
         else if (action == GLFW_RELEASE) {
             _MousePressed[button] = false;
@@ -45,7 +44,6 @@ public:
         _CursorMoved = true;
         _CursorX = xpos;
         _CursorY = ypos;
-        //std::cout << xpos << "-" << ypos << std::endl;
     }
     static void MouseScrollCallback(GLFWwindow* window, double xpos, double ypos) {
         _CursorScrolled = true;

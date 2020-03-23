@@ -12,14 +12,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define XTEST 0 
-#define XDEBUG 1
-/* For testing */
-#if XTEST
-#define xtest(...)
-#else
-#define xtest(...)
-#endif
 #include "Debug.h"
 #include "Enums.h"
 #include "Path.h"
@@ -163,7 +155,7 @@ void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	s.Value = scale;
 	World::entityManager->SetComponent<Translation>(entity, t);
 	World::entityManager->SetComponent<Scale>(entity, s);
-	Shader* modelShader = new Shader("default.vs", "default.fs");
+	Shader* modelShader = new Shader("src/Materials/Shaders/default.vs", "src/Materials/Shaders/default.fs");
 	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
 }
 #pragma endregion
@@ -179,13 +171,7 @@ void TreeEngineStart() {
 #endif
 
 	auto window = WindowManager::CreateWindow(800, 600);
-	world = new World();
-	world->CreateSystem<TRSToLocalToWorldSystem>();
-	world->CreateSystem<TRSToLocalToParentSystem>();
-	world->CreateSystem<LocalToParentSystem>();
-	world->CreateSystem<CameraSystem>();
-	world->CreateSystem<RenderSystem>();
-
+	
 	glfwSetFramebufferSizeCallback(window, WindowResizeCallback);
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
@@ -195,20 +181,16 @@ void TreeEngineStart() {
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		Debug::Error("Failed to initialize GLAD");
 		exit(-1);
 	}
-
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330 core");
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-
+	world = new World();
+	world->CreateSystem<TRSToLocalToWorldSystem>();
+	world->CreateSystem<TRSToLocalToParentSystem>();
+	world->CreateSystem<LocalToParentSystem>();
+	world->CreateSystem<CameraSystem>();
+	world->CreateSystem<RenderSystem>();
+	world->CreateSystem<ImGUISystem>();
 	Default::Load();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -219,27 +201,14 @@ void TreeEngineLoop() {
 	{
 		world->Update();
 
-		// feed inputs to dear imgui, start new frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		ImGui::Begin("Demo window");
-		ImGui::Button("Hello!");
-		ImGui::End();
-
-		// Render dear imgui into screen
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		
 
 		glfwSwapBuffers(WindowManager::GetWindow());
 	}
 }
 void TreeEngineEnd() {
 	delete world;
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	
 	glfwTerminate();
 }
 #pragma endregion

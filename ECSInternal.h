@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "AssimpImporter.h"
 #include "Default.h"
-
+#include "Graphics.h"
 
 #include "ComponentBase.h"
 #include "InternalComponents.h"
@@ -15,7 +15,7 @@
 #include "SystemBase.h"
 #include "World.h"
 
-#include "Graphics.h"
+
 
 
 //Internal defined systems.
@@ -24,4 +24,5 @@
 #include "LocalToParentSystem.h"
 #include "RenderSystem.h"
 #include "CameraSystem.h"
+#include "ImGUISystem.h"
 

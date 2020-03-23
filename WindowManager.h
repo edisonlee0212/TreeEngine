@@ -33,7 +33,7 @@ GLFWwindow* WindowManager::CreateWindow(int width, int height) {
     WindowManager::Height = height;
     if (window == NULL)
     {
-        xdebug("Failed to create GLFW window");
+        Debug::Error("Failed to create GLFW window");
         glfwTerminate();
         exit(-1);
     }
