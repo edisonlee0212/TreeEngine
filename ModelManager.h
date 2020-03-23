@@ -16,7 +16,6 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
 
 class ModelManager
 {
@@ -26,33 +25,33 @@ public:
         entities = std::vector<Entity*>();
     }
 
-    static void LoadModel(Entity*, Shader* shader, string const&, bool);
+    static void LoadModel(Entity*, Shader* shader, std::string const&, bool);
 private:
     static std::vector<Entity*> entities;
-    static void ProcessNode(string, Shader* shader, Entity*, vector<Texture>*, aiNode*, const aiScene*);
-    static Entity* ReadMesh(string, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
-    static std::vector<Texture> LoadMaterialTextures(string, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName);
+    static void ProcessNode(std::string, Shader* shader, Entity*, std::vector<Texture*>*, aiNode*, const aiScene*);
+    static Entity* ReadMesh(std::string, Shader* shader, std::vector<Texture*>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
+    static std::vector<Texture*> LoadMaterialTextures(std::string, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, std::string typeName);
 };
 
 std::vector<Entity*> ModelManager::entities = std::vector<Entity*>();
 
-void ModelManager::LoadModel(Entity* root, Shader* shader, string const& path, bool gamma = false) {
+void ModelManager::LoadModel(Entity* root, Shader* shader, std::string const& path, bool gamma = false) {
     // read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
-        cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
         return;
     }
     // retrieve the directory path of the filepath
-    string directory = path.substr(0, path.find_last_of('/'));
-    vector<Texture>* texturesLoaded = new vector<Texture>();
+    std::string directory = path.substr(0, path.find_last_of('/'));
+    std::vector<Texture*>* texturesLoaded = new std::vector<Texture*>();
     ProcessNode(directory, shader, root, texturesLoaded, scene->mRootNode, scene);
 }
 
-void ModelManager::ProcessNode(string directory, Shader* shader, Entity* _Parent, vector<Texture>* texturesLoaded, aiNode* node, const aiScene* scene)
+void ModelManager::ProcessNode(std::string directory, Shader* shader, Entity* _Parent, std::vector<Texture*>* texturesLoaded, aiNode* node, const aiScene* scene)
 {
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -73,10 +72,10 @@ void ModelManager::ProcessNode(string directory, Shader* shader, Entity* _Parent
     }
 }
 
-Entity* ModelManager::ReadMesh(string directory, Shader* shader, vector<Texture>* texturesLoaded, aiMesh* mesh, const aiScene* scene) {
+Entity* ModelManager::ReadMesh(std::string directory, Shader* shader, std::vector<Texture*>* texturesLoaded, aiMesh* mesh, const aiScene* scene) {
     Entity* entity = World::entityManager->CreateEntity();
-    vector<Vertex> vertices;
-    vector<unsigned int> indices;
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
 
     // Walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -131,23 +130,23 @@ Entity* ModelManager::ReadMesh(string directory, Shader* shader, vector<Texture>
     entity->mesh = new Mesh(vertices, indices);
     entity->material = new Material();
     entity->material->shader = shader;
-    vector<Texture>* textures = &(entity->material->textures);
-    vector<Texture> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<Texture*>* textures = &(entity->material->textures);
+    std::vector<Texture*> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures->insert(textures->end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    vector<Texture> specularMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_SPECULAR, "texture_specular");
+    std::vector<Texture*> specularMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_SPECULAR, "texture_specular");
     textures->insert(textures->end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
-    std::vector<Texture> normalMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_HEIGHT, "texture_normal");
+    std::vector<Texture*> normalMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_HEIGHT, "texture_normal");
     textures->insert(textures->end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
-    std::vector<Texture> heightMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_AMBIENT, "texture_height");
+    std::vector<Texture*> heightMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_AMBIENT, "texture_height");
     textures->insert(textures->end(), heightMaps.begin(), heightMaps.end());
     return entity;
 }
-vector<Texture> ModelManager::LoadMaterialTextures(string directory, vector<Texture>* texturesLoaded, aiMaterial* mat, aiTextureType type, string typeName)
+std::vector<Texture*> ModelManager::LoadMaterialTextures(std::string directory, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, std::string typeName)
 {
-    vector<Texture> textures;
+    std::vector<Texture*> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
@@ -156,7 +155,7 @@ vector<Texture> ModelManager::LoadMaterialTextures(string directory, vector<Text
         bool skip = false;
         for (unsigned int j = 0; j < texturesLoaded->size(); j++)
         {
-            if (std::strcmp(texturesLoaded->at(j).Path().c_str(), str.C_Str()) == 0)
+            if (std::strcmp(texturesLoaded->at(j)->Path().c_str(), str.C_Str()) == 0)
             {
                 textures.push_back(texturesLoaded->at(j));
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
@@ -165,8 +164,8 @@ vector<Texture> ModelManager::LoadMaterialTextures(string directory, vector<Text
         }
         if (!skip)
         {   // if texture hasn't been loaded already, load it
-            Texture texture;
-            texture.LoadTexture(str.C_Str(), directory);
+            Texture* texture = new Texture();
+            texture->LoadTexture(str.C_Str(), directory);
             textures.push_back(texture);
             texturesLoaded->push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
         }

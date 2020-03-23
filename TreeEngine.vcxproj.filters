@@ -19,12 +19,6 @@
     <Filter Include="Header Files\World">
       <UniqueIdentifier>{25bd7c84-d460-46d3-a5f9-6813fd39cceb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{f9901f40-cf1f-4ab1-a501-16fd62e166a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{41a32cef-2a14-4774-8cf8-e51548ef23e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tree">
       <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
     </Filter>
@@ -83,6 +77,27 @@
     </ClCompile>
     <ClCompile Include="Time.h">
       <Filter>Header Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_win32.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_demo.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_draw.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_widgets.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,36 +203,17 @@
     <ClInclude Include="Debug.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="uv-test.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="cat.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="border.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="direction.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="treesurface.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="default.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="default.vs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="DefaultInstanced.vs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="DefaultInstanced.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
+    <ClInclude Include="AssimpImporter.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Default.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

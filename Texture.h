@@ -6,14 +6,24 @@
 class Texture : public SharedComponentBase {
 public:
 	Texture() : SharedComponentBase(){
-		
+        _ID = 0;
 	}
+
+    ~Texture() {
+        if (_ID != 0) {
+            glDeleteTextures(1, &_ID);
+        }
+    }
     std::size_t hash_code() { return _ID; }
 	unsigned int ID() { return _ID; }
     std::string Path() { return _Path; }
     std::string Type() { return _Type; }
     void LoadTexture(const char* path, const std::string& directory)
     {
+        if (_ID != 0) {
+            glDeleteTextures(1, &_ID);
+            _ID = 0;
+        }
         std::string filename = std::string(path);
         if(!directory._Equal(""))
         filename = directory + '/' + filename;
@@ -53,4 +63,5 @@ private:
     std::string _Type;
     std::string _Path;
 };
+Texture* defaultTexture;
 #endif TEXTURE_H

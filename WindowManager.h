@@ -26,9 +26,6 @@ void WindowManager::Resize(int width, int height) {
     glViewport(0, 0, width, height);
 }
 GLFWwindow* WindowManager::CreateWindow(int width, int height) {
-    // glfw: initialize and configure
-    // ------------------------------
-
     // glfw window creation
     // --------------------
     window = glfwCreateWindow(width, height, "Tree Engine", NULL, NULL);

@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>includes;includes\assimp-5.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>includes;includes\assimp-5.0.1\include;includes\glfw-3.3\include;includes\glad\include;includes\ImGUI\examples;includes\ImGUI;$(IncludePath)</IncludePath>
     <SourcePath>includes\glfw-3.3\src;includes\glad\src;src;$(SourcePath)</SourcePath>
     <CodeAnalysisRuleSet>CppCoreCheckArithmeticRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -142,6 +142,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp" />
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_win32.cpp" />
+    <ClCompile Include="includes\ImGUI\imgui.cpp" />
+    <ClCompile Include="includes\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelSaver.h" />
     <ClCompile Include="src\glad.c" />
@@ -149,10 +156,12 @@
     <ClCompile Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssimpImporter.h" />
     <ClInclude Include="AttractionPointsSet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
+    <ClInclude Include="Default.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="ECSExternal.h" />
@@ -163,6 +172,8 @@
     <ClInclude Include="Envelope.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Misc.h" />
+    <ClInclude Include="Path.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SCTResourceSystem.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mathemetics.h" />
@@ -183,19 +194,6 @@
     <ClInclude Include="SystemBase.h" />
     <ClInclude Include="TreeEngine.h" />
     <ClInclude Include="WindowManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="default.fs" />
-    <None Include="default.vs" />
-    <None Include="DefaultInstanced.fs" />
-    <None Include="DefaultInstanced.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="border.jpg" />
-    <Image Include="cat.jpg" />
-    <Image Include="direction.jpg" />
-    <Image Include="treesurface.jpg" />
-    <Image Include="uv-test.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,13 @@
 #ifndef TREEENGINE_H
 #define TREEENGINE_H
 
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_win32.h>
 
-#include <glad/include/glad/glad.h>
-#include <glfw-3.3/include/GLFW/glfw3.h>
-#include <stb/stb_image.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -19,51 +22,50 @@
 #endif
 #include "Debug.h"
 #include "Enums.h"
-
+#include "Path.h"
 #include "Misc.h"
-
 #include "ECSInternal.h"
-
 #include "ModelManager.h"
+
 #include "CatmullClarkModel.h"
 #include "TreeSkeleton.h"
 
 #include "ECSExternal.h"
 World* world;
 
-#pragma region CallbackFunctions
+
 void WindowResizeCallback(GLFWwindow*, int, int);
 void MouseScrollCallback(GLFWwindow*, double, double);
 void CursorPositionCallback(GLFWwindow*, double, double);
 void MouseButtonCallback(GLFWwindow*, int, int, int);
 void KeyCallback(GLFWwindow*, int, int, int, int);
 
+void LoadNanoSuit(glm::vec3, glm::vec3);
+void LoadCubeModel();
 
+void TreeEngineStart();
+void TreeEngineLoop();
+void TreeEngineEnd();
+
+#pragma region CallbackFunctions
 void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
 	Input::CursorPositionCallback(window, xpos, ypos);
 }
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 	Input::MouseButtonCallback(window, button, action, mods);
 }
-
 void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
 	Input::MouseScrollCallback(window, xoffset, yoffset);
 }
-
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	Input::KeyCallback(window, key, scancode, action, mods);
 }
-
 void WindowResizeCallback(GLFWwindow* window, int width, int height) {
 	WindowManager::Resize(width, height);
 }
 #pragma endregion
 
 #pragma region USELESS
-
-void LoadNanoSuit(glm::vec3, glm::vec3);
-void LoadCubeModel();
-
 void LoadCubeModel() {
 	std::vector<Point*> _Points = std::vector<Point*>();
 	std::vector<Face*> _Faces = std::vector<Face*>();
@@ -140,8 +142,8 @@ void LoadCubeModel() {
 	Entity* entity = World::entityManager->CreateEntity();
 	entity->material = new Material();
 	entity->material->shader = new Shader("default.vs", "default.fs");
-	Texture texture;
-	texture.LoadTexture("treesurface.jpg", "");
+	Texture* texture = new Texture();
+	texture->LoadTexture("treesurface.jpg", "");
 	entity->material->textures.push_back(texture);
 	entity->mesh = model->GetCurrentMesh();
 	Scale s;
@@ -167,8 +169,6 @@ void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 #pragma endregion
 
 #pragma region TreeEngineDriver
-void TreeEngineStart();
-void TreeEngineLoop();
 void TreeEngineStart() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -177,6 +177,7 @@ void TreeEngineStart() {
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
+
 	auto window = WindowManager::CreateWindow(800, 600);
 	world = new World();
 	world->CreateSystem<TRSToLocalToWorldSystem>();
@@ -197,12 +198,48 @@ void TreeEngineStart() {
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		exit(-1);
 	}
+
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	// Setup Platform/Renderer bindings
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330 core");
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+
+	Default::Load();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_DEPTH_TEST);
 }
+void TreeEngineLoop() {
+	while (!glfwWindowShouldClose(WindowManager::GetWindow()))
+	{
+		world->Update();
+
+		// feed inputs to dear imgui, start new frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		ImGui::Begin("Demo window");
+		ImGui::Button("Hello!");
+		ImGui::End();
+
+		// Render dear imgui into screen
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwSwapBuffers(WindowManager::GetWindow());
+	}
+}
 void TreeEngineEnd() {
 	delete world;
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 	glfwTerminate();
 }
 #pragma endregion

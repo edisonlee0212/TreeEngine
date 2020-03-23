@@ -5,14 +5,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include "Mesh.h"
-using namespace std;
 
 struct Element {};
 struct Point : Element {
 public:
 	Point(glm::vec3 position) : position(position) {}
 	glm::vec3 position = glm::vec3(0.0f);
-	vector<Element*> _Faces;
+	std::vector<Element*> _Faces;
 };
 struct Face : Element {
 public:
@@ -116,8 +115,8 @@ public:
 		if (_CurrentLevel <= _GeneratedMaxLevel) return _GeneratedMeshes[_CurrentLevel];
 		_GeneratedMaxLevel++;
 
-		vector<Face*> newFaces;
-		vector<Point*> newPoints;
+		std::vector<Face*> newFaces;
+		std::vector<Point*> newPoints;
 
 		for (size_t index = 0; index < _Faces.size(); index++) {
 			auto i = _Faces[index];

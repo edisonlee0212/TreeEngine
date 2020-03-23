@@ -299,7 +299,7 @@ public:
 		
 	}
 
-	void GatherFaces(vector<Face*>* faces) {
+	void GatherFaces(std::vector<Face*>* faces) {
 		if (_SelfNode.f0 != nullptr)faces->push_back(_SelfNode.f0);
 		if (_SelfNode.f1 != nullptr)faces->push_back(_SelfNode.f1);
 		if (_SelfNode.f2 != nullptr)faces->push_back(_SelfNode.f2);
