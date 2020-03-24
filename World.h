@@ -4,7 +4,7 @@
 
 double Time::deltaTime;
 double Time::lastFrameTime;
-
+double Time::fixedDeltaTime;
 class World
 {
 public:
@@ -54,8 +54,15 @@ public:
 		float currentFrame = glfwGetTime();
 		Time::deltaTime = currentFrame - Time::lastFrameTime;
 		Time::lastFrameTime = currentFrame;
+		Time::fixedDeltaTime += Time::deltaTime;
 		
 		glfwPollEvents();
+		if (Time::fixedDeltaTime >= 0.1f) {
+			Time::fixedDeltaTime = 0;
+			for (auto i : _Systems) {
+				if (i->IsEnabled()) i->FixedUpdate();
+			}
+		}
 
 		for (auto i : _Systems) {
 			if (i->IsEnabled()) i->Update();

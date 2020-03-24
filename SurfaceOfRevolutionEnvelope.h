@@ -3,7 +3,7 @@
 
 class SurfaceOfRevelutionEnvelope : public Envelope {
 public:
-	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Mesh* mesh, Material* material) : Envelope(xMax, yMax, zMax, xMin, yMin, zMin, mesh, material) {}
+	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : Envelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {}
 	glm::vec3 GetPoint(float height, float angle);
 	float GetRadius(float height);
 	void GenerateMesh(Mesh* mesh);

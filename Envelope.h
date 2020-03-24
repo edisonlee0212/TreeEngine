@@ -3,24 +3,25 @@
 
 class Envelope {
 public:
-	Envelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Mesh* mesh, Material* material) : 
-		_XMax(xMax), 
-		_YMax(yMax), 
-		_ZMax(zMax), 
-		_XMin(xMin), 
-		_YMin(yMin), 
+	Envelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :
+		_XMax(xMax),
+		_YMax(yMax),
+		_ZMax(zMax),
+		_XMin(xMin),
+		_YMin(yMin),
 		_ZMin(zMin),
-		_PointMesh(mesh),
 		_PointMat(material)
 	{
 
 	}
 	~Envelope() {
-		
+
 	}
 
 	void Draw() {
-		Graphics::DrawMeshInstanced(_PointMesh, _PointMat, &_PointMatrices[0], World::camera, _PointMatrices.size());
+		if (_PointPositions.size() > 0) {
+			Graphics::DrawMeshInstanced(Default::Primitives::Sphere, _PointMat, &_PointMatrices[0], World::camera, _PointMatrices.size());
+		}
 	}
 
 	virtual glm::vec3 GetPoint(float height, float angle) = 0;
@@ -64,7 +65,6 @@ protected:
 
 	std::vector<glm::vec3> _PointPositions;
 	std::vector<glm::mat4> _PointMatrices;
-	Mesh* _PointMesh;
 	Material* _PointMat;
 };
 

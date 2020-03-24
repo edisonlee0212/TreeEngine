@@ -8,7 +8,8 @@ public:
 	virtual void OnDestroy() {}
 	virtual void OnStartRunning() {}
 	virtual void OnStopRuning() {}
-	virtual void Update() = 0;
+	virtual void Update() {};
+	virtual void FixedUpdate() {};
 	void Enable() {
 		if (!_Enabled) {
 			_Enabled = true;
