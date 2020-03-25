@@ -1,9 +1,9 @@
 #ifndef SURFACEOFREVOLUTIONENVELOPE_H
 #define SURFACEOFREVOLUTIONENVELOPE_H
 
-class SurfaceOfRevelutionEnvelope : public Envelope {
+class SurfaceOfRevelutionEnvelope : public SCEnvelope {
 public:
-	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : Envelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {}
+	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : SCEnvelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {}
 	glm::vec3 GetPoint(float height, float angle);
 	float GetRadius(float height);
 	void GenerateMesh(Mesh* mesh);

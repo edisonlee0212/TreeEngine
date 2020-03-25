@@ -57,7 +57,7 @@ public:
 		Time::fixedDeltaTime += Time::deltaTime;
 		
 		glfwPollEvents();
-		if (Time::fixedDeltaTime >= 0.1f) {
+		if (Time::fixedDeltaTime >= 0.5f) {
 			Time::fixedDeltaTime = 0;
 			for (auto i : _Systems) {
 				if (i->IsEnabled()) i->FixedUpdate();

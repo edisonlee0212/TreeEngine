@@ -150,14 +150,12 @@
     <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelSaver.h" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpImporter.h" />
-    <ClInclude Include="AttractionPointsSet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
@@ -170,7 +168,8 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="Envelope.h" />
+    <ClInclude Include="SCBranchMesh.h" />
+    <ClInclude Include="SCEnvelope.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="Path.h" />

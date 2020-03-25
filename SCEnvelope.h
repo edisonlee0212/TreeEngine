@@ -1,9 +1,9 @@
-#ifndef ENVELOPE_H
-#define ENVELOPE_H
+#ifndef SCENVELOPE_H
+#define SCENVELOPE_H
 
-class Envelope {
+class SCEnvelope {
 public:
-	Envelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :
+	SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :
 		_XMax(xMax),
 		_YMax(yMax),
 		_ZMax(zMax),
@@ -14,7 +14,7 @@ public:
 	{
 
 	}
-	~Envelope() {
+	~SCEnvelope() {
 
 	}
 
@@ -27,7 +27,7 @@ public:
 	virtual glm::vec3 GetPoint(float height, float angle) = 0;
 	virtual void GenerateMesh(Mesh* mesh) = 0;
 	virtual bool isInEnvelope(glm::vec3 point) = 0;
-	void SelectPoints(int amount) {
+	void GeneratePoints(int amount) {
 		std::vector<glm::vec3> retVal;
 		Clear();
 		int size = 0;
@@ -47,16 +47,19 @@ public:
 		_PointPositions.push_back(point);
 		_PointMatrices.push_back(matrix);
 	}
-	void DeletePoint(int index) {
+	void DeletePointSwapBack(int index) {
 		_PointPositions[index] = _PointPositions.back();
 		_PointMatrices[index] = _PointMatrices.back();
 		_PointPositions.pop_back();
 		_PointMatrices.pop_back();
 	}
+
+
 	std::vector<glm::vec3>* GetPointPositions() {
 		return &_PointPositions;
 	}
 	void Clear() {
+		_PointPositions.clear();
 		_PointMatrices.clear();
 	}
 
@@ -68,5 +71,5 @@ protected:
 	Material* _PointMat;
 };
 
-#endif ENVELOPE_H
+#endif SCENVELOPE_H
 

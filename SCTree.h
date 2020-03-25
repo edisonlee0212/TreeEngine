@@ -1,11 +1,12 @@
 #ifndef SCTREE_H
 #define SCTREE_H
+
 #include "SCBranch.h"
 class SCTree {
 public:
 	SCBranch* mRoot;
 	std::vector<SCBranch*> mGrowingBranches;
-	bool isGrowing;
+	bool needsToGrow;
 	int maxGrowIteration;
 	glm::vec3 pos;
 	Material* material;
@@ -14,7 +15,7 @@ public:
 		: pos(pos),
 		material(mat),
 		mGrowingBranches(std::vector<SCBranch*>()),
-		isGrowing(false),
+		needsToGrow(false),
 		mRoot(new SCBranch(mat, pos, nullptr, true, 1)),
 		maxGrowIteration(mRoot->growIteration)
 	{
@@ -22,81 +23,70 @@ public:
 	}
 
 	void Draw() {
-		Graphics::DrawMeshInstanced(Default::Primitives::Cone, material, &matrices[0], World::camera, matrices.size());
-	}
-
-	void CollectPoints() {
-		mRoot->CollectPoint(&matrices);
+		if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Sphere, material, &matrices[0], World::camera, matrices.size());
 	}
 
 	~SCTree() {
 		delete mRoot;
 	}
 
-	void GrowTrunk(float growDist, float attractionDist, Envelope* envelope, glm::vec3 tropism) {
-		float minDist = 9999999;
+	void GrowTrunk(float growDist, float attractionDist, SCEnvelope* envelope, glm::vec3 tropism) {
 		bool found = false;
 		int timeOut = 1000;
 		SCBranch* currentBranch = mRoot;
-		auto points = envelope->GetPointPositions();
+		auto pointsList = envelope->GetPointPositions();
+		auto size = pointsList->size();
 		while (!found && timeOut > 0) {
-			for (int i = 0; i < points->size() && !found; i++) {
-				float dist = glm::distance(currentBranch->pos, points->at(i));
-				currentBranch->growDir += glm::normalize(points->at(i) - currentBranch->pos);
-				if (dist < minDist) {
-					minDist = dist;
-					if (minDist < attractionDist) found = true;
+			for (int i = 0; i < size; i++) {
+				auto point = pointsList->at(i);
+				float dist = glm::distance(currentBranch->pos, point);
+				if (dist < attractionDist) {
+					found = true;
+					currentBranch->growDir = glm::vec3(0.0f);
+					mGrowingBranches.push_back(currentBranch);
 				}
+				currentBranch->growDir += point - currentBranch->pos;
 			}
 			if (!found) {
 				auto newBranch = currentBranch->Grow(growDist, true, tropism);
 				if (newBranch->growIteration > maxGrowIteration) maxGrowIteration = newBranch->growIteration;
 				currentBranch = newBranch;
 			}
-			else
-			{
-				currentBranch->growDir = glm::vec3(0.0f);
-				mGrowingBranches.push_back(currentBranch);
-			}
 			timeOut--;
 		}
 		if (timeOut < 0) {
 			Debug::Log("Error generating the trunk");
 		}
-		isGrowing = true;
+		needsToGrow = true;
 	}
 
-	void GrowTreeIteration(float growDist, float attractionDist, float removeDist, Envelope* envelope, glm::vec3 tropism) {
-		if (!isGrowing) {
-			return;
-		}
-		auto pointList = envelope->GetPointPositions();
-
-		for (int i = 0; i < pointList->size(); i++) {
-			auto point = pointList->at(i);
+	void Grow(float growDist, float attractionDist, float removeDist, SCEnvelope* envelope, glm::vec3 tropism = glm::vec3(0.0f)) {
+		auto pointsList = envelope->GetPointPositions();
+		for (int i = 0; i < pointsList->size(); i++) {
+			auto point = pointsList->at(i);
 			float minDist = 9999999;
-			int minDistIndex = -1;
-			int branchNum = mGrowingBranches.size();
-			for (int i = 0; i < branchNum; i++) {
+			int minIndex = -1;
+			int size = mGrowingBranches.size();
+			for (int i = 0; i < size; i++) {
 				float dist = glm::distance(point, mGrowingBranches[i]->pos);
 				if (dist < minDist) {
 					minDist = dist;
-					minDistIndex = i;
+					minIndex = i;
 				}
 			}
-			if (minDist <= attractionDist && minDistIndex >= 0) {
-				mGrowingBranches[minDistIndex]->growDir += glm::normalize(point - mGrowingBranches[minDistIndex]->pos);
+			if (minDist <= attractionDist && minIndex >= 0) {
+				mGrowingBranches[minIndex]->growDir += glm::normalize(point - mGrowingBranches[minIndex]->pos);
 			}
 		}
 
 		bool addedNewBranch = false;
-		int branchNum = mGrowingBranches.size();
-		for (int i = 0; i < branchNum; i++) {
+		auto size = mGrowingBranches.size();
+		for (int i = 0; i < size; i++) {
 			SCBranch* newBranch = mGrowingBranches[i]->Grow(growDist, false, tropism);
 			if (newBranch == nullptr) {
 				mGrowingBranches.erase(mGrowingBranches.begin() + i);
 				i--;
-				branchNum--;
+				size--;
 			}
 			else
 			{
@@ -105,19 +95,63 @@ public:
 				addedNewBranch = true;
 			}
 		}
-		if (!addedNewBranch) {
-			isGrowing = false;
-		}
-		for (int i = 0; i < pointList->size(); i++) {
-			bool rm = false;
-			for (int j = 0; j < mGrowingBranches.size() && !rm; j++) {
-				if (glm::distance(pointList->at(i), mGrowingBranches[j]->pos) <= removeDist) {
-					envelope->DeletePoint(i);
-					rm = true;
+
+		size = pointsList->size();
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < mGrowingBranches.size(); j++) {
+				if (glm::distance(pointsList->at(i), mGrowingBranches[j]->pos) <= removeDist) {
+					envelope->DeletePointSwapBack(i);
+					size--;
 					i--;
+					break;
 				}
 			}
 		}
+
+		if (!addedNewBranch) {
+			needsToGrow = false;
+			Debug::Log("Grow complete.");
+			
+			envelope->Clear();
+
+			NodeRelocation();
+			Debug::Log("Node Relocation complete.");
+
+			CalculateRadius();
+			NodeSubdivision();
+			Debug::Log("Node Subdivision complete.");
+			CollectPoints();
+			return;
+		}
+
+		CalculateRadius();
+		CollectPoints();
+	}
+
+	void CalculateMesh(Mesh* mesh) {
+		std::vector<Vertex> vertices;
+		std::vector<unsigned int> triangles;
+		mRoot->CalculateMesh(pos, &vertices, &triangles);
+		mesh->Set(&vertices, &triangles);
+	}
+private:
+	inline void CalculateRadius() {
+		mRoot->CalculateRadius(maxGrowIteration);
+	}
+
+	inline void CollectPoints() {
+		matrices.clear();
+		mRoot->CollectPoint(&matrices);
+	}
+
+	inline void NodeRelocation() {
+		Debug::Log("Node Relocation...");
+		mRoot->Relocation();
+	}
+
+	inline void NodeSubdivision() {
+		Debug::Log("Node Subdivision...");
+		mRoot->Subdivision(pos, 1);
 	}
 };
 

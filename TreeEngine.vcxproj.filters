@@ -22,12 +22,6 @@
     <Filter Include="Header Files\Tree">
       <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tree\Skeleton">
-      <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Tree\Envelope">
-      <UniqueIdentifier>{6cd76c26-17e4-4896-a1b5-ac0fb848d56d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\World\ECS">
       <UniqueIdentifier>{fe7f0fdb-626f-4358-bdd7-9138525bbbbc}</UniqueIdentifier>
     </Filter>
@@ -64,6 +58,15 @@
     <Filter Include="Header Files\World\ECS\External\Component\SharedComponents">
       <UniqueIdentifier>{6686da2c-7f5f-4da1-990a-db94c777b023}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tree\SCTree">
+      <UniqueIdentifier>{80af725a-27cb-4d5b-9d6f-6e28387465c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tree\SCTree\Envelopes">
+      <UniqueIdentifier>{6cd76c26-17e4-4896-a1b5-ac0fb848d56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc\CatmullClark">
+      <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="src\stb.cpp">
       <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelSaver.h">
-      <Filter>Header Files\Tree</Filter>
     </ClCompile>
     <ClCompile Include="Time.h">
       <Filter>Header Files\Misc</Filter>
@@ -111,10 +111,10 @@
       <Filter>Header Files\World</Filter>
     </ClInclude>
     <ClInclude Include="CatmullClarkModel.h">
-      <Filter>Header Files\Tree\Skeleton</Filter>
+      <Filter>Header Files\Misc\CatmullClark</Filter>
     </ClInclude>
     <ClInclude Include="TreeSkeleton.h">
-      <Filter>Header Files\Tree\Skeleton</Filter>
+      <Filter>Header Files\Misc\CatmullClark</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Header Files\World\ECS\Internal\Entity</Filter>
@@ -134,14 +134,8 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Envelope.h">
-      <Filter>Header Files\Tree\Envelope</Filter>
-    </ClInclude>
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h">
-      <Filter>Header Files\Tree\Envelope</Filter>
-    </ClInclude>
-    <ClInclude Include="AttractionPointsSet.h">
-      <Filter>Header Files\Tree</Filter>
+      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
     </ClInclude>
     <ClInclude Include="ECSInternal.h">
       <Filter>Header Files\World\ECS\Internal</Filter>
@@ -218,14 +212,20 @@
     <ClInclude Include="SharedComponentBase.h">
       <Filter>Header Files\World\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="SCTree.h">
-      <Filter>Header Files\Tree</Filter>
-    </ClInclude>
     <ClInclude Include="SCTreeSystem.h">
       <Filter>Header Files\World\ECS\External\System</Filter>
     </ClInclude>
     <ClInclude Include="SCBranch.h">
-      <Filter>Header Files\Tree</Filter>
+      <Filter>Header Files\Tree\SCTree</Filter>
+    </ClInclude>
+    <ClInclude Include="SCTree.h">
+      <Filter>Header Files\Tree\SCTree</Filter>
+    </ClInclude>
+    <ClInclude Include="SCEnvelope.h">
+      <Filter>Header Files\Tree\SCTree</Filter>
+    </ClInclude>
+    <ClInclude Include="SCBranchMesh.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
