@@ -227,5 +227,11 @@
     <ClInclude Include="SCBranchMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CubeEnvelope.h">
+      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+    </ClInclude>
+    <ClInclude Include="CylinderEnvelope.h">
+      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

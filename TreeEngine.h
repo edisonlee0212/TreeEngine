@@ -19,9 +19,6 @@
 #include "ECSInternal.h"
 #include "ModelManager.h"
 
-#include "CatmullClarkModel.h"
-#include "TreeSkeleton.h"
-
 #include "ECSExternal.h"
 World* world;
 
@@ -33,7 +30,7 @@ void MouseButtonCallback(GLFWwindow*, int, int, int);
 void KeyCallback(GLFWwindow*, int, int, int, int);
 
 void LoadNanoSuit(glm::vec3, glm::vec3);
-void LoadCubeModel();
+//void LoadCubeModel();
 
 void TreeEngineStart();
 void TreeEngineLoop();
@@ -58,6 +55,7 @@ void WindowResizeCallback(GLFWwindow* window, int width, int height) {
 #pragma endregion
 
 #pragma region USELESS
+/*
 void LoadCubeModel() {
 	std::vector<Point*> _Points = std::vector<Point*>();
 	std::vector<Face*> _Faces = std::vector<Face*>();
@@ -147,6 +145,7 @@ void LoadCubeModel() {
 	entity->ToDraw = true;
 	return;
 }
+*/
 void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	Entity* entity = World::entityManager->CreateEntity();
 	Translation t;

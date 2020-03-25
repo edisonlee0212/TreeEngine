@@ -10,7 +10,8 @@ public:
 		_XMin(xMin),
 		_YMin(yMin),
 		_ZMin(zMin),
-		_PointMat(material)
+		_PointMat(material),
+		_PointsGenerated(false)
 	{
 
 	}
@@ -23,12 +24,9 @@ public:
 			Graphics::DrawMeshInstanced(Default::Primitives::Sphere, _PointMat, &_PointMatrices[0], World::camera, _PointMatrices.size());
 		}
 	}
-
-	virtual glm::vec3 GetPoint(float height, float angle) = 0;
-	virtual void GenerateMesh(Mesh* mesh) = 0;
+	bool PointsGenerated() { return _PointsGenerated; }
 	virtual bool isInEnvelope(glm::vec3 point) = 0;
-	void GeneratePoints(int amount) {
-		std::vector<glm::vec3> retVal;
+	virtual void GeneratePoints(int amount) {
 		Clear();
 		int size = 0;
 		while (size < amount) {
@@ -40,7 +38,9 @@ public:
 				size++;
 			}
 		}
+		_PointsGenerated = true;
 	}
+
 	void AddPoint(glm::vec3 point) {
 		glm::mat4 matrix = glm::translate(glm::mat4(1.0f), point);
 		matrix = glm::scale(matrix, glm::vec3(0.01f));
@@ -53,19 +53,18 @@ public:
 		_PointPositions.pop_back();
 		_PointMatrices.pop_back();
 	}
-
-
 	std::vector<glm::vec3>* GetPointPositions() {
 		return &_PointPositions;
 	}
 	void Clear() {
 		_PointPositions.clear();
 		_PointMatrices.clear();
+		_PointsGenerated = false;
 	}
 
 protected:
 	float _XMax, _YMax, _ZMax, _XMin, _YMin, _ZMin;
-
+	bool _PointsGenerated;
 	std::vector<glm::vec3> _PointPositions;
 	std::vector<glm::mat4> _PointMatrices;
 	Material* _PointMat;

@@ -110,6 +110,7 @@ public:
         View = glm::lookAt(Position, Position + Front, Up);
         float width = WindowManager::GetWidth();
         float height = WindowManager::GetHeight();
+        if (height == 0 || width == 0) return;
         Projection = glm::perspective(glm::radians(Zoom), width / height, 0.1f, 100.0f);
     }
 

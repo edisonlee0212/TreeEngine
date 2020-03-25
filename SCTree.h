@@ -60,7 +60,8 @@ public:
 		needsToGrow = true;
 	}
 
-	void Grow(float growDist, float attractionDist, float removeDist, SCEnvelope* envelope, glm::vec3 tropism = glm::vec3(0.0f)) {
+	void Grow(float growDist, float attractionDist, float removeDist, SCEnvelope* envelope, glm::vec3 tropism = glm::vec3(0.0f), 
+		float distDec = 0.015f, float minDist = 0.1f, float decimationDistChild = 0.05f, float decimationDistParent = 0.05f) {
 		auto pointsList = envelope->GetPointPositions();
 		for (int i = 0; i < pointsList->size(); i++) {
 			auto point = pointsList->at(i);
@@ -82,7 +83,7 @@ public:
 		bool addedNewBranch = false;
 		auto size = mGrowingBranches.size();
 		for (int i = 0; i < size; i++) {
-			SCBranch* newBranch = mGrowingBranches[i]->Grow(growDist, false, tropism);
+			SCBranch* newBranch = mGrowingBranches[i]->Grow(growDist, false, tropism, distDec, minDist, decimationDistChild, decimationDistParent);
 			if (newBranch == nullptr) {
 				mGrowingBranches.erase(mGrowingBranches.begin() + i);
 				i--;

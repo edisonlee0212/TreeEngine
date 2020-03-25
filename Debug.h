@@ -19,6 +19,7 @@ public:
 		std::cout << msg << std::endl;
 		mErrorMessages.push_back(msg + "\n");
 	}
+
 	static std::vector<std::string> mLogMessages;
 	static std::vector<std::string> mErrorMessages;
 };
