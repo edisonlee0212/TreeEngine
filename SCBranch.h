@@ -76,16 +76,18 @@ public:
 		return radius;
 	}
 
-	SCBranch* Grow(float growDist, bool growTrunk, glm::vec3 tropism, float decimationDistChild = 0.05f, float decimationDistParent = 0.05f) {
+	SCBranch* Grow(float growDist, bool growTrunk, glm::vec3 tropism, float distDec = 0.015f, float minDist = 0.1f, float decimationDistChild = 0.05f, float decimationDistParent = 0.05f) {
 		if (growDir == glm::vec3(0.0f)) return nullptr;
-		glm::vec3 newPos = pos + glm::normalize(glm::normalize(growDir) + tropism) * (growDist) / (float)(mChildren.size() + 1);
+		float actualDist = growDist - distDec * growIteration;
+		if (actualDist < minDist) actualDist = minDist;
+		glm::vec3 newPos = pos + glm::normalize(glm::normalize(growDir) + tropism) * actualDist / (float)(mChildren.size() + 1);
 		growDir = glm::vec3(0.0f);
 		for (auto child : mChildren) {
 			if (glm::distance(child->pos, newPos) <= decimationDistChild) return nullptr;
 		}
 		if (parent && glm::distance(parent->pos, newPos) <= decimationDistParent) return nullptr;
 
-		auto newBranch = new SCBranch(mat, newPos, this, growTrunk, growIteration + 1);
+		auto newBranch = new SCBranch(mat, newPos, this, growTrunk, growTrunk ? growIteration : growIteration + 1);
 		mChildren.push_back(newBranch);
 		return newBranch;
 	}
