@@ -31,6 +31,11 @@ public:
 		glVertexAttribDivisor(6, 1);
 
 		glUseProgram(material->shader->ID);
+
+		material->shader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		material->shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+		material->shader->setVec3("lightPos", 0.0f, 1.0f, 0.0f);
+		material->shader->setVec3("viewPos", camera->Position);
 		material->shader->setMat4("projection", camera->Projection);
 		material->shader->setMat4("view", camera->View);
 		unsigned int diffuseNr = 1;
@@ -82,6 +87,10 @@ public:
 		Graphics::DrawCall++;
 		Graphics::Triangles += mesh->triangles.size() / 3;
 		glUseProgram(material->shader->ID);
+		material->shader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		material->shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+		material->shader->setVec3("lightPos", 10.0f, 20.0f, 0.0f);
+		material->shader->setVec3("viewPos", camera->Position);
 		material->shader->setMat4("projection", camera->Projection);
 		material->shader->setMat4("view", camera->View);
 		material->shader->setMat4("model", matrix);

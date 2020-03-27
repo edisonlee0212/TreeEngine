@@ -50,11 +50,29 @@ public:
     void Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles) {
         this->vertices.clear();
         this->triangles.clear();
-        for (auto i : *vertices) {
-            this->vertices.push_back(i);
+        int size = triangles->size() / 3;
+        for (int i = 0; i < size; i++) {
+            this->vertices.push_back(vertices->at(triangles->at(3 * i)));
+            this->vertices.push_back(vertices->at(triangles->at(3 * i + 1)));
+            this->vertices.push_back(vertices->at(triangles->at(3 * i + 2)));
+            this->triangles.push_back(3 * i);
+            this->triangles.push_back(3 * i + 1);
+            this->triangles.push_back(3 * i + 2);
         }
-        for (auto i : *triangles) {
-            this->triangles.push_back(i);
+        SetupMesh();
+    }
+
+    void RecalculateNormal() {
+        if (_VAO == 0) return;
+        size_t size = vertices.size();
+        for (size_t i = 0; i < size / 3; i++) {
+            auto v1 = vertices[3 * i];
+            auto v2 = vertices[3 * i + 1];
+            auto v3 = vertices[3 * i + 2];
+            v1.Normal = v2.Normal = v3.Normal = glm::cross(v1.Position - v2.Position, v1.Position - v3.Position);
+            vertices[3 * i] = v1;
+            vertices[3 * i + 1] = v2;
+            vertices[3 * i + 2] = v3;
         }
         SetupMesh();
     }
@@ -97,13 +115,7 @@ private:
         // vertex texture coords
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        // vertex tangent
-        glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-        // vertex bitangent
-        glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
-
+        
         glBindVertexArray(0);
     }
 };

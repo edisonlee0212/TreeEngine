@@ -28,6 +28,7 @@ public:
 		Primitives::Sphere = new Mesh();
 		Mesh* mesh = scene->mMeshes[0];
 		Primitives::Sphere->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Sphere->RecalculateNormal();
 		delete scene;
 
 		scene = new Scene();
@@ -35,6 +36,7 @@ public:
 		Primitives::Cube = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cube->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cube->RecalculateNormal();
 		delete scene;
 
 		scene = new Scene();
@@ -42,6 +44,7 @@ public:
 		Primitives::Quad = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Quad->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Quad->RecalculateNormal();
 		delete scene;
 
 		scene = new Scene();
@@ -49,6 +52,7 @@ public:
 		Primitives::Cone = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cone->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cone->RecalculateNormal();
 		delete scene;
 
 		scene = new Scene();
@@ -56,6 +60,7 @@ public:
 		Primitives::Cylinder = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cylinder->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cylinder->RecalculateNormal();
 		delete scene;
 	}
 };

@@ -12,13 +12,13 @@ public:
 	}
 	void OnCreate() {
 		_EnvelopePointMaterial = new Material();
-		_EnvelopePointMaterial->shader = new Shader("src/Materials/Shaders/DefaultInstanced.vs", "src/Materials/Shaders/DefaultInstanced.fs");
+		_EnvelopePointMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vs", "src/Materials/Shaders/Fragment/LightDefaultInstanced.fs");
 		_EnvelopeTexture = new Texture();
 		_EnvelopeTexture->LoadTexture("src/Materials/Textures/white.png", "");
 		_EnvelopePointMaterial->textures.push_back(_EnvelopeTexture);
 
 		_TreeBranchMaterial = new Material();
-		_TreeBranchMaterial->shader = new Shader("src/Materials/Shaders/DefaultInstanced.vs", "src/Materials/Shaders/DefaultInstanced.fs");
+		_TreeBranchMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vs", "src/Materials/Shaders/Fragment/LightDefaultInstanced.fs");
 		_BranchTexture = new Texture();
 		_BranchTexture->LoadTexture("src/Materials/Textures/brown.png", "");
 		_TreeBranchMaterial->textures.push_back(_BranchTexture);
@@ -117,7 +117,6 @@ void SCTreeSystem::Update() {
 void SCTreeSystem::FixedUpdate() {
 	if (_Envelope != nullptr && _Tree != nullptr && _Tree->needsToGrow) {
 		_Iteration++;
-		//Debug::Log("Growing... [Iteration: " + std::to_string(_Iteration) + "]");
 		_Tree->Grow(_GrowDist, _AttractDist, _RemoveDist, _Envelope, glm::vec3(0.0f), 0.015f, 0.1f, 0.05f, 0.05f);
 	}
 }

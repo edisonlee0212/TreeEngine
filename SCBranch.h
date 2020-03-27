@@ -81,6 +81,7 @@ public:
 		float actualDist = growDist - distDec * growIteration;
 		if (actualDist < minDist) actualDist = minDist;
 		glm::vec3 newPos = pos + glm::normalize(glm::normalize(growDir) + tropism) * actualDist / (float)(mChildren.size() + 1);
+		
 		growDir = glm::vec3(0.0f);
 		for (auto child : mChildren) {
 			if (glm::distance(child->pos, newPos) <= decimationDistChild) return nullptr;
