@@ -12,11 +12,14 @@ int main()
 	scale.Value = glm::vec3(1.0f);
 	World::entityManager->SetComponent<Translation>(entity, translation);
 	World::entityManager->SetComponent<Scale>(entity, scale);
-	entity->mesh = Default::Primitives::Cube;
+	entity->mesh = Default::Primitives::Sphere;
 	auto mat = new Material();
-	mat->shader = new Shader("src/Materials/Shaders/Vertex/LightDefault.vs", "src/Materials/Shaders/Fragment/LightDefault.fs");
+	mat->shader = new Shader("src/Materials/Shaders/Vertex/LightDefault.vert", "src/Materials/Shaders/Fragment/MultipleLights.frag");
 	auto texture = new Texture();
 	texture->LoadTexture("src/Materials/Textures/white.png", "");
+
+
+
 	mat->textures.push_back(texture);
 	entity->material = mat;
 	entity->ToDraw = true;

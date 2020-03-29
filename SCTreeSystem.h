@@ -12,13 +12,13 @@ public:
 	}
 	void OnCreate() {
 		_EnvelopePointMaterial = new Material();
-		_EnvelopePointMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vs", "src/Materials/Shaders/Fragment/LightDefaultInstanced.fs");
+		_EnvelopePointMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vert", "src/Materials/Shaders/Fragment/LightDefault.frag");
 		_EnvelopeTexture = new Texture();
 		_EnvelopeTexture->LoadTexture("src/Materials/Textures/white.png", "");
 		_EnvelopePointMaterial->textures.push_back(_EnvelopeTexture);
 
 		_TreeBranchMaterial = new Material();
-		_TreeBranchMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vs", "src/Materials/Shaders/Fragment/LightDefaultInstanced.fs");
+		_TreeBranchMaterial->shader = new Shader("src/Materials/Shaders/Vertex/LightDefaultInstanced.vert", "src/Materials/Shaders/Fragment/LightDefault.frag");
 		_BranchTexture = new Texture();
 		_BranchTexture->LoadTexture("src/Materials/Textures/brown.png", "");
 		_TreeBranchMaterial->textures.push_back(_BranchTexture);

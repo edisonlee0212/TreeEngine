@@ -67,13 +67,13 @@
     <Filter Include="Header Files\Misc\CatmullClark">
       <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc\IO">
+      <UniqueIdentifier>{4a047589-89b9-4fd6-8d98-38c999999a47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\glad.c">
-      <Filter>Source Files\Misc</Filter>
     </ClCompile>
     <ClCompile Include="src\stb.cpp">
       <Filter>Source Files\Misc</Filter>
@@ -100,6 +100,9 @@
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\glad\src\glad.c">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="CylinderEnvelope.h">
       <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>Header Files\Misc\IO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -131,7 +131,7 @@ void LoadCubeModel() {
 	CatmullClarkModel* model = new CatmullClarkModel(_Points, _Faces);
 	Entity* entity = World::entityManager->CreateEntity();
 	entity->material = new Material();
-	entity->material->shader = new Shader("default.vs", "default.fs");
+	entity->material->shader = new Shader("Default.vert", "Default.frag");
 	Texture* texture = new Texture();
 	texture->LoadTexture("treesurface.jpg", "");
 	entity->material->textures.push_back(texture);
@@ -154,7 +154,7 @@ void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	s.Value = scale;
 	World::entityManager->SetComponent<Translation>(entity, t);
 	World::entityManager->SetComponent<Scale>(entity, s);
-	Shader* modelShader = new Shader("src/Materials/Shaders/default.vs", "src/Materials/Shaders/default.fs");
+	Shader* modelShader = new Shader("src/Materials/Shaders/Default.vert", "src/Materials/Shaders/Default.frag");
 	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
 }
 #pragma endregion
@@ -192,8 +192,9 @@ void TreeEngineStart() {
 	world->CreateSystem<ImGUISystem>();
 	Default::Load();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 }
 void TreeEngineLoop() {
 	while (!glfwWindowShouldClose(WindowManager::GetWindow()))

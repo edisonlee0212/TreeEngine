@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="includes\glad\src\glad.c" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_win32.cpp" />
@@ -150,7 +151,6 @@
     <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="Time.h" />
   </ItemGroup>
@@ -162,6 +162,7 @@
     <ClInclude Include="CubeEnvelope.h" />
     <ClInclude Include="CylinderEnvelope.h" />
     <ClInclude Include="Default.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="ImGUISystem.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
