@@ -1,4 +1,6 @@
 #pragma once
+#include "Misc.h"
+#include "SystemBase.h"
 class ImGUISystem : public SystemBase {
 public:
 	ImGUISystem() : SystemBase() {

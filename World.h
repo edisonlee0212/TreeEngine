@@ -1,5 +1,10 @@
 #pragma once
-
+#include "Misc.h"
+#include "Graphics.h"
+#include "SystemBase.h"
+#include "WindowManager.h"
+#include "EntityManager.h"
+#include "FileSystem.h"
 double Time::DeltaTime;
 double Time::LastFrameTime;
 double Time::FixedDeltaTime;

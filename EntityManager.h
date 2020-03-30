@@ -1,7 +1,5 @@
 #pragma once
-#include <unordered_map>
-#include <utility>
-#include <typeinfo>
+#include "Misc.h"
 #include "Entity.h"
 class EntityManager {
 public:

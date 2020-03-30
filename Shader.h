@@ -1,9 +1,6 @@
 #pragma once
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-
+#include "Misc.h"
+#include "SharedComponentBase.h"
 class Shader : public SharedComponentBase
 {
 public:

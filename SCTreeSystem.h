@@ -1,9 +1,13 @@
 #pragma once
+#include "Misc.h"
+#include "Shader.h"
+#include "Material.h"
+#include "Texture.h"
 #include "SCEnvelope.h"
-#include "SCTree.h"
 #include "SurfaceOfRevolutionEnvelope.h"
-#include "CubeEnvelope.h"
 #include "CylinderEnvelope.h"
+#include "CubeEnvelope.h"
+#include "SCTree.h"
 
 class SCTreeSystem : public SystemBase {
 public:

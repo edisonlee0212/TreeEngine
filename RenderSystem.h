@@ -1,4 +1,8 @@
 #pragma once
+#include "Misc.h"
+#include "SystemBase.h"
+#include "EntityManager.h"
+#include "InternalComponents.h"
 class RenderSystem : public SystemBase
 {
 public:

@@ -1,4 +1,6 @@
-#include <cstddef>
+#pragma once
+#include "Misc.h"
+#include "SharedComponentBase.h"
 
 struct Vertex {
     // position

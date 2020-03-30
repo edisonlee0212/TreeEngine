@@ -1,4 +1,8 @@
 #pragma once
+#include "Misc.h"
+#include "World.h"
+#include "Graphics.h"
+#include "Default.h"
 class SCEnvelope {
 public:
 	SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :

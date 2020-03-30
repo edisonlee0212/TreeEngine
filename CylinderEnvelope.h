@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "SCEnvelope.h"
+
 class CylinderEnvelope : public SCEnvelope {
 public:
 	CylinderEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : SCEnvelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {

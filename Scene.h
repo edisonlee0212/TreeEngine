@@ -1,4 +1,5 @@
 #pragma once
+#include "Misc.h"
 
 class SceneNode {
 public:

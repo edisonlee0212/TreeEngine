@@ -70,6 +70,9 @@
     <Filter Include="Header Files\Misc\IO">
       <UniqueIdentifier>{4a047589-89b9-4fd6-8d98-38c999999a47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc\Graphics">
+      <UniqueIdentifier>{d2b87861-3aed-4218-be56-8c85706a839b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,10 +108,16 @@
     <ClCompile Include="includes\glad\src\glad.c">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
+    <ClCompile Include="World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
+    <ClCompile Include="SCTreeSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Default.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,26 +137,8 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files\World\ECS\Internal\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files\World\ECS\Internal\Component\SharedComponents</Filter>
-    </ClInclude>
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h">
       <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
-    </ClInclude>
-    <ClInclude Include="ECSInternal.h">
-      <Filter>Header Files\World\ECS\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="ECSExternal.h">
-      <Filter>Header Files\World\ECS\External</Filter>
     </ClInclude>
     <ClInclude Include="CameraSystem.h">
       <Filter>Header Files\World\ECS\Internal\System</Filter>
@@ -174,9 +165,6 @@
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Mathemetics.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="ModelManager.h">
@@ -239,8 +227,20 @@
     <ClInclude Include="FileSystem.h">
       <Filter>Header Files\Misc\IO</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderManager.h">
-      <Filter>Header Files\Misc</Filter>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\Misc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Misc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Misc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Misc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files\Misc\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

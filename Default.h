@@ -1,4 +1,9 @@
 #pragma once
+#include "Misc.h"
+#include "Graphics.h"
+#include "Scene.h"
+#include "AssimpImporter.h"
+
 class Default {
 public:
 	static class Textures {

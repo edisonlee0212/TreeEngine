@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "Input.h"
+#include "SystemBase.h"
 class CameraSystem : public SystemBase
 {
 public:

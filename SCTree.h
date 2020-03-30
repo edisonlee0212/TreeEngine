@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "SCEnvelope.h"
+
 #include "SCBranch.h"
 class SCTree {
 public:

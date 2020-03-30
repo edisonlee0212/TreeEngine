@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Default.cpp" />
     <ClCompile Include="includes\glad\src\glad.c" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp" />
@@ -151,9 +152,10 @@
     <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="SCTreeSystem.cpp" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="Time.h" />
+    <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,8 +170,6 @@
     <ClInclude Include="ImGUISystem.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="ECSExternal.h" />
-    <ClInclude Include="ECSInternal.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
@@ -185,7 +185,6 @@
     <ClInclude Include="Mathemetics.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="CatmullClarkModel.h" />
-    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SharedComponentBase.h" />
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h" />
     <ClInclude Include="LocalToParentSystem.h" />

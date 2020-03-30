@@ -1,6 +1,9 @@
 #pragma once
-#include <vector>
-#include <memory>
+#include "Misc.h"
+#include "InternalComponents.h"
+#include "Material.h"
+#include "Mesh.h"
+#include "EntityManager.h"
 class Entity {
 public:
 	Entity* parent;

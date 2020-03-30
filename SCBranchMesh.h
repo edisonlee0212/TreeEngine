@@ -1,4 +1,6 @@
 #pragma once
+#include "Misc.h"
+
 class SCBranchMeshRing {
 public:
 

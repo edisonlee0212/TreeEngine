@@ -1,4 +1,6 @@
 #pragma once
+#include "SystemBase.h"
+
 class LocalToParentSystem : public SystemBase {
 public:
     LocalToParentSystem() : SystemBase() {

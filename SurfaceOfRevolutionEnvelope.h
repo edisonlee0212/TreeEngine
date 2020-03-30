@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "SCEnvelope.h"
+
 class SurfaceOfRevelutionEnvelope : public SCEnvelope {
 public:
 	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : SCEnvelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {}

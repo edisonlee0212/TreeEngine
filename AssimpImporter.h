@@ -1,20 +1,5 @@
 #pragma once
-
-#include <glad/include/glad/glad.h> 
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <stb/stb_image.h>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-
+#include "Misc.h"
 class AssimpImporter {
 public:
 	static void LoadScene(Scene* destination, std::string const& path) {

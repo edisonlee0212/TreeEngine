@@ -1,5 +1,5 @@
 #pragma once
-#include <glfw-3.3/include/GLFW/glfw3.h>
+#include "Misc.h"
 class Input
 {
 public:

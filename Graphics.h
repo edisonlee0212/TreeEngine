@@ -1,4 +1,12 @@
 #pragma once
+#include "Misc.h"
+#include "Camera.h"
+
+#include "Texture.h"
+#include "Shader.h"
+#include "Mesh.h"
+#include "Material.h"
+#include "Default.h"
 class Graphics {
 public:
 	static unsigned int Triangles;

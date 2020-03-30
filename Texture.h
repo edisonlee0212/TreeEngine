@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "SharedComponentBase.h"
+
 class Texture : public SharedComponentBase {
 public:
 	Texture() : SharedComponentBase(){

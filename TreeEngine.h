@@ -1,34 +1,15 @@
 #pragma once
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-#include <imgui_impl_win32.h>
-
-#include <glad/glad.h>
-
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <stb/stb_image.h>
-
-#include <vector>
-#include <memory>
-#include <utility>
-#include <unordered_map>
-
-#include "Debug.h"
-#include "Enums.h"
 #include "Misc.h"
-#include "ECSInternal.h"
+#include "Input.h"
+
 #include "ModelManager.h"
-
-#include "ECSExternal.h"
-
-class World;
-
+#include "TRSToLocalToParentSystem.h"
+#include "TRSToLocalToWorldSystem.h"
+#include "LocalToParentSystem.h"
+#include "CameraSystem.h"
+#include "RenderSystem.h"
+#include "ImGUISystem.h"
+#include "SCTreeSystem.h"
 class TreeEngine {
 public:
 	void GLInit() {

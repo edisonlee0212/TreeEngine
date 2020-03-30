@@ -1,4 +1,7 @@
 #pragma once
+#include "Misc.h"
+#include "Graphics.h"
+#include "World.h"
 #include "SCBranchMesh.h"
 class SCBranch {
 public:
