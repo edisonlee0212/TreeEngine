@@ -1,6 +1,4 @@
-#ifndef SCTREE_H
-#define SCTREE_H
-
+#pragma once
 #include "SCBranch.h"
 class SCTree {
 public:
@@ -23,7 +21,7 @@ public:
 	}
 
 	void Draw() {
-		if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Sphere, material, &matrices[0], World::camera, matrices.size());
+		if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Sphere, material, &matrices[0], World::MainCamera, matrices.size());
 	}
 
 	~SCTree() {
@@ -155,5 +153,3 @@ private:
 		mRoot->Subdivision(pos, 1);
 	}
 };
-
-#endif SCTREE_H

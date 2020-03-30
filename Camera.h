@@ -1,14 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-
-#include <glad/include/glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <vector>
-
-
-
+#pragma once
 // Default camera values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
@@ -132,4 +122,3 @@ private:
     }
 
 };
-#endif CAMERA_H

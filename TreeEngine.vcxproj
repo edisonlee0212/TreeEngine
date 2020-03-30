@@ -151,8 +151,10 @@
     <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="Time.h" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpImporter.h" />
@@ -175,7 +177,6 @@
     <ClInclude Include="SCEnvelope.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Misc.h" />
-    <ClInclude Include="Path.h" />
     <ClInclude Include="SCBranch.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SCTree.h" />
@@ -184,9 +185,9 @@
     <ClInclude Include="Mathemetics.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="CatmullClarkModel.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SharedComponentBase.h" />
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h" />
-    <ClInclude Include="TreeSkeleton.h" />
     <ClInclude Include="LocalToParentSystem.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />

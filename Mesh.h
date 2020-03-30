@@ -1,11 +1,3 @@
-#ifndef MESH_H
-#define MESH_H
-
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glad/include/glad/glad.h>
 #include <cstddef>
 
 struct Vertex {
@@ -119,6 +111,3 @@ private:
         glBindVertexArray(0);
     }
 };
-
-
-#endif MESH_H

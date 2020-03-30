@@ -1,5 +1,4 @@
-#ifndef INTERNALCOMPONENTS_H
-#define INTERNALCOMPONENTS_H
+#pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -31,5 +30,3 @@ struct Scale : ComponentBase
 public:
 	glm::vec3 Value;
 };
-
-#endif INTERNALCOMPONENTS_H

@@ -1,6 +1,4 @@
-#ifndef WINDOW_H
-#define	WINDOW_H
-#include <glfw-3.3/include/GLFW/glfw3.h>
+#pragma once
 class WindowManager
 {
 public:
@@ -9,7 +7,7 @@ public:
     static int GetWidth() { return Width; }
     static int GetHeight() { return Height; }
     static GLFWwindow* GetWindow() { return window; }
-    static void Resize(int, int);
+    static void ResizeCallback(GLFWwindow*, int, int);
     
 private:
     static int Width;
@@ -20,7 +18,7 @@ int WindowManager::Height;
 int WindowManager::Width;
 GLFWwindow* WindowManager::window;
 
-void WindowManager::Resize(int width, int height) {
+void WindowManager::ResizeCallback(GLFWwindow* window, int width, int height) {
     Width = width;
     Height = height;
     glViewport(0, 0, width, height);
@@ -40,8 +38,4 @@ GLFWwindow* WindowManager::CreateWindow(int width, int height) {
     glfwMakeContextCurrent(window);
     return window;
 }
-
-
-#endif WINDOW_H
-
 

@@ -1,5 +1,4 @@
-#ifndef MATERIAL_H
-#define MATERIAL_H
+#pragma once
 class Material : public SharedComponentBase{
 public:
 	~Material() {
@@ -9,4 +8,3 @@ public:
 	std::vector<Texture*> textures;
 	std::size_t hash_code() { return shader->ID; }
 };
-#endif MATERIAL_H

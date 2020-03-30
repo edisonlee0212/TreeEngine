@@ -1,5 +1,4 @@
-#ifndef CYLINDERENVELOPE_H
-#define CYLINDERENVELOPE_H
+#pragma once
 class CylinderEnvelope : public SCEnvelope {
 public:
 	CylinderEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : SCEnvelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {
@@ -14,4 +13,3 @@ bool CylinderEnvelope::isInEnvelope(glm::vec3 point) {
 	float radius = (_XMax - _XMin) / 2.0f;
 	return radius > distance;
 }
-#endif CYLINDERENVELOPE_H

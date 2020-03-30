@@ -1,25 +1,20 @@
-#ifndef SYSTEMMANAGER_H
-#define SYSTEMMANAGER_H
-#include <vector>
+#pragma once
 
-double Time::deltaTime;
-double Time::lastFrameTime;
-double Time::fixedDeltaTime;
+double Time::DeltaTime;
+double Time::LastFrameTime;
+double Time::FixedDeltaTime;
+
 class World
 {
 public:
 	World() {
-		entityManager = new EntityManager();
-		camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO();
-		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(WindowManager::GetWindow(), true);
-		ImGui_ImplOpenGL3_Init("#version 420 core");
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
+		Time::DeltaTime = 0;
+		Time::LastFrameTime = 0;
+		Time::FixedDeltaTime = 0;
+		InitMainCamera();
+		InitImGui();
 		InitSkybox();
+		InitEntityManager();
 		_TimeStep = 0.2f;
 	}
 	template <class T>
@@ -57,26 +52,30 @@ public:
 			i->OnDestroy();
 			delete i;
 		}
-		delete entityManager;
-		delete camera;
+		delete Entities;
+		delete MainCamera;
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 	void Update() {
 		float currentFrame = glfwGetTime();
-		Time::deltaTime = currentFrame - Time::lastFrameTime;
-		Time::lastFrameTime = currentFrame;
-		Time::fixedDeltaTime += Time::deltaTime;
+		Time::DeltaTime = currentFrame - Time::LastFrameTime;
+		Time::LastFrameTime = currentFrame;
+		Time::FixedDeltaTime += Time::DeltaTime;
 		Graphics::DrawCall = 0;
 		Graphics::Triangles = 0;
 		glfwPollEvents();
+		UpdateCameraMatrices();
+
+		
+
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		if (Time::fixedDeltaTime >= _TimeStep) {
-			Time::fixedDeltaTime = 0;
+		if (Time::FixedDeltaTime >= _TimeStep) {
+			Time::FixedDeltaTime = 0;
 			for (auto i : _Systems) {
 				if (i->IsEnabled()) i->FixedUpdate();
 			}
@@ -86,21 +85,58 @@ public:
 			if (i->IsEnabled()) i->Update();
 		}
 
-		//DrawSkybox();
+		DrawSkybox();
 		DrawInfoWindow();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwSwapBuffers(WindowManager::GetWindow());
 	}
-	static EntityManager* entityManager;
-	static Camera* camera;
+	static EntityManager* Entities;
+	static Camera* MainCamera;
 private:
 	std::vector<SystemBase*> _Systems;
 	float _TimeStep;
-
+	unsigned int _CameraMatricesBufferID;
 	Texture* _Skybox;
 	Shader* _SkyboxShader;
 	unsigned int _SkyboxVAO, _SkyboxVBO;
+
+	inline void InitEntityManager() {
+		Entities = new EntityManager();
+	}
+
+	inline void InitImGui() {
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO();
+
+		ImGui_ImplGlfw_InitForOpenGL(WindowManager::GetWindow(), true);
+		ImGui_ImplOpenGL3_Init("#version 420 core");
+		ImGui::StyleColorsDark();
+	}
+
+	inline void InitMainCamera() {
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+		glGenBuffers(1, &_CameraMatricesBufferID);
+		glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
+		glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4) + sizeof(glm::vec4), NULL, GL_STATIC_DRAW);
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		glBindBufferRange(GL_UNIFORM_BUFFER, 0, _CameraMatricesBufferID, 0, 2 * sizeof(glm::mat4));
+	}
+
+	inline void UpdateCameraMatrices() {
+		glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(MainCamera->Projection));
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
+		glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(MainCamera->View));
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
+		glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::vec3), glm::value_ptr(MainCamera->Position));
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	}
 
 	inline void DrawInfoWindow() {
 		ImGui::Begin("World Info");
@@ -210,8 +246,6 @@ private:
 	inline void DrawSkybox() {
 		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 		glUseProgram(_SkyboxShader->ID);
-		_SkyboxShader->setMat4("view", glm::mat4(glm::mat3(World::camera->View)));
-		_SkyboxShader->setMat4("projection", World::camera->Projection);
 		// skybox cube
 		glBindVertexArray(_SkyboxVAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -222,7 +256,5 @@ private:
 	}
 };
 
-Camera* World::camera;
-EntityManager* World::entityManager;
-
-#endif SYSTEMMANAGER_H
+Camera* World::MainCamera;
+EntityManager* World::Entities;

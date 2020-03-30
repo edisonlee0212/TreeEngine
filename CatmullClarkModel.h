@@ -1,5 +1,4 @@
-#ifndef CATMULLCLARKMODEL_H
-#define CATMULLCLARKMODEL_H
+#pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -462,6 +461,3 @@ private:
 		}
 	}
 };
-
-
-#endif CATMULLCLARKMODEL_H

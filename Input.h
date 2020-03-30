@@ -1,5 +1,4 @@
-#ifndef INPUTSYSTEM_H
-#define INPUTSYSTEM_H
+#pragma once
 #include <glfw-3.3/include/GLFW/glfw3.h>
 class Input
 {
@@ -112,5 +111,4 @@ bool Input::_KeyUp[349];
 bool Input::_MousePressed[8];
 bool Input::_MouseDown[8];
 bool Input::_MouseUp[8];
-#endif INPUTSYSTEM_H
 

@@ -1,11 +1,18 @@
 #version 420 core
+layout (std140, binding = 0) uniform CameraMatrices
+{
+    mat4 projection;
+    mat4 view;
+    vec3 viewPos;
+};
+
+
 out vec4 FragColor;
 
 in vec3 Normal;  
 in vec3 FragPos;  
   
 uniform vec3 lightPos; 
-uniform vec3 viewPos; 
 uniform vec3 lightColor;
 uniform vec3 objectColor;
 

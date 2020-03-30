@@ -1,6 +1,4 @@
-#ifndef SCENVELOPE_H
-#define SCENVELOPE_H
-
+#pragma once
 class SCEnvelope {
 public:
 	SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :
@@ -21,7 +19,7 @@ public:
 
 	void Draw() {
 		if (_PointPositions.size() > 0) {
-			Graphics::DrawMeshInstanced(Default::Primitives::Sphere, _PointMat, &_PointMatrices[0], World::camera, _PointMatrices.size());
+			Graphics::DrawMeshInstanced(Default::Primitives::Sphere, _PointMat, &_PointMatrices[0], World::MainCamera, _PointMatrices.size());
 		}
 	}
 	bool PointsGenerated() { return _PointsGenerated; }
@@ -69,6 +67,4 @@ protected:
 	std::vector<glm::mat4> _PointMatrices;
 	Material* _PointMat;
 };
-
-#endif SCENVELOPE_H
 

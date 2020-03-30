@@ -1,5 +1,4 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 #include <vector>
 #include <memory>
 class Entity {
@@ -29,4 +28,3 @@ private:
 	unsigned int _Index;
 	friend class EntityManager;
 };
-#endif ENTITY_H

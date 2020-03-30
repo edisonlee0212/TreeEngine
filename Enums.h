@@ -1,5 +1,4 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+#pragma once
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific inputManager methods
 enum Camera_Movement {
     FORWARD,
@@ -9,5 +8,4 @@ enum Camera_Movement {
     UP,
     DOWN
 };
-#endif ENUMS_H
 

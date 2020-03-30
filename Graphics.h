@@ -1,8 +1,5 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
-
+#pragma once
 class Graphics {
-
 public:
 	static unsigned int Triangles;
 	static unsigned int DrawCall;
@@ -35,9 +32,6 @@ public:
 		material->shader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 		material->shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 		material->shader->setVec3("lightPos", 0.0f, 1.0f, 0.0f);
-		material->shader->setVec3("viewPos", camera->Position);
-		material->shader->setMat4("projection", camera->Projection);
-		material->shader->setMat4("view", camera->View);
 		unsigned int diffuseNr = 1;
 		unsigned int specularNr = 1;
 		unsigned int normalNr = 1;
@@ -149,11 +143,6 @@ public:
 		material->shader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
 #pragma endregion
-
-
-		material->shader->setVec3("viewPos", camera->Position);
-		material->shader->setMat4("projection", camera->Projection);
-		material->shader->setMat4("view", camera->View);
 		material->shader->setMat4("model", matrix);
 		unsigned int diffuseNr = 1;
 		unsigned int specularNr = 1;
@@ -202,4 +191,3 @@ public:
 };
 unsigned int Graphics::Triangles;
 unsigned int Graphics::DrawCall;
-#endif GRAPHICS_H

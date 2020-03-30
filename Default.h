@@ -1,5 +1,4 @@
-#ifndef DEFAULT_H
-#define DEFAULT_H
+#pragma once
 class Default {
 public:
 	static class Textures {
@@ -72,4 +71,3 @@ Mesh* Default::Primitives::Cube;
 Mesh* Default::Primitives::Quad;
 Mesh* Default::Primitives::Cone;
 Mesh* Default::Primitives::Cylinder;
-#endif DEFAULT_H

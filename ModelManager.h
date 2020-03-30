@@ -1,6 +1,4 @@
-#ifndef MODELMANAGER_H
-#define MODELMANAGER_H
-
+#pragma once
 
 #include <glad/include/glad/glad.h> 
 
@@ -62,7 +60,7 @@ void ModelManager::ProcessNode(std::string directory, Shader* shader, Entity* _P
         entities.push_back(entity);
         LocalToParent ltp;
         ltp.Value = glm::mat4(1.0f);
-        World::entityManager->SetComponent<LocalToParent>(entity, ltp);
+        World::Entities->SetComponent<LocalToParent>(entity, ltp);
         entity->parent = _Parent;
         entity->ToDraw = true;
     }
@@ -73,7 +71,7 @@ void ModelManager::ProcessNode(std::string directory, Shader* shader, Entity* _P
 }
 
 Entity* ModelManager::ReadMesh(std::string directory, Shader* shader, std::vector<Texture*>* texturesLoaded, aiMesh* mesh, const aiScene* scene) {
-    Entity* entity = World::entityManager->CreateEntity();
+    Entity* entity = World::Entities->CreateEntity();
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
@@ -172,6 +170,3 @@ std::vector<Texture*> ModelManager::LoadMaterialTextures(std::string directory, 
     }
     return textures;
 }
-
-
-#endif MODELMANAGER_H

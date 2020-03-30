@@ -1,5 +1,4 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#pragma once
 #include <iostream>
 #include <vector>
 class Debug
@@ -26,4 +25,3 @@ public:
 
 std::vector<std::string> Debug::mErrorMessages;
 std::vector<std::string> Debug::mLogMessages;
-#endif DEBUG_H

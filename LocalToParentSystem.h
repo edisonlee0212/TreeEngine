@@ -1,6 +1,4 @@
-#ifndef LOCALTOPARENT_H
-#define LOCALTOPARENT_H
-
+#pragma once
 class LocalToParentSystem : public SystemBase {
 public:
     LocalToParentSystem() : SystemBase() {
@@ -16,17 +14,14 @@ public:
 };
 
 void LocalToParentSystem::Update() {
-    auto entities = World::entityManager->GetAllEntities();
+    auto entities = World::Entities->GetAllEntities();
     for (auto i : *entities) {
         if (i->parent != nullptr) {
-            auto ltp = World::entityManager->GetComponent<LocalToParent>(i).Value;
-            auto ltw = World::entityManager->GetComponent<LocalToWorld>(i->parent).Value;
+            auto ltp = World::Entities->GetComponent<LocalToParent>(i).Value;
+            auto ltw = World::Entities->GetComponent<LocalToWorld>(i->parent).Value;
             LocalToWorld in;
             in.Value = ltw * ltp;
-            World::entityManager->SetComponent<LocalToWorld>(i, in);
+            World::Entities->SetComponent<LocalToWorld>(i, in);
         }
     }
 }
-
-#endif LOCALTOPARENT_H
-

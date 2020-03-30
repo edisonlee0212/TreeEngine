@@ -1,5 +1,4 @@
-#ifndef SCBRANCHMESH_H
-#define SCBRANCHMESH_H
+#pragma once
 class SCBranchMeshRing {
 public:
 
@@ -16,5 +15,3 @@ public:
 
 	}
 };
-
-#endif SCBRANCHMESH_H

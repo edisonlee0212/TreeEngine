@@ -1,5 +1,4 @@
-#ifndef ASSIMPIMPORTER_H
-#define ASSIMPIMPORTER_H
+#pragma once
 
 #include <glad/include/glad/glad.h> 
 
@@ -159,4 +158,3 @@ private:
         return textures;
     }
 };
-#endif ASSIMPIMPORTER_H

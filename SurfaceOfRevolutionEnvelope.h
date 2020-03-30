@@ -1,6 +1,4 @@
-#ifndef SURFACEOFREVOLUTIONENVELOPE_H
-#define SURFACEOFREVOLUTIONENVELOPE_H
-
+#pragma once
 class SurfaceOfRevelutionEnvelope : public SCEnvelope {
 public:
 	SurfaceOfRevelutionEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) : SCEnvelope(xMax, yMax, zMax, xMin, yMin, zMin, material) {}
@@ -22,6 +20,3 @@ bool SurfaceOfRevelutionEnvelope::isInEnvelope(glm::vec3 point) {
 	float distance = glm::sqrt(point.x * point.x + point.z * point.z);
 	return GetRadius(height) > distance;
 }
-
-#endif SURFACEOFREVOLUTIONENVELOPE_H
-

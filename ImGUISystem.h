@@ -1,6 +1,4 @@
-#ifndef IMGUISYSTEM_H
-#define IMGUISYSTEM_H
-
+#pragma once
 class ImGUISystem : public SystemBase {
 public:
 	ImGUISystem() : SystemBase() {
@@ -27,6 +25,3 @@ public:
 		
 	}
 };
-
-#endif IMGUISYSTEM_H
-

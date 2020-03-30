@@ -1,5 +1,4 @@
-#ifndef SCENE_H
-#define SCENE_H
+#pragma once
 
 class SceneNode {
 public:
@@ -35,4 +34,3 @@ public:
 	}
 };
 
-#endif SCENE_H

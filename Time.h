@@ -1,9 +1,8 @@
-#ifndef TIME_H
-#define TIME_H
+#pragma once
 class Time {
 public:
-	static double fixedDeltaTime;
-	static double deltaTime;
-	static double lastFrameTime;
+	static double FixedDeltaTime;
+	static double DeltaTime;
+	static double LastFrameTime;
 };
-#endif TIME_H
+

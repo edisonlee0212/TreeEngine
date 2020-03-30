@@ -1,5 +1,4 @@
-#ifndef SCTRESOURCESYSTEM_H
-#define SCTRESOURCESYSTEM_H
+#pragma once
 #include "SCEnvelope.h"
 #include "SCTree.h"
 #include "SurfaceOfRevolutionEnvelope.h"
@@ -143,5 +142,3 @@ inline void SCTreeSystem::TreeGUIMenu() {
 	ImGui::Text("Iteration = %d", _Iteration);
 	ImGui::End();
 }
-
-#endif SCTRESOURCESYSTEM_H

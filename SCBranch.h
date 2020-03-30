@@ -1,5 +1,4 @@
-#ifndef SCBRANCH_H
-#define SCBRANCH_H
+#pragma once
 #include "SCBranchMesh.h"
 class SCBranch {
 public:
@@ -36,7 +35,7 @@ public:
 		}
 	}
 	void Draw() {
-		Graphics::DrawMesh(Default::Primitives::Cube, transform, mat, World::camera);
+		Graphics::DrawMesh(Default::Primitives::Cube, transform, mat, World::MainCamera);
 		for (auto i : mChildren) i->Draw();
 	}
 
@@ -131,4 +130,3 @@ public:
 		}
 	}
 };
-#endif SCBRANCH_H

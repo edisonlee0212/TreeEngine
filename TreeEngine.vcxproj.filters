@@ -105,6 +105,12 @@
     <ClCompile Include="includes\glad\src\glad.c">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeEngine.h">
@@ -114,9 +120,6 @@
       <Filter>Header Files\World</Filter>
     </ClInclude>
     <ClInclude Include="CatmullClarkModel.h">
-      <Filter>Header Files\Misc\CatmullClark</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeSkeleton.h">
       <Filter>Header Files\Misc\CatmullClark</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
@@ -200,9 +203,6 @@
     <ClInclude Include="Default.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ImGUISystem.h">
       <Filter>Header Files\World\ECS\Internal\System</Filter>
     </ClInclude>
@@ -238,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="FileSystem.h">
       <Filter>Header Files\Misc\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

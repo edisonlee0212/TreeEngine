@@ -1,10 +1,6 @@
-#ifndef ENTITYMANAGER_H
-#define ENTITYMANAGER_H
-#include <vector>
-#include <memory>
+#pragma once
 #include <unordered_map>
 #include <utility>
-#include <string>
 #include <typeinfo>
 #include "Entity.h"
 class EntityManager {
@@ -99,4 +95,3 @@ private:
 		std::pair<SharedComponentBase*, std::vector<Entity*>*>*>*> _SharedComponentsStorage;
 	std::vector<Entity*> _Entities;
 };
-#endif ENTITYMANAGER_H

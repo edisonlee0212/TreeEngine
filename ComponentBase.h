@@ -1,7 +1,5 @@
-#ifndef COMPONENTBASE_H
-#define COMPONENTBASE_H
+#pragma once
 struct ComponentBase
 {
 
 };
-#endif COMPONENTBASE_H

@@ -1,8 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
-#include <glad/include/glad/glad.h>
-#include <stb/stb_image.h>
-#include <vector>
+#pragma once
 class Texture : public SharedComponentBase {
 public:
 	Texture() : SharedComponentBase(){
@@ -99,4 +95,3 @@ private:
     std::string _Path;
 };
 Texture* defaultTexture;
-#endif TEXTURE_H

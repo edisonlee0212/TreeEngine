@@ -1,6 +1,4 @@
-#ifndef SYSTEMBASE_H
-#define SYSTEMBASE_H
-
+#pragma once
 class SystemBase {
 public:
 	SystemBase() { _Enabled = false; }
@@ -30,4 +28,3 @@ public:
 public:
 	bool _Enabled;
 };
-#endif SYSTEMBASE_H

@@ -1,6 +1,4 @@
-#ifndef TRSTOLOCALTOWORLDSYSTEM_H
-#define TRSTOLOCALTOWORLDSYSTEM_H
-
+#pragma once
 class TRSToLocalToWorldSystem : public SystemBase {
 public:
     TRSToLocalToWorldSystem() : SystemBase() {
@@ -16,19 +14,16 @@ public:
 };
 
 void TRSToLocalToWorldSystem::Update() {
-    auto entities = World::entityManager->GetAllEntities();
+    auto entities = World::Entities->GetAllEntities();
     for (auto i : *entities) {
-        auto t = World::entityManager->GetComponent<Translation>(i);
-        auto r = World::entityManager->GetComponent<Rotation>(i);
-        auto s = World::entityManager->GetComponent<Scale>(i);
+        auto t = World::Entities->GetComponent<Translation>(i);
+        auto r = World::Entities->GetComponent<Rotation>(i);
+        auto s = World::Entities->GetComponent<Scale>(i);
         if (i->parent == nullptr) {
             LocalToWorld ltw;
             ltw.Value = glm::translate(glm::mat4(1.0f), t.Value);
             ltw.Value = glm::scale(ltw.Value, s.Value);
-            World::entityManager->SetComponent<LocalToWorld>(i, ltw);
+            World::Entities->SetComponent<LocalToWorld>(i, ltw);
         }
     }
 }
-
-#endif TRSTOLOCALTOWORLDSYSTEM_H
-
