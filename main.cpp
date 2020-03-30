@@ -1,4 +1,21 @@
 #include "TreeEngine.h"
+void LoadNanoSuit(glm::vec3, glm::vec3);
+
+
+#pragma region USELESS
+
+void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
+	Entity* entity = World::Entities->CreateEntity();
+	Translation t;
+	t.Value = position;
+	Scale s;
+	s.Value = scale;
+	World::Entities->SetComponent<Translation>(entity, t);
+	World::Entities->SetComponent<Scale>(entity, s);
+	Shader* modelShader = new Shader("src/Materials/Shaders/Default.vert", "src/Materials/Shaders/Default.frag");
+	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
+}
+#pragma endregion
 
 int main()
 {
@@ -14,9 +31,9 @@ int main()
 	World::Entities->SetComponent<Scale>(entity, scale);
 	entity->mesh = Default::Primitives::Sphere;
 	auto mat = new Material();
-	mat->shader = new Shader("src/Materials/Shaders/Vertex/LightDefault.vert", "src/Materials/Shaders/Fragment/MultipleLights.frag");
+	mat->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	auto texture = new Texture();
-	texture->LoadTexture("src/Materials/Textures/white.png", "");
+	texture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
 
 
 

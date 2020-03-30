@@ -2,6 +2,7 @@
 #include "Misc.h"
 #include "Input.h"
 #include "SystemBase.h"
+#include "World.h"
 class CameraSystem : public SystemBase
 {
 public:

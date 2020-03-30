@@ -14,8 +14,9 @@ struct SpotLight {
     vec3 specular;       
 };
 
-layout (std140, binding = 2) uniform SpotLights
+layout (std140, binding = 3) uniform SpotLightBlock
 {
+    int SpotLightCount;
     SpotLight SpotLights[SPOT_LIGHTS_AMOUNT];
 };
 

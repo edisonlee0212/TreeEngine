@@ -3,7 +3,7 @@
 #include "Graphics.h"
 #include "Scene.h"
 #include "AssimpImporter.h"
-
+#include "FileSystem.h"
 class Default {
 public:
 	static class Textures {
@@ -23,12 +23,12 @@ public:
 
 	static void Load() {
 		Textures::MissingTexture = new Texture();
-		Textures::MissingTexture->LoadTexture("src/Materials/Textures/texture-missing.png", "");
+		Textures::MissingTexture->LoadTexture(FileSystem::GetPath("Textures/texture-missing.png"), "");
 		Textures::UV = new Texture();
-		Textures::UV->LoadTexture("src/Materials/Textures/uv-test.png", "");
+		Textures::UV->LoadTexture(FileSystem::GetPath("Textures/uv-test.png"), "");
 
 		Scene* scene = new Scene();
-		AssimpImporter::LoadScene(scene, "src/Materials/Primitives/sphere.obj");
+		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/sphere.obj"));
 		Primitives::Sphere = new Mesh();
 		Mesh* mesh = scene->mMeshes[0];
 		Primitives::Sphere->Set(&mesh->vertices, &mesh->triangles);
@@ -36,7 +36,7 @@ public:
 		delete scene;
 
 		scene = new Scene();
-		AssimpImporter::LoadScene(scene, "src/Materials/Primitives/cube.obj");
+		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cube.obj"));
 		Primitives::Cube = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cube->Set(&mesh->vertices, &mesh->triangles);
@@ -44,7 +44,7 @@ public:
 		delete scene;
 
 		scene = new Scene();
-		AssimpImporter::LoadScene(scene, "src/Materials/Primitives/quad.obj");
+		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/quad.obj"));
 		Primitives::Quad = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Quad->Set(&mesh->vertices, &mesh->triangles);
@@ -52,7 +52,7 @@ public:
 		delete scene;
 
 		scene = new Scene();
-		AssimpImporter::LoadScene(scene, "src/Materials/Primitives/cone.obj");
+		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cone.obj"));
 		Primitives::Cone = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cone->Set(&mesh->vertices, &mesh->triangles);
@@ -60,7 +60,7 @@ public:
 		delete scene;
 
 		scene = new Scene();
-		AssimpImporter::LoadScene(scene, "src/Materials/Primitives/cylinder.obj");
+		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cylinder.obj"));
 		Primitives::Cylinder = new Mesh();
 		mesh = scene->mMeshes[0];
 		Primitives::Cylinder->Set(&mesh->vertices, &mesh->triangles);
@@ -69,10 +69,4 @@ public:
 	}
 };
 
-Texture* Default::Textures::MissingTexture;
-Texture* Default::Textures::UV;
-Mesh* Default::Primitives::Sphere;
-Mesh* Default::Primitives::Cube;
-Mesh* Default::Primitives::Quad;
-Mesh* Default::Primitives::Cone;
-Mesh* Default::Primitives::Cylinder;
+

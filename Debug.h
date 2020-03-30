@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include <vector>
 class Debug
 {
 public:
@@ -20,6 +23,3 @@ public:
 	static std::vector<std::string> mLogMessages;
 	static std::vector<std::string> mErrorMessages;
 };
-
-std::vector<std::string> Debug::mErrorMessages;
-std::vector<std::string> Debug::mLogMessages;

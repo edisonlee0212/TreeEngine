@@ -12,7 +12,8 @@ struct PointLight {
 };
 
 
-layout (std140, binding = 1) uniform PointsLight
+layout (std140, binding = 2) uniform PointsLightBlock
 {
+    int PointLightCount;
     PointLight PointLights[POINT_LIGHTS_AMOUNT];
 };

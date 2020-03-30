@@ -23,10 +23,10 @@ public:
             _ID = 0;
         }
     }
-    void LoadTexture(const char* path, const std::string& directory)
+    void LoadTexture(std::string path, const std::string& directory)
     {
         Clear();
-        std::string filename = std::string(path);
+        std::string filename = path;
         if(!directory._Equal(""))
         filename = directory + '/' + filename;
         glGenTextures(1, &_ID);
@@ -97,4 +97,3 @@ private:
     std::string _Type;
     std::string _Path;
 };
-Texture* defaultTexture;

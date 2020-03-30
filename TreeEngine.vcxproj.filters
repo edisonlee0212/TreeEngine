@@ -1,246 +1,275 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Misc">
-      <UniqueIdentifier>{27c0c9fd-f6b3-451c-b92e-67f950741c22}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\World">
+    <Filter Include="Source Files\World">
       <UniqueIdentifier>{25bd7c84-d460-46d3-a5f9-6813fd39cceb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tree">
-      <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\ECS">
+    <Filter Include="Source Files\World\ECS">
       <UniqueIdentifier>{fe7f0fdb-626f-4358-bdd7-9138525bbbbc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\Internal">
+    <Filter Include="Source Files\World\ECS\Internal">
       <UniqueIdentifier>{2dc10e81-1966-4270-8b1e-8bea95d990c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\Internal\Component">
+    <Filter Include="Source Files\World\ECS\Internal\Component">
       <UniqueIdentifier>{08868755-9e53-43b5-a016-6f7f487e4866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\Internal\Component\SharedComponents">
+    <Filter Include="Source Files\World\ECS\Internal\Component\SharedComponents">
       <UniqueIdentifier>{9a98a8a2-e999-4e7a-99dd-9870913f8384}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\Internal\Entity">
+    <Filter Include="Source Files\World\ECS\Internal\Entity">
       <UniqueIdentifier>{166410fa-c0ac-4115-8580-4aa9d7077425}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\Internal\System">
+    <Filter Include="Source Files\World\ECS\Internal\System">
       <UniqueIdentifier>{70594da2-c132-429d-bd0c-4e2e4d61bc93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\External">
+    <Filter Include="Source Files\World\ECS\External">
       <UniqueIdentifier>{1d12c56f-93f7-43c4-89a4-1956f2a1215b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\External\System">
+    <Filter Include="Source Files\World\ECS\External\System">
       <UniqueIdentifier>{8fc8be71-720d-4c0d-af40-646bfe3110da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\External\Entity">
+    <Filter Include="Source Files\World\ECS\External\Entity">
       <UniqueIdentifier>{2f907305-d71e-4a39-9330-5a6da3c7c4cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\World\ECS\External\Component">
+    <Filter Include="Source Files\World\ECS\External\Component">
       <UniqueIdentifier>{d05ad54a-0456-4f9c-8f98-1ea54a431484}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Misc">
-      <UniqueIdentifier>{0f06d84a-981b-49ae-adae-03a4f5131e76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\World\ECS\External\Component\SharedComponents">
+    <Filter Include="Source Files\World\ECS\External\Component\SharedComponents">
       <UniqueIdentifier>{6686da2c-7f5f-4da1-990a-db94c777b023}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tree\SCTree">
+    <Filter Include="Source Files\Tree">
+      <UniqueIdentifier>{0b554716-9bca-4baf-86d9-70d296401b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tree\SCTree">
       <UniqueIdentifier>{80af725a-27cb-4d5b-9d6f-6e28387465c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tree\SCTree\Envelopes">
+    <Filter Include="Source Files\Tree\SCTree\Envelopes">
       <UniqueIdentifier>{6cd76c26-17e4-4896-a1b5-ac0fb848d56d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Misc\CatmullClark">
-      <UniqueIdentifier>{643c801f-6798-429c-bde6-14c49cc91fd9}</UniqueIdentifier>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{0f06d84a-981b-49ae-adae-03a4f5131e76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Misc\IO">
+    <Filter Include="Source Files\Misc\IO">
       <UniqueIdentifier>{4a047589-89b9-4fd6-8d98-38c999999a47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Misc\Graphics">
+    <Filter Include="Source Files\Misc\Graphics">
       <UniqueIdentifier>{d2b87861-3aed-4218-be56-8c85706a839b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc\External">
+      <UniqueIdentifier>{84f0f838-d627-4cc9-8eef-9fba4bc2e9d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\stb.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="Time.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\examples\imgui_impl_win32.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\imgui.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\imgui_demo.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\imgui_draw.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\ImGUI\imgui_widgets.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
     <ClCompile Include="includes\glad\src\glad.c">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_demo.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_draw.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\examples\imgui_impl_win32.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\ImGUI\imgui_widgets.cpp">
+      <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Default.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TRSToLocalToParentSystem.cpp">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TRSToLocalToWorldSystem.cpp">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
+    </ClCompile>
+    <ClCompile Include="LocalToParentSystem.cpp">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClCompile>
     <ClCompile Include="SCTreeSystem.cpp">
+      <Filter>Source Files\World\ECS\External\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeEngine.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\World</Filter>
     </ClCompile>
     <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Default.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
+      <Filter>Source Files\Misc\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="stb.cpp">
+      <Filter>Source Files\Misc\External</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeEngine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>Header Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="CatmullClarkModel.h">
-      <Filter>Header Files\Misc\CatmullClark</Filter>
+      <Filter>Source Files\World</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\World\ECS\Internal\Entity</Filter>
+      <Filter>Source Files\World\ECS\Internal\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\World\ECS\Internal\Entity</Filter>
+      <Filter>Source Files\World\ECS\Internal\Entity</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceOfRevolutionEnvelope.h">
-      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+      <Filter>Source Files\Tree\SCTree\Envelopes</Filter>
     </ClInclude>
     <ClInclude Include="CameraSystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="LocalToParentSystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="TRSToLocalToParentSystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="TRSToLocalToWorldSystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="InternalComponents.h">
-      <Filter>Header Files\World\ECS\Internal\Component</Filter>
+      <Filter>Source Files\World\ECS\Internal\Component</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathemetics.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="ModelManager.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Misc.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Debug.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="AssimpImporter.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Default.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="ImGUISystem.h">
-      <Filter>Header Files\World\ECS\Internal\System</Filter>
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
     <ClInclude Include="SystemBase.h">
-      <Filter>Header Files\World\ECS</Filter>
+      <Filter>Source Files\World\ECS</Filter>
     </ClInclude>
     <ClInclude Include="ComponentBase.h">
-      <Filter>Header Files\World\ECS</Filter>
+      <Filter>Source Files\World\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SharedComponentBase.h">
-      <Filter>Header Files\World\ECS</Filter>
+      <Filter>Source Files\World\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SCTreeSystem.h">
-      <Filter>Header Files\World\ECS\External\System</Filter>
+      <Filter>Source Files\World\ECS\External\System</Filter>
     </ClInclude>
     <ClInclude Include="SCBranch.h">
-      <Filter>Header Files\Tree\SCTree</Filter>
+      <Filter>Source Files\Tree\SCTree</Filter>
     </ClInclude>
     <ClInclude Include="SCTree.h">
-      <Filter>Header Files\Tree\SCTree</Filter>
+      <Filter>Source Files\Tree\SCTree</Filter>
     </ClInclude>
     <ClInclude Include="SCEnvelope.h">
-      <Filter>Header Files\Tree\SCTree</Filter>
+      <Filter>Source Files\Tree\SCTree</Filter>
     </ClInclude>
     <ClInclude Include="SCBranchMesh.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="CubeEnvelope.h">
-      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+      <Filter>Source Files\Tree\SCTree\Envelopes</Filter>
     </ClInclude>
     <ClInclude Include="CylinderEnvelope.h">
-      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
+      <Filter>Source Files\Tree\SCTree\Envelopes</Filter>
     </ClInclude>
     <ClInclude Include="FileSystem.h">
-      <Filter>Header Files\Misc\IO</Filter>
+      <Filter>Source Files\Misc\IO</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files\Misc\Graphics</Filter>
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Misc\Graphics</Filter>
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files\Misc\Graphics</Filter>
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files\Misc\Graphics</Filter>
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
-      <Filter>Header Files\Misc\Graphics</Filter>
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

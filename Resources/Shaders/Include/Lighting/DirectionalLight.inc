@@ -6,7 +6,8 @@ struct DirectionalLight {
     vec3 specular;
 };
 
-layout (std140, binding = 1) uniform DirectionalLights
+layout (std140, binding = 1) uniform DirectionalLightBlock
 {
+    int DirectionalLightCount;
     DirectionalLight DirectionalLights[DIRECTIONAL_LIGHTS_AMOUNT];
 };

@@ -3,3 +3,5 @@ struct Material {
     sampler2D specular;
     float shininess;
 };
+
+uniform Material material;
