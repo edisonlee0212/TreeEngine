@@ -10,13 +10,13 @@
 void SCTreeSystem::OnCreate() {
 	_EnvelopePointMaterial = new Material();
 	_EnvelopePointMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/LightDefault.frag"));
-	_EnvelopeTexture = new Texture();
-	_EnvelopeTexture->LoadTexture(FileSystem::GetPath("src/Materials/Textures/white.png"), "");
+	_EnvelopeTexture = new Texture(Material_Type::DIFFUSE);
+	_EnvelopeTexture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
 	_EnvelopePointMaterial->textures.push_back(_EnvelopeTexture);
 
 	_TreeBranchMaterial = new Material();
 	_TreeBranchMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/LightDefault.frag"));
-	_BranchTexture = new Texture();
+	_BranchTexture = new Texture(Material_Type::DIFFUSE);
 	_BranchTexture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
 	_TreeBranchMaterial->textures.push_back(_BranchTexture);
 	_GrowDist = 0.3f;

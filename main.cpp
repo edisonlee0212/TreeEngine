@@ -12,8 +12,8 @@ void LoadNanoSuit(glm::vec3 position, glm::vec3 scale) {
 	s.Value = scale;
 	World::Entities->SetComponent<Translation>(entity, t);
 	World::Entities->SetComponent<Scale>(entity, s);
-	Shader* modelShader = new Shader("src/Materials/Shaders/Default.vert", "src/Materials/Shaders/Default.frag");
-	ModelManager::LoadModel(entity, modelShader, "Models/nanosuit/nanosuit.obj");
+	Shader* modelShader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
+	ModelManager::LoadModel(entity, modelShader, "Resources/Models/nanosuit/nanosuit.obj");
 }
 #pragma endregion
 
@@ -21,7 +21,7 @@ int main()
 {
 	TreeEngine* engine = new TreeEngine();
 	engine->Start();
-
+	LoadNanoSuit(glm::vec3(-4.0f, 0.0f, 0.0f), glm::vec3(0.2f));
 	auto entity = World::Entities->CreateEntity();
 	Translation translation = Translation();
 	translation.Value = glm::vec3(0.0f, -4.0f, 0.0f);
@@ -29,11 +29,11 @@ int main()
 	scale.Value = glm::vec3(1.0f);
 	World::Entities->SetComponent<Translation>(entity, translation);
 	World::Entities->SetComponent<Scale>(entity, scale);
-	entity->mesh = Default::Primitives::Sphere;
+	entity->mesh = Default::Primitives::Cube;
 	auto mat = new Material();
 	mat->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
-	auto texture = new Texture();
-	texture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
+	auto texture = new Texture(Material_Type::DIFFUSE);
+	texture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
 
 
 

@@ -1,4 +1,4 @@
-layout (std140, binding = 0) uniform Camera
+layout (std140, binding = 0) uniform MainCameraBlock
 {
     mat4 CameraProjection;
     mat4 CameraView;

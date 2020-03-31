@@ -6,6 +6,7 @@
 #include "RenderSystem.h"
 #include "ImGUISystem.h"
 #include "SCTreeSystem.h"
+#include "LightingSystem.h"
 Camera* World::MainCamera;
 EntityManager* World::Entities;
 
@@ -25,8 +26,8 @@ World::World() {
 	CreateSystem<CameraSystem>();
 	CreateSystem<RenderSystem>();
 	CreateSystem<ImGUISystem>();
-
-	//CreateSystem<SCTreeSystem>();
+	CreateSystem<LightingSystem>();
+	CreateSystem<SCTreeSystem>();
 }
 template <class T>
 T* World::CreateSystem() {
@@ -77,11 +78,6 @@ void World::Update() {
 	Graphics::DrawCall = 0;
 	Graphics::Triangles = 0;
 	glfwPollEvents();
-	UpdateCameraMatrices();
-
-
-
-
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -122,23 +118,6 @@ inline void World::InitImGui() {
 
 inline void World::InitMainCamera() {
 	MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-	glGenBuffers(1, &_CameraMatricesBufferID);
-	glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
-	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4) + sizeof(glm::vec4), NULL, GL_STATIC_DRAW);
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 0, _CameraMatricesBufferID, 0, 2 * sizeof(glm::mat4));
-}
-
-inline void World::UpdateCameraMatrices() {
-	glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(MainCamera->Projection));
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
-	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(MainCamera->View));
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBuffer(GL_UNIFORM_BUFFER, _CameraMatricesBufferID);
-	glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::vec3), glm::value_ptr(MainCamera->Position));
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 inline void World::DrawInfoWindow() {
@@ -174,7 +153,7 @@ inline void World::DrawInfoWindow() {
 }
 
 inline void World::InitSkybox() {
-	_Skybox = new Texture();
+	_Skybox = new Texture(Material_Type::DIFFUSE);
 	std::vector<std::string> facesPath
 	{
 		FileSystem::GetPath("Textures/Skyboxes/Default/right.jpg"),

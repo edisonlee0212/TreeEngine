@@ -27,10 +27,11 @@ void TreeEngine::GLInit() {
 void TreeEngine::Start() {
 	_Looping = false;
 	GLInit();
+	Default::Load();
 	world = new World();
 	
 
-	Default::Load();
+	
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_DEPTH_TEST);

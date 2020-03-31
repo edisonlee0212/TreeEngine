@@ -146,14 +146,17 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Misc\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="FileSystem.cpp">
       <Filter>Source Files\Misc\IO</Filter>
     </ClCompile>
     <ClCompile Include="stb.cpp">
       <Filter>Source Files\Misc\External</Filter>
+    </ClCompile>
+    <ClCompile Include="LightingSystem.cpp">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Source Files\Misc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="LightingSystem.h">
+      <Filter>Source Files\World\ECS\Internal\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -102,20 +102,20 @@ private:
 
     static void ReadMaterial(std::string directory, aiMaterial* src, Material* dest, std::vector<Texture*>* texturesLoaded) {
         auto textures = &dest->textures;
-        std::vector<Texture*> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<Texture*> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_DIFFUSE, Material_Type::DIFFUSE);
         textures->insert(textures->end(), diffuseMaps.begin(), diffuseMaps.end());
         // 2. specular maps
-        std::vector<Texture*> specularMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_SPECULAR, "texture_specular");
+        std::vector<Texture*> specularMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_SPECULAR, Material_Type::SPECULAR);
         textures->insert(textures->end(), specularMaps.begin(), specularMaps.end());
         // 3. normal maps
-        std::vector<Texture*> normalMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_HEIGHT, "texture_normal");
+        std::vector<Texture*> normalMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_HEIGHT, Material_Type::NORMAL);
         textures->insert(textures->end(), normalMaps.begin(), normalMaps.end());
         // 4. height maps
-        std::vector<Texture*> heightMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_AMBIENT, "texture_height");
+        std::vector<Texture*> heightMaps = LoadMaterialTextures(directory, texturesLoaded, src, aiTextureType_AMBIENT, Material_Type::HEIGHT);
         textures->insert(textures->end(), heightMaps.begin(), heightMaps.end());
     }
 
-    static inline std::vector<Texture*> LoadMaterialTextures(std::string directory, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, std::string typeName) {
+    static inline std::vector<Texture*> LoadMaterialTextures(std::string directory, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, Material_Type typeName) {
         std::vector<Texture*> textures;
         for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
@@ -134,7 +134,7 @@ private:
             }
             if (!skip)
             {   // if texture hasn't been loaded already, load it
-                Texture* texture = new Texture();
+                Texture* texture = new Texture(typeName); 
                 texture->LoadTexture(str.C_Str(), directory);
                 textures.push_back(texture);
                 texturesLoaded->push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.

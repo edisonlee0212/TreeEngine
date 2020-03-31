@@ -154,6 +154,7 @@
     <ClCompile Include="includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LightingSystem.cpp" />
     <ClCompile Include="LocalToParentSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="LightingSystem.h" />
     <ClInclude Include="SCBranchMesh.h" />
     <ClInclude Include="SCEnvelope.h" />
     <ClInclude Include="Graphics.h" />

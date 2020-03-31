@@ -23,7 +23,7 @@ public:
 private:
 	std::vector<SystemBase*> _Systems;
 	float _TimeStep;
-	unsigned int _CameraMatricesBufferID;
+	
 	Texture* _Skybox;
 	Shader* _SkyboxShader;
 	unsigned int _SkyboxVAO, _SkyboxVBO;
@@ -33,8 +33,6 @@ private:
 	inline void InitImGui();
 
 	inline void InitMainCamera();
-
-	inline void UpdateCameraMatrices();
 
 	inline void DrawInfoWindow();
 

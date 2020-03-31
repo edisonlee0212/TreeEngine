@@ -6,6 +6,20 @@
 #include "FileSystem.h"
 class Default {
 public:
+	static class ShaderIncludes {
+	public:
+		static std::string* MainCamera;
+
+		const static size_t MaxMaterialsAmount = 1;
+		static std::string* Material;
+		
+		
+		const static size_t MaxDirectionalLightAmount = 16;
+		const static size_t MaxPointLightAmount = 16;
+		const static size_t MaxSpotLightAmount = 16;
+		static std::string* Lights;
+	};
+
 	static class Textures {
 	public:
 		static Texture* MissingTexture;
@@ -22,9 +36,21 @@ public:
 	};
 
 	static void Load() {
-		Textures::MissingTexture = new Texture();
+
+		ShaderIncludes::MainCamera = new std::string(FileSystem::LoadFileAsString(FileSystem::GetPath("Shaders/Include/MainCamera.inc")));
+
+		std::string add = "#define MAX_MATERIALS_AMOUNT " + std::to_string(ShaderIncludes::MaxMaterialsAmount) + "\n";
+		ShaderIncludes::Material = new std::string(add + FileSystem::LoadFileAsString(FileSystem::GetPath("Shaders/Include/Material.inc")));
+		
+		add = 
+			"#define DIRECTIONAL_LIGHTS_AMOUNT " + std::to_string(ShaderIncludes::MaxDirectionalLightAmount) +
+			"\n#define POINT_LIGHTS_AMOUNT " + std::to_string(ShaderIncludes::MaxPointLightAmount) +
+			"\n#define SPOT_LIGHTS_AMOUNT " + std::to_string(ShaderIncludes::MaxSpotLightAmount) + "\n";
+		ShaderIncludes::Lights = new std::string(add + FileSystem::LoadFileAsString(FileSystem::GetPath("Shaders/Include/Lights.inc")));
+
+		Textures::MissingTexture = new Texture(Material_Type::DIFFUSE);
 		Textures::MissingTexture->LoadTexture(FileSystem::GetPath("Textures/texture-missing.png"), "");
-		Textures::UV = new Texture();
+		Textures::UV = new Texture(Material_Type::DIFFUSE);
 		Textures::UV->LoadTexture(FileSystem::GetPath("Textures/uv-test.png"), "");
 
 		Scene* scene = new Scene();

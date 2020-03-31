@@ -4,7 +4,7 @@
 
 class Texture : public SharedComponentBase {
 public:
-	Texture() : SharedComponentBase(){
+	Texture(Material_Type type) : SharedComponentBase(), _Type(type){
         _ID = 0;
 	}
 
@@ -16,7 +16,7 @@ public:
     std::size_t hash_code() { return _ID; }
 	unsigned int ID() { return _ID; }
     std::string Path() { return _Path; }
-    std::string Type() { return _Type; }
+    Material_Type Type() { return _Type; }
     void Clear() {
         if (_ID != 0) {
             glDeleteTextures(1, &_ID);
@@ -94,6 +94,6 @@ public:
     }
 private:
 	unsigned int _ID;
-    std::string _Type;
+    Material_Type _Type;
     std::string _Path;
 };

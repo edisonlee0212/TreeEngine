@@ -17,6 +17,6 @@ private:
     static std::vector<Entity*> entities;
     static void ProcessNode(std::string, Shader* shader, Entity*, std::vector<Texture*>*, aiNode*, const aiScene*);
     static Entity* ReadMesh(std::string, Shader* shader, std::vector<Texture*>* texturesLoaded, aiMesh* mesh, const aiScene* scene);
-    static std::vector<Texture*> LoadMaterialTextures(std::string, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, std::string typeName);
+    static std::vector<Texture*> LoadMaterialTextures(std::string, std::vector<Texture*>* texturesLoaded, aiMaterial* mat, aiTextureType type, Material_Type typeName);
 };
 

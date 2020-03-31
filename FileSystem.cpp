@@ -18,5 +18,7 @@ std::string FileSystem::LoadFileAsString(std::string path) {
     catch (std::ifstream::failure e)
     {
         Debug::Error("FILESYSTEM::FILE_NOT_SUCCESFULLY_READ");
+        return "";
     }
+    
 }

@@ -1,16 +1,19 @@
 #include "Shader.h"
 #include "FileSystem.h"
+#include "Default.h"
 Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath) : SharedComponentBase()
 {
-    _VertexShaderCodes.push_back("#version 420 core");
-    _FragmentShaderCodes.push_back("#version 420 core");
-    _GeometryShaderCodes.push_back("#version 420 core");
-    AppendVertexShaderCode(FileSystem::GetPath("Shaders/Include/Camera.inc"));
-    AppendFragmentShaderCode(FileSystem::GetPath("Shaders/Include/Camera.inc"));
-    AppendFragmentShaderCode(FileSystem::GetPath("Shaders/Include/Material.inc"));
-    AppendFragmentShaderCode(FileSystem::GetPath("Shaders/Include/Lighting/DirectionalLight.inc"));
-    AppendFragmentShaderCode(FileSystem::GetPath("Shaders/Include/Lighting/PointLight.inc"));
-    AppendFragmentShaderCode(FileSystem::GetPath("Shaders/Include/Lighting/SpotLight.inc"));
+    _VertexShaderCodes.push_back(new std::string("#version 420 core"));
+    _FragmentShaderCodes.push_back(new std::string("#version 420 core"));
+    _GeometryShaderCodes.push_back(new std::string("#version 420 core"));
+
+    _VertexShaderCodes.push_back(Default::ShaderIncludes::MainCamera);
+    _FragmentShaderCodes.push_back(Default::ShaderIncludes::MainCamera);
+    _FragmentShaderCodes.push_back(Default::ShaderIncludes::Material);
+
+    _FragmentShaderCodes.push_back(Default::ShaderIncludes::Lights);
+
+
     AppendFragmentShaderCode(fragmentPath);
     AppendVertexShaderCode(vertexPath);
 
@@ -24,15 +27,15 @@ Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geo
 }
 
 void Shader::AppendFragmentShaderCode(std::string path) {
-    _FragmentShaderCodes.push_back(FileSystem::LoadFileAsString(path));
+    _FragmentShaderCodes.push_back(new std::string(FileSystem::LoadFileAsString(path)));
 }
 
 void Shader::AppendVertexShaderCode(std::string path) {
-    _VertexShaderCodes.push_back(FileSystem::LoadFileAsString(path));
+    _VertexShaderCodes.push_back(new std::string(FileSystem::LoadFileAsString(path)));
 }
 
 void Shader::AppendGeometryShaderCode(std::string path) {
-    _GeometryShaderCodes.push_back(FileSystem::LoadFileAsString(path));
+    _GeometryShaderCodes.push_back(new std::string(FileSystem::LoadFileAsString(path)));
 }
 
 void Shader::CompileShader() {
@@ -40,10 +43,10 @@ void Shader::CompileShader() {
     std::string fragmentCode = "";
     std::string geometryCode = "";
 
-    for (auto i : _VertexShaderCodes) vertexCode += i + "\n";
-    for (auto i : _FragmentShaderCodes) fragmentCode += i + "\n";
-    if (_GeometryShaderCodes.size() > 1) for (auto i : _GeometryShaderCodes) geometryCode += i + "\n";
-
+    for (auto i : _VertexShaderCodes) vertexCode += *i + "\n";
+    for (auto i : _FragmentShaderCodes) fragmentCode += *i + "\n";
+    if (_GeometryShaderCodes.size() > 1) for (auto i : _GeometryShaderCodes) geometryCode += *i + "\n";
+    Debug::Log(fragmentCode);
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
     // 2. compile shaders
