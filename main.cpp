@@ -21,19 +21,19 @@ int main()
 {
 	TreeEngine* engine = new TreeEngine();
 	engine->Start();
-	LoadNanoSuit(glm::vec3(-4.0f, 0.0f, 0.0f), glm::vec3(0.2f));
+	//LoadNanoSuit(glm::vec3(-4.0f, 0.0f, 0.0f), glm::vec3(0.2f));
 	auto entity = World::Entities->CreateEntity();
 	Translation translation = Translation();
-	translation.Value = glm::vec3(0.0f, -4.0f, 0.0f);
+	translation.Value = glm::vec3(0.0f, 0.0f, 0.0f);
 	Scale scale = Scale();
-	scale.Value = glm::vec3(1.0f);
+	scale.Value = glm::vec3(10.0f);
 	World::Entities->SetComponent<Translation>(entity, translation);
 	World::Entities->SetComponent<Scale>(entity, scale);
-	entity->mesh = Default::Primitives::Cube;
+	entity->mesh = Default::Primitives::Quad;
 	auto mat = new Material();
 	mat->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	auto texture = new Texture(Material_Type::DIFFUSE);
-	texture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
+	texture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
 
 
 

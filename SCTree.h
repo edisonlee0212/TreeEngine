@@ -24,7 +24,7 @@ public:
 	}
 
 	void Draw() {
-		if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Sphere, material, &matrices[0], World::MainCamera, matrices.size());
+		if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Cube, material, &matrices[0], World::MainCamera, matrices.size());
 	}
 
 	~SCTree() {

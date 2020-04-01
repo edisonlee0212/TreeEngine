@@ -9,13 +9,13 @@
 
 void SCTreeSystem::OnCreate() {
 	_EnvelopePointMaterial = new Material();
-	_EnvelopePointMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/LightDefault.frag"));
+	_EnvelopePointMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	_EnvelopeTexture = new Texture(Material_Type::DIFFUSE);
 	_EnvelopeTexture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
 	_EnvelopePointMaterial->textures.push_back(_EnvelopeTexture);
 
 	_TreeBranchMaterial = new Material();
-	_TreeBranchMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/LightDefault.frag"));
+	_TreeBranchMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	_BranchTexture = new Texture(Material_Type::DIFFUSE);
 	_BranchTexture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
 	_TreeBranchMaterial->textures.push_back(_BranchTexture);
@@ -104,7 +104,7 @@ inline void SCTreeSystem::EnvelopeGUIMenu() {
 	ImGui::Begin("Envelope Controller");
 	ImGui::Combo("Envelope Type", &_SelectedEnvelopeType, EnvelopeTypes, IM_ARRAYSIZE(EnvelopeTypes), 3);
 	if (ImGui::Button("Create Aattraction Points")) BuildEnvelope();
-	ImGui::SliderInt("Point Amount", &_PointsCount, 100, 3200);
+	ImGui::SliderInt("Point Amount", &_PointsCount, 100, 16000);
 	ImGui::SliderFloat("Envelope Radius", &_EnvelopeRadius, 1.0f, 5.0f);
 	ImGui::SliderFloat("Minmum Height", &_MinHeight, 0.1f, _MaxHeight);
 	ImGui::SliderFloat("Maximum Height", &_MaxHeight, _MinHeight, 10.0f);

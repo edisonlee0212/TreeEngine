@@ -23,7 +23,7 @@ public:
 private:
 	std::vector<SystemBase*> _Systems;
 	float _TimeStep;
-	
+	bool _DrawSkybox;
 	Texture* _Skybox;
 	Shader* _SkyboxShader;
 	unsigned int _SkyboxVAO, _SkyboxVBO;

@@ -11,6 +11,7 @@ Camera* World::MainCamera;
 EntityManager* World::Entities;
 
 World::World() {
+	Time::WorldTime = 0;
 	Time::DeltaTime = 0;
 	Time::LastFrameTime = 0;
 	Time::FixedDeltaTime = 0;
@@ -73,6 +74,7 @@ World::~World() {
 void World::Update() {
 	float currentFrame = glfwGetTime();
 	Time::DeltaTime = currentFrame - Time::LastFrameTime;
+	Time::WorldTime += Time::DeltaTime;
 	Time::LastFrameTime = currentFrame;
 	Time::FixedDeltaTime += Time::DeltaTime;
 	Graphics::DrawCall = 0;
@@ -92,7 +94,7 @@ void World::Update() {
 		if (i->IsEnabled()) i->Update();
 	}
 
-	DrawSkybox();
+	if (_DrawSkybox) DrawSkybox();
 	DrawInfoWindow();
 
 	ImGui::Render();
@@ -117,7 +119,7 @@ inline void World::InitImGui() {
 }
 
 inline void World::InitMainCamera() {
-	MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+	MainCamera = new Camera();
 }
 
 inline void World::DrawInfoWindow() {
@@ -139,6 +141,7 @@ inline void World::DrawInfoWindow() {
 	ImGui::Text(trisstr.c_str());
 
 	ImGui::Text("%d drawcall", Graphics::DrawCall);
+	if (ImGui::Button("Draw Skybox")) _DrawSkybox = !_DrawSkybox;
 	ImGui::End();
 
 	ImGui::Begin("Logs");
@@ -146,7 +149,7 @@ inline void World::DrawInfoWindow() {
 	std::string logs = "";
 	for (int i = size - 1; i > 0; i--) {
 		if (i < size - 50) break;
-		logs += Debug::mLogMessages[i];
+		logs += *Debug::mLogMessages[i];
 	}
 	ImGui::Text(logs.c_str());
 	ImGui::End();
