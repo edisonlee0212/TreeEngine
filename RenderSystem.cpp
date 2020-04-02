@@ -1,5 +1,16 @@
 #include "RenderSystem.h"
 
+RenderSystem::RenderSystem() : SystemBase() {
+}
+
+void RenderSystem::OnCreate() {
+	Enable();
+}
+
+void RenderSystem::OnDestroy() {
+	Disable();
+}
+
 void RenderSystem::Update() {
 	glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

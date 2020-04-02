@@ -7,19 +7,14 @@
 class RenderSystem : public SystemBase
 {
 public:
-	RenderSystem() : SystemBase() {
-		
+	RenderSystem();
 
-	}
+	void OnCreate();
 
-	void OnCreate() {
-		Enable();
-	}
+	void OnDestroy();
 
-	void OnDestroy() {
-		Disable();
-	}
 	~RenderSystem();
+
 	void Update();
 private:
 	

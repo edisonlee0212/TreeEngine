@@ -78,6 +78,15 @@
     <Filter Include="Source Files\World\System">
       <UniqueIdentifier>{57b79ae2-6d8f-48e1-84f2-acda2ed18eb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Misc\Graphics">
+      <UniqueIdentifier>{87f0cb55-b4d7-4c49-a7f0-e2bd7ac66c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc\Scene">
+      <UniqueIdentifier>{7da5f6b5-5ae7-47f2-899b-5e9bde56a718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc\Scene">
+      <UniqueIdentifier>{3685c6da-0e8c-47e2-b19d-d24f442c3b1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Time.h">
@@ -107,20 +116,8 @@
     <ClCompile Include="includes\ImGUI\imgui_widgets.cpp">
       <Filter>Source Files\Misc\External</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Header Files\Misc\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Header Files\Misc\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Header Files\Misc\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="stb.cpp">
       <Filter>Source Files\Misc\External</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Header Files\Misc\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="FileSystem.cpp">
       <Filter>Source Files\Misc\IO</Filter>
@@ -172,6 +169,45 @@
     </ClCompile>
     <ClCompile Include="TreeEngine.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Misc\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpImporter.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SCBranch.cpp">
+      <Filter>Source Files\Tree\SCTree</Filter>
+    </ClCompile>
+    <ClCompile Include="SCBranchMesh.cpp">
+      <Filter>Source Files\Tree\SCTree</Filter>
+    </ClCompile>
+    <ClCompile Include="SCTree.cpp">
+      <Filter>Source Files\Tree\SCTree</Filter>
+    </ClCompile>
+    <ClCompile Include="SCEnvelope.cpp">
+      <Filter>Source Files\Tree\SCTree</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSystem.cpp">
+      <Filter>Source Files\World\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Misc\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNode.cpp">
+      <Filter>Source Files\Misc\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,14 +268,8 @@
     <ClInclude Include="AssimpImporter.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="Default.h">
       <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGUISystem.h">
-      <Filter>Header Files\World\System</Filter>
     </ClInclude>
     <ClInclude Include="SCBranch.h">
       <Filter>Header Files\Tree\SCTree</Filter>
@@ -249,9 +279,6 @@
     </ClInclude>
     <ClInclude Include="SCEnvelope.h">
       <Filter>Header Files\Tree\SCTree</Filter>
-    </ClInclude>
-    <ClInclude Include="SCBranchMesh.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CubeEnvelope.h">
       <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
@@ -291,6 +318,15 @@
     </ClInclude>
     <ClInclude Include="SharedComponentBase.h">
       <Filter>Header Files\World\Component\SharedComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="SCBranchMesh.h">
+      <Filter>Header Files\Tree\SCTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Misc\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNode.h">
+      <Filter>Header Files\Misc\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

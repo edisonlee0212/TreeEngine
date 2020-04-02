@@ -1,4 +1,5 @@
 #include "TreeEngine.h"
+#include "Default.h"
 void TreeEngine::GLInit() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -8,7 +9,7 @@ void TreeEngine::GLInit() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
 
-	auto window = WindowManager::CreateWindow(800, 600);
+	auto window = WindowManager::CreateWindow(1280, 720);
 
 	glfwSetFramebufferSizeCallback(window, WindowManager::ResizeCallback);
 	glfwSetCursorPosCallback(window, Input::CursorPositionCallback);

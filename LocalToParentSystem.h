@@ -3,15 +3,12 @@
 #include "World.h"
 class LocalToParentSystem : public SystemBase {
 public:
-    LocalToParentSystem() : SystemBase() {
-    }
-    void OnCreate() {
-        Enable();
-    }
+    LocalToParentSystem();
 
-    void OnDestroy() {
-        Disable();
-    }
+    void OnCreate();
+
+    void OnDestroy();
+
     void Update();
 };
 

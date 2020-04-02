@@ -51,6 +51,7 @@ public:
 	void OnDestroy() {
 		Disable();
 	}
+
 	~LightingSystem();
 	
 	void Update();

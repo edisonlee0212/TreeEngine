@@ -8,8 +8,6 @@
 #include "SCTree.h"
 class SCTreeSystem : public SystemBase {
 public:
-	SCTreeSystem() : SystemBase() {
-	}
 	void OnCreate();
 
 	void BuildEnvelope();

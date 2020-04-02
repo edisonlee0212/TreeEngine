@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Material.h"
-#include "Default.h"
+
 class Graphics {
 public:
 	static unsigned int Triangles;

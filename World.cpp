@@ -4,7 +4,6 @@
 #include "LocalToParentSystem.h"
 #include "CameraSystem.h"
 #include "RenderSystem.h"
-#include "ImGUISystem.h"
 #include "SCTreeSystem.h"
 #include "LightingSystem.h"
 Camera* World::MainCamera;
@@ -26,7 +25,6 @@ World::World() {
 	CreateSystem<LocalToParentSystem>();
 	CreateSystem<CameraSystem>();
 	CreateSystem<RenderSystem>();
-	CreateSystem<ImGUISystem>();
 	CreateSystem<LightingSystem>();
 	CreateSystem<SCTreeSystem>();
 }

@@ -1,5 +1,5 @@
 #include "Graphics.h"
-
+#include "Default.h"
 unsigned int Graphics::Triangles;
 unsigned int Graphics::DrawCall;
 

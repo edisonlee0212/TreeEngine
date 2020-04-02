@@ -22,10 +22,10 @@ void SCTreeSystem::OnCreate() {
 	_GrowDist = 0.3f;
 	_AttractDitsMult = 3.0f;
 	_RemoveDistMult = 0.5f;
-	_EnvelopeRadius = 4.0f;
+	_EnvelopeRadius = 1.5f;
 	_MaxHeight = 4.0f;
 	_MinHeight = 1.0f;
-	_PointsCount = 1600;
+	_PointsCount = 2000;
 	Enable();
 }
 

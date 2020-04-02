@@ -142,7 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssimpImporter.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -162,10 +164,17 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="SCBranch.cpp" />
+    <ClCompile Include="SCBranchMesh.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneNode.cpp" />
+    <ClCompile Include="SCEnvelope.cpp" />
+    <ClCompile Include="SCTree.cpp" />
     <ClCompile Include="SCTreeSystem.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="stb.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Time.h" />
     <ClCompile Include="TreeEngine.cpp" />
@@ -183,7 +192,6 @@
     <ClInclude Include="CylinderEnvelope.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="FileSystem.h" />
-    <ClInclude Include="ImGUISystem.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
@@ -191,6 +199,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="LightingSystem.h" />
     <ClInclude Include="SCBranchMesh.h" />
+    <ClInclude Include="SceneNode.h" />
     <ClInclude Include="SCEnvelope.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Misc.h" />
