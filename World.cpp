@@ -10,6 +10,8 @@ Camera* World::MainCamera;
 EntityManager* World::Entities;
 
 World::World() {
+	_DrawSkybox = true;
+	_DrawWireframe = false;
 	Time::WorldTime = 0;
 	Time::DeltaTime = 0;
 	Time::LastFrameTime = 0;
@@ -140,6 +142,16 @@ inline void World::DrawInfoWindow() {
 
 	ImGui::Text("%d drawcall", Graphics::DrawCall);
 	if (ImGui::Button("Draw Skybox")) _DrawSkybox = !_DrawSkybox;
+	if (ImGui::Button("Draw Wireframe")) {
+		_DrawWireframe = !_DrawWireframe;
+		if (_DrawWireframe) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+	}
 	ImGui::End();
 
 	ImGui::Begin("Logs");

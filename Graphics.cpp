@@ -5,7 +5,7 @@ unsigned int Graphics::DrawCall;
 
 void Graphics::DrawMeshInstanced(Mesh* mesh, Material* pointMaterial, glm::mat4* matrices, Camera* camera, size_t count) {
 	Graphics::DrawCall++;
-	Graphics::Triangles += mesh->triangles.size() * count / 3;
+	Graphics::Triangles += mesh->triangles->size() * count / 3;
 	unsigned int buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -80,7 +80,7 @@ void Graphics::DrawMeshInstanced(Mesh* mesh, Material* pointMaterial, glm::mat4*
 	}
 	// draw mesh
 
-	glDrawElementsInstanced(GL_TRIANGLES, mesh->triangles.size(), GL_UNSIGNED_INT, 0, amount);
+	glDrawElementsInstanced(GL_TRIANGLES, mesh->triangles->size(), GL_UNSIGNED_INT, 0, amount);
 	glBindVertexArray(0);
 	glDeleteBuffers(1, &buffer);
 	// always good practice to set everything back to defaults once configured.
@@ -89,7 +89,7 @@ void Graphics::DrawMeshInstanced(Mesh* mesh, Material* pointMaterial, glm::mat4*
 
 void Graphics::DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* pointMaterial, Camera* camera) {
 	Graphics::DrawCall++;
-	Graphics::Triangles += mesh->triangles.size() / 3;
+	Graphics::Triangles += mesh->triangles->size() / 3;
 	glUseProgram(pointMaterial->shader->ID);
 
 	pointMaterial->shader->SetFloat("materials[0].shininess", 32.0f);
@@ -141,7 +141,7 @@ void Graphics::DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* pointMaterial, C
 	}
 	// draw mesh
 	glBindVertexArray(mesh->VAO());
-	glDrawElements(GL_TRIANGLES, mesh->triangles.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh->triangles->size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 	// always good practice to set everything back to defaults once configured.

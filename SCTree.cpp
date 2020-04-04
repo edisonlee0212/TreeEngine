@@ -139,12 +139,16 @@ void SCTree::CalculateMesh() {
 	meshGenerated = false;
 	if (mesh != nullptr) delete mesh;
 	mesh = new Mesh();
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> triangles;
-	mRoot->CalculateMesh(position, &vertices);
-	for (int i = 0; i < vertices.size(); i++) {
-		triangles.push_back(i);
+	std::vector<Vertex>* vertices = new std::vector<Vertex>();
+	std::vector<unsigned int>* triangles = new std::vector<unsigned int>();
+	mRoot->CalculateMesh(position, vertices);
+	int size = vertices->size();
+	for (int i = 0; i < size; i++) {
+		triangles->push_back(i);
 	}
-	mesh->Set(&vertices, &triangles);
+	mesh->Set(vertices, triangles);
+	delete vertices;
+	delete triangles;
+	mesh->RecalculateNormal();
 	meshGenerated = true;
 }

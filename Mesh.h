@@ -18,17 +18,19 @@ struct Vertex {
 class Mesh : SharedComponentBase{
 public:
     /*  Mesh Data  */
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> triangles;
+    std::vector<Vertex>* vertices;
+    std::vector<unsigned int>* triangles;
     std::size_t hash_code() { return _VAO; }
 
     /*  Functions  */
-    // constructor
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> triangles);
 
     unsigned int VAO();
 
     Mesh();
+    
+    ~Mesh();
+
+    void Clear();
 
     void Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles);
 

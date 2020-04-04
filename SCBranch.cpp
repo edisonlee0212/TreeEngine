@@ -1,5 +1,6 @@
 #include "SCBranch.h"
 #include "Default.h"
+#include "BezierCurve.h"
 SCBranch::SCBranch(Material* mat, glm::vec3 position, SCBranch* parent, bool isTrunk, int growIteration, float initialRadius)
 	: mat(mat),
 	position(position),
@@ -26,12 +27,6 @@ void SCBranch::Draw() {
 
 void SCBranch::CollectPoint(std::vector<glm::mat4>* matrices) {
 	if (!isSubdivided) {
-		//Debug::Log("[" + std::to_string(pos.x) + "][" + std::to_string(pos.y) + "][" + std::to_string(pos.z) + "]");
-		/*glm::vec3 fromDir = glm::vec3(0.0f, 1.0f, 0.0f);
-		if(parent != nullptr) fromDir= pos - parent->pos;
-		float angle = glm::acos(glm::dot(glm::normalize(fromDir), glm::normalize(glm::vec3(0.0f, 1.0f, 0.0f))));
-		glm::vec3 axis = glm::normalize(glm::cross(fromDir, glm::vec3(0.0f, 1.0f, 0.0f)));
-		transform = glm::rotate(transform, angle, axis);*/
 		matrices->push_back(transform);
 		for (auto i : mChildren) i->CollectPoint(matrices);
 	}
@@ -88,18 +83,20 @@ void SCBranch::Relocation() {
 void SCBranch::Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadius) {
 	auto distance = glm::distance(fromPos, position);
 	int amount = distance / ((fromRadius + radius) / 2.0f);
+	
 	auto direction = glm::normalize(position - fromPos);
-	glm::vec3 posStep = (position - fromPos) / (float)amount;
+	BezierCurve curve = BezierCurve(fromPos, fromPos + distance / 3.0f * fromDir, position - distance / 3.0f * direction, position);
+	float posStep = 1.0f / (float)amount;
 	glm::vec3 dirStep = (direction - fromDir) / (float)amount;
 	float radiusStep = (radius - fromRadius) / (float)amount;
 
 	for (int i = 1; i < amount; i++) {
 		mRings.push_back(SCBranchRingMesh(
-			fromPos + (float)(i - 1) * posStep, fromPos + (float)i * posStep,
-			fromDir + (float)(i - 1)* dirStep, fromDir + (float)i * dirStep,
-			fromRadius + (float)(i - 1) * radiusStep,fromRadius + (float)i * radiusStep));
+			curve.GetPoint(posStep * (i - 1)), curve.GetPoint(posStep * i),
+			fromDir + (float)(i - 1) * dirStep, fromDir + (float)i * dirStep,
+			fromRadius + (float)(i - 1) * radiusStep, fromRadius + (float)i * radiusStep));
 	}
-	if(amount > 1)mRings.push_back(SCBranchRingMesh(position - posStep, position, direction - dirStep, direction, radius - radiusStep, radius));
+	if (amount > 1)mRings.push_back(SCBranchRingMesh(curve.GetPoint(1.0f - posStep), position, direction - dirStep, direction, radius - radiusStep, radius));
 
 	isSubdivided = true;
 
@@ -108,12 +105,33 @@ void SCBranch::Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadiu
 	}
 }
 
-void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices) {
+void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, int resolution) {
 	for (auto i : mRings) {
-		i.AppendPoints(vertices);
+		i.AppendPoints(vertices, resolution);
 	}
-
-	for (auto i : mChildren) {
-		i->CalculateMesh(rootPos, vertices);
+	if (mChildren.empty() && !mRings.empty()) {
+		std::vector<Vertex> endRing;
+		float angleStep = 360.0f / (float)(resolution);
+		for (int i = 0; i < resolution; i++) {
+			endRing.push_back(mRings.back().GetPoint(angleStep * i, false));
+		}
+		Vertex center = Vertex();
+		center.Position = mRings.back().EndPosition;
+		center.TexCoords = glm::vec2(1.0f, 1.0f);
+		for (int i = 0; i < resolution - 1; i++) {
+			endRing[i].TexCoords = glm::vec2(0.0f, 0.0f);
+			endRing[i + 1].TexCoords = glm::vec2(0.0f, 1.0f);
+			vertices->push_back(endRing[i]);
+			vertices->push_back(endRing[i + 1]);
+			vertices->push_back(center);
+		}
+		vertices->push_back(endRing[resolution - 1]);
+		vertices->push_back(endRing[0]);
+		vertices->push_back(center);
+	}
+	else {
+		for (auto i : mChildren) {
+			i->CalculateMesh(rootPos, vertices);
+		}
 	}
 }

@@ -33,7 +33,7 @@ public:
 
 	void Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadius);
 
-	void CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices);
+	void CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, int resolution = 32);
 
 
 };

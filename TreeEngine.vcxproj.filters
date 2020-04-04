@@ -87,6 +87,12 @@
     <Filter Include="Source Files\Misc\Scene">
       <UniqueIdentifier>{3685c6da-0e8c-47e2-b19d-d24f442c3b1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc\Math">
+      <UniqueIdentifier>{279655c7-7a2a-4935-9f87-1979f8408a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc\Math">
+      <UniqueIdentifier>{8036499b-cd97-4e00-a2e7-6cf488827c28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Time.h">
@@ -209,6 +215,12 @@
     <ClCompile Include="SCBranchRingMesh.cpp">
       <Filter>Source Files\Tree\SCTree</Filter>
     </ClCompile>
+    <ClCompile Include="BezierCurve.cpp">
+      <Filter>Source Files\Misc\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Curve.cpp">
+      <Filter>Source Files\Misc\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeEngine.h">
@@ -327,6 +339,12 @@
     </ClInclude>
     <ClInclude Include="SCBranchRingMesh.h">
       <Filter>Header Files\Tree\SCTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BezierCurve.h">
+      <Filter>Header Files\Misc\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Curve.h">
+      <Filter>Header Files\Misc\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

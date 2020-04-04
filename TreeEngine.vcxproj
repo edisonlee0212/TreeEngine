@@ -143,8 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssimpImporter.cpp" />
+    <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraSystem.cpp" />
+    <ClCompile Include="Curve.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -185,10 +187,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpImporter.h" />
+    <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="CubeEnvelope.h" />
+    <ClInclude Include="Curve.h" />
     <ClInclude Include="CylinderEnvelope.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="FileSystem.h" />

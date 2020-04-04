@@ -57,7 +57,7 @@ public:
 		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/sphere.obj"));
 		Primitives::Sphere = new Mesh();
 		Mesh* mesh = scene->mMeshes[0];
-		Primitives::Sphere->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Sphere->Set(mesh->vertices, mesh->triangles);
 		Primitives::Sphere->RecalculateNormal();
 		delete scene;
 
@@ -65,7 +65,7 @@ public:
 		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cube.obj"));
 		Primitives::Cube = new Mesh();
 		mesh = scene->mMeshes[0];
-		Primitives::Cube->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cube->Set(mesh->vertices, mesh->triangles);
 		Primitives::Cube->RecalculateNormal();
 		delete scene;
 
@@ -73,7 +73,7 @@ public:
 		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/quad.obj"));
 		Primitives::Quad = new Mesh();
 		mesh = scene->mMeshes[0];
-		Primitives::Quad->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Quad->Set(mesh->vertices, mesh->triangles);
 		Primitives::Quad->RecalculateNormal();
 		delete scene;
 
@@ -81,7 +81,7 @@ public:
 		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cone.obj"));
 		Primitives::Cone = new Mesh();
 		mesh = scene->mMeshes[0];
-		Primitives::Cone->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cone->Set(mesh->vertices, mesh->triangles);
 		Primitives::Cone->RecalculateNormal();
 		delete scene;
 
@@ -89,7 +89,7 @@ public:
 		AssimpImporter::LoadScene(scene, FileSystem::GetPath("Primitives/cylinder.obj"));
 		Primitives::Cylinder = new Mesh();
 		mesh = scene->mMeshes[0];
-		Primitives::Cylinder->Set(&mesh->vertices, &mesh->triangles);
+		Primitives::Cylinder->Set(mesh->vertices, mesh->triangles);
 		Primitives::Cylinder->RecalculateNormal();
 		delete scene;
 	}

@@ -30,7 +30,7 @@ LightingSystem::LightingSystem() : SystemBase() {
 	DirectionalLight dl = DirectionalLight();
 	dl.direction = glm::vec4(0.0f, -1.0f, 0.5f, 0.0f);
 	dl.ambient = glm::vec4(0.5f);
-	dl.diffuse = glm::vec4(0.4f);
+	dl.diffuse = glm::vec4(0.5f);
 	dl.specular = glm::vec4(0.5f);
 	AddDirectionalLight(&dl);
 	PointLight pl = PointLight();
@@ -53,9 +53,9 @@ LightingSystem::LightingSystem() : SystemBase() {
 
 void LightingSystem::Update() {
 
-	/*auto dl = _DirectionalLights[0];
+	auto dl = _DirectionalLights[0];
 	dl.direction = glm::vec4(0.0f, -glm::abs(glm::sin(Time::WorldTime / 2.0f)), glm::cos(Time::WorldTime / 2.0f), 0.0f);
-	_DirectionalLights[0] = dl;*/
+	_DirectionalLights[0] = dl;
 	glBindBuffer(GL_UNIFORM_BUFFER, _DirectionalLightBlockID);
 	size_t size = _DirectionalLights.size();
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, 4, &size);

@@ -94,7 +94,8 @@ Entity* ModelManager::ReadMesh(std::string directory, Shader* shader, std::vecto
     // process materials
     aiMaterial* pointMaterial = scene->mMaterials[mesh->mMaterialIndex];
 
-    entity->mesh = new Mesh(vertices, indices);
+    entity->mesh = new Mesh();
+    entity->mesh->Set(&vertices, &indices);
     entity->pointMaterial = new Material();
     entity->pointMaterial->shader = shader;
     std::vector<Texture*>* textures = &(entity->pointMaterial->textures);
