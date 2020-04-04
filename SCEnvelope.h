@@ -5,7 +5,7 @@
 #include "Default.h"
 class SCEnvelope {
 public:
-	SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material);
+	SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* pointMaterial);
 
 	~SCEnvelope();
 

@@ -191,9 +191,6 @@
     <ClCompile Include="SCBranch.cpp">
       <Filter>Source Files\Tree\SCTree</Filter>
     </ClCompile>
-    <ClCompile Include="SCBranchMesh.cpp">
-      <Filter>Source Files\Tree\SCTree</Filter>
-    </ClCompile>
     <ClCompile Include="SCTree.cpp">
       <Filter>Source Files\Tree\SCTree</Filter>
     </ClCompile>
@@ -208,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="SceneNode.cpp">
       <Filter>Source Files\Misc\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SCBranchRingMesh.cpp">
+      <Filter>Source Files\Tree\SCTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,14 +319,14 @@
     <ClInclude Include="SharedComponentBase.h">
       <Filter>Header Files\World\Component\SharedComponents</Filter>
     </ClInclude>
-    <ClInclude Include="SCBranchMesh.h">
-      <Filter>Header Files\Tree\SCTree</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Misc\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneNode.h">
       <Filter>Header Files\Misc\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SCBranchRingMesh.h">
+      <Filter>Header Files\Tree\SCTree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

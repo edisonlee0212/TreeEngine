@@ -2,11 +2,11 @@
 #include "Misc.h"
 #include "Graphics.h"
 #include "World.h"
-#include "SCBranchMesh.h"
+#include "SCBranchRingMesh.h"
 class SCBranch {
 public:
 	Material* mat;
-	glm::vec3 pos;
+	glm::vec3 position;
 	glm::vec3 growDir;
 	int growIteration;
 	float radius;
@@ -15,10 +15,9 @@ public:
 	glm::mat4 transform;
 	bool hasLeaves;
 	bool isTrunk;
-	std::vector<glm::vec3> mBranchPosChain;
-	std::vector<float> mBranchRadiusChain;
+	std::vector<SCBranchRingMesh> mRings;
 	bool isSubdivided;
-	SCBranch(Material* mat, glm::vec3 pos, SCBranch* parent, bool isTrunk, int growIteration, float initialRadius = 0.01f);
+	SCBranch(Material* mat, glm::vec3 position, SCBranch* parent, bool isTrunk, int growIteration, float initialRadius = 0.01f);
 
 	~SCBranch();
 
@@ -32,7 +31,9 @@ public:
 
 	void Relocation();
 
-	void Subdivision(glm::vec3 fromPos, float fromRadius);
+	void Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadius);
 
-	void CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles);
+	void CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices);
+
+
 };

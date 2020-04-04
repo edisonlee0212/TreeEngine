@@ -3,7 +3,7 @@
 unsigned int Graphics::Triangles;
 unsigned int Graphics::DrawCall;
 
-void Graphics::DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matrices, Camera* camera, size_t count) {
+void Graphics::DrawMeshInstanced(Mesh* mesh, Material* pointMaterial, glm::mat4* matrices, Camera* camera, size_t count) {
 	Graphics::DrawCall++;
 	Graphics::Triangles += mesh->triangles.size() * count / 3;
 	unsigned int buffer;
@@ -27,23 +27,23 @@ void Graphics::DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matr
 	glVertexAttribDivisor(5, 1);
 	glVertexAttribDivisor(6, 1);
 
-	glUseProgram(material->shader->ID);
-	material->shader->SetFloat("materials[0].shininess", 32.0f);
+	glUseProgram(pointMaterial->shader->ID);
+	pointMaterial->shader->SetFloat("materials[0].shininess", 32.0f);
 
-	material->shader->SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	material->shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	material->shader->SetVec3("lightPos", 0.0f, 1.0f, 0.0f);
+	pointMaterial->shader->SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
+	pointMaterial->shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
+	pointMaterial->shader->SetVec3("lightPos", 0.0f, 1.0f, 0.0f);
 	unsigned int diffuseNr = 0;
 	unsigned int specularNr = 0;
 	unsigned int normalNr = 0;
 	unsigned int heightNr = 0;
-	if (material->textures.size() != 0) {
-		for (unsigned int i = 0; i < material->textures.size(); i++)
+	if (pointMaterial->textures.size() != 0) {
+		for (unsigned int i = 0; i < pointMaterial->textures.size(); i++)
 		{
 			std::string name = "";
 			unsigned int size = -1;
 			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-			switch (material->textures[i]->Type())
+			switch (pointMaterial->textures[i]->Type())
 			{
 			case Material_Type::DIFFUSE:
 				size = diffuseNr;
@@ -66,15 +66,15 @@ void Graphics::DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matr
 				break;
 			}
 			// now set the sampler to the correct texture unit
-			if(size != -1 && size < Default::ShaderIncludes::MaxMaterialsAmount) material->shader->SetInt("materials[" + std::to_string(size) + name, i);
+			if(size != -1 && size < Default::ShaderIncludes::MaxMaterialsAmount) pointMaterial->shader->SetInt("materials[" + std::to_string(size) + name, i);
 			// and finally bind the texture
-			glBindTexture(GL_TEXTURE_2D, material->textures[i]->ID());
+			glBindTexture(GL_TEXTURE_2D, pointMaterial->textures[i]->ID());
 		}
 	}
 	else
 	{
 		glActiveTexture(GL_TEXTURE0);
-		glUniform1i(glGetUniformLocation(material->shader->ID, "materials[0].diffuse"), 0);
+		glUniform1i(glGetUniformLocation(pointMaterial->shader->ID, "materials[0].diffuse"), 0);
 		// and finally bind the texture
 		glBindTexture(GL_TEXTURE_2D, Default::Textures::MissingTexture->ID());
 	}
@@ -87,24 +87,24 @@ void Graphics::DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matr
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void Graphics::DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* material, Camera* camera) {
+void Graphics::DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* pointMaterial, Camera* camera) {
 	Graphics::DrawCall++;
 	Graphics::Triangles += mesh->triangles.size() / 3;
-	glUseProgram(material->shader->ID);
+	glUseProgram(pointMaterial->shader->ID);
 
-	material->shader->SetFloat("materials[0].shininess", 32.0f);
-	material->shader->SetMat4("model", matrix);
+	pointMaterial->shader->SetFloat("materials[0].shininess", 32.0f);
+	pointMaterial->shader->SetMat4("model", matrix);
 	unsigned int diffuseNr = 0;
 	unsigned int specularNr = 0;
 	unsigned int normalNr = 0;
 	unsigned int heightNr = 0;
-	if (material->textures.size() != 0) {
-		for (unsigned int i = 0; i < material->textures.size(); i++)
+	if (pointMaterial->textures.size() != 0) {
+		for (unsigned int i = 0; i < pointMaterial->textures.size(); i++)
 		{
 			std::string name = "";
 			unsigned int size = -1;
 			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-			switch (material->textures[i]->Type())
+			switch (pointMaterial->textures[i]->Type())
 			{
 			case Material_Type::DIFFUSE:
 				size = diffuseNr;
@@ -127,15 +127,15 @@ void Graphics::DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* material, Camera
 				break;
 			}
 			// now set the sampler to the correct texture unit
-			if (size != -1 && size < Default::ShaderIncludes::MaxMaterialsAmount) material->shader->SetInt("materials[" + std::to_string(size) + name, i);
+			if (size != -1 && size < Default::ShaderIncludes::MaxMaterialsAmount) pointMaterial->shader->SetInt("materials[" + std::to_string(size) + name, i);
 			// and finally bind the texture
-			glBindTexture(GL_TEXTURE_2D, material->textures[i]->ID());
+			glBindTexture(GL_TEXTURE_2D, pointMaterial->textures[i]->ID());
 		}
 	}
 	else
 	{
 		glActiveTexture(GL_TEXTURE0);
-		glUniform1i(glGetUniformLocation(material->shader->ID, "materials[0].diffuse"), 0);
+		glUniform1i(glGetUniformLocation(pointMaterial->shader->ID, "materials[0].diffuse"), 0);
 		// and finally bind the texture
 		glBindTexture(GL_TEXTURE_2D, Default::Textures::MissingTexture->ID());
 	}

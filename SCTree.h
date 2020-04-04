@@ -1,18 +1,20 @@
 #pragma once
 #include "Misc.h"
 #include "SCEnvelope.h"
-
+#include "Graphics.h"
 #include "SCBranch.h"
 class SCTree {
 public:
 	SCBranch* mRoot;
 	std::vector<SCBranch*> mGrowingBranches;
-	bool needsToGrow;
+	bool needsToGrow, meshGenerated;
 	int maxGrowIteration;
-	glm::vec3 pos;
-	Material* material;
+	glm::vec3 position;
+	Material* pointMaterial;
+	Material* meshMaterial;
+	Mesh* mesh;
 	std::vector<glm::mat4> matrices;
-	SCTree(glm::vec3 pos, Material* mat);
+	SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial);
 
 	void Draw();
 
@@ -23,7 +25,7 @@ public:
 	void Grow(float growDist, float attractionDist, float removeDist, SCEnvelope* envelope, glm::vec3 tropism = glm::vec3(0.0f),
 		float distDec = 0.015f, float minDist = 0.1f, float decimationDistChild = 0.05f, float decimationDistParent = 0.05f);
 
-	void CalculateMesh(Mesh* mesh);
+	void CalculateMesh();
 private:
 	inline void CalculateRadius() {
 		mRoot->CalculateRadius(maxGrowIteration);
@@ -41,6 +43,6 @@ private:
 
 	inline void NodeSubdivision() {
 		Debug::Log("Node Subdivision...");
-		mRoot->Subdivision(pos, 1);
+		mRoot->Subdivision(position, glm::vec3(0.0f, 1.0f, 0.0f), 1);
 	}
 };

@@ -2,8 +2,7 @@
 #include "Misc.h"
 #include "SystemBase.h"
 
-#include "Material.h"
-#include "Texture.h"
+#include "Graphics.h"
 #include "SCEnvelope.h"
 #include "SCTree.h"
 class SCTreeSystem : public SystemBase {
@@ -26,8 +25,10 @@ public:
 private:
 	Material* _EnvelopePointMaterial;
 	Texture* _EnvelopeTexture;
-	Material* _TreeBranchMaterial;
-	Texture* _BranchTexture;
+	Material* _TreePointMaterial;
+	Texture* _TreePointTexture;
+	Material* _TreeMeshMaterial;
+	Texture* _TreeMeshTexture;
 
 	float _EnvelopeRadius, _MaxHeight, _MinHeight;
 	int _PointsCount;

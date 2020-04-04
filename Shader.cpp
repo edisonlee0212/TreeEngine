@@ -46,7 +46,7 @@ void Shader::CompileShader() {
     for (auto i : _VertexShaderCodes) vertexCode += *i + "\n";
     for (auto i : _FragmentShaderCodes) fragmentCode += *i + "\n";
     if (_GeometryShaderCodes.size() > 1) for (auto i : _GeometryShaderCodes) geometryCode += *i + "\n";
-    Debug::Log(fragmentCode);
+    //Debug::Log(fragmentCode);
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
     // 2. compile shaders

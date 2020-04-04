@@ -20,10 +20,10 @@ void AssimpImporter::LoadScene(Scene* destination, std::string const& path) {
 
 	for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
 		aiMaterial* amaterial = scene->mMaterials[i];
-		Material* material = new Material();
+		Material* pointMaterial = new Material();
 		auto loadedTextures = &destination->mTextures;
-		ReadMaterial(directory, amaterial, material, loadedTextures);
-		destination->mMaterials.push_back(material);
+		ReadMaterial(directory, amaterial, pointMaterial, loadedTextures);
+		destination->mMaterials.push_back(pointMaterial);
 	}
 	ProcessNode(directory, scene->mRootNode, destination->mRootNode, scene);
 }

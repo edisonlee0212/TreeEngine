@@ -1,8 +1,8 @@
 #include "SCBranch.h"
 #include "Default.h"
-SCBranch::SCBranch(Material* mat, glm::vec3 pos, SCBranch* parent, bool isTrunk, int growIteration, float initialRadius)
+SCBranch::SCBranch(Material* mat, glm::vec3 position, SCBranch* parent, bool isTrunk, int growIteration, float initialRadius)
 	: mat(mat),
-	pos(pos),
+	position(position),
 	parent(parent),
 	isTrunk(isTrunk),
 	growIteration(growIteration),
@@ -36,11 +36,11 @@ void SCBranch::CollectPoint(std::vector<glm::mat4>* matrices) {
 		for (auto i : mChildren) i->CollectPoint(matrices);
 	}
 	else {
-		auto size = mBranchPosChain.size();
+		auto size = mRings.size();
 		glm::mat4 transform = glm::mat4(1.0f);
 		for (int i = 0; i < size; i++) {
-			transform = glm::translate(glm::mat4(1.0f), mBranchPosChain[i]);
-			transform = glm::scale(transform, glm::vec3(mBranchRadiusChain[i] / 2.0f));
+			transform = glm::translate(glm::mat4(1.0f), mRings[i].EndPosition);
+			transform = glm::scale(transform, glm::vec3(mRings[i].EndRadius / 2.0f));
 			matrices->push_back(transform);
 		}
 		for (auto i : mChildren) i->CollectPoint(matrices);
@@ -55,7 +55,7 @@ float SCBranch::CalculateRadius(int maxGrowIteration, float n) {
 
 	}
 	radius = glm::pow(radVal, 1.0f / n);
-	transform = glm::translate(glm::mat4(1.0f), pos);
+	transform = glm::translate(glm::mat4(1.0f), position);
 	transform = glm::scale(transform, glm::vec3(radius / 2.0f));
 	return radius;
 }
@@ -64,13 +64,13 @@ SCBranch* SCBranch::Grow(float growDist, bool growTrunk, glm::vec3 tropism, floa
 	if (growDir == glm::vec3(0.0f)) return nullptr;
 	float actualDist = growDist - distDec * growIteration;
 	if (actualDist < minDist) actualDist = minDist;
-	glm::vec3 newPos = pos + glm::normalize(glm::normalize(growDir) + tropism) * actualDist / (float)(mChildren.size() + 1);
+	glm::vec3 newPos = position + glm::normalize(glm::normalize(growDir) + tropism) * actualDist / (float)(mChildren.size() + 1);
 
 	growDir = glm::vec3(0.0f);
 	for (auto child : mChildren) {
-		if (glm::distance(child->pos, newPos) <= decimationDistChild) return nullptr;
+		if (glm::distance(child->position, newPos) <= decimationDistChild) return nullptr;
 	}
-	if (parent && glm::distance(parent->pos, newPos) <= decimationDistParent) return nullptr;
+	if (parent && glm::distance(parent->position, newPos) <= decimationDistParent) return nullptr;
 
 	auto newBranch = new SCBranch(mat, newPos, this, growTrunk, growTrunk ? growIteration : growIteration + 1);
 	mChildren.push_back(newBranch);
@@ -80,37 +80,40 @@ SCBranch* SCBranch::Grow(float growDist, bool growTrunk, glm::vec3 tropism, floa
 void SCBranch::Relocation() {
 	for (auto i : mChildren) {
 		i->Relocation();
-		glm::vec3 dir = pos - i->pos;
-		i->pos += dir / 2.0f;
+		glm::vec3 dir = position - i->position;
+		i->position += dir / 2.0f;
 	}
 }
 
-void SCBranch::Subdivision(glm::vec3 fromPos, float fromRadius) {
-	auto distance = glm::distance(fromPos, pos);
+void SCBranch::Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadius) {
+	auto distance = glm::distance(fromPos, position);
 	int amount = distance / ((fromRadius + radius) / 2.0f);
-
-	glm::vec3 posStep = (pos - fromPos) / (float)amount;
+	auto direction = glm::normalize(position - fromPos);
+	glm::vec3 posStep = (position - fromPos) / (float)amount;
+	glm::vec3 dirStep = (direction - fromDir) / (float)amount;
 	float radiusStep = (radius - fromRadius) / (float)amount;
 
 	for (int i = 1; i < amount; i++) {
-		mBranchPosChain.push_back(fromPos + (float)i * posStep);
-		mBranchRadiusChain.push_back(fromRadius + (float)i * radiusStep);
+		mRings.push_back(SCBranchRingMesh(
+			fromPos + (float)(i - 1) * posStep, fromPos + (float)i * posStep,
+			fromDir + (float)(i - 1)* dirStep, fromDir + (float)i * dirStep,
+			fromRadius + (float)(i - 1) * radiusStep,fromRadius + (float)i * radiusStep));
 	}
-
-	mBranchPosChain.push_back(pos);
-	mBranchRadiusChain.push_back(radius);
+	if(amount > 1)mRings.push_back(SCBranchRingMesh(position - posStep, position, direction - dirStep, direction, radius - radiusStep, radius));
 
 	isSubdivided = true;
 
 	for (auto i : mChildren) {
-		i->Subdivision(pos, radius);
+		i->Subdivision(position, direction, radius);
 	}
 }
 
-void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles) {
-
+void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices) {
+	for (auto i : mRings) {
+		i.AppendPoints(vertices);
+	}
 
 	for (auto i : mChildren) {
-		i->CalculateMesh(rootPos, vertices, triangles);
+		i->CalculateMesh(rootPos, vertices);
 	}
 }

@@ -1,13 +1,13 @@
 #include "SCEnvelope.h"
 
-SCEnvelope::SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* material) :
+SCEnvelope::SCEnvelope(float xMax, float yMax, float zMax, float xMin, float yMin, float zMin, Material* pointMaterial) :
 	_XMax(xMax),
 	_YMax(yMax),
 	_ZMax(zMax),
 	_XMin(xMin),
 	_YMin(yMin),
 	_ZMin(zMin),
-	_PointMat(material),
+	_PointMat(pointMaterial),
 	_PointsGenerated(false)
 {
 

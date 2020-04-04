@@ -19,7 +19,7 @@ void RenderSystem::Update() {
 	for (size_t i = 0; i < size; i++) {
 		Entity* entity = World::Entities->GetEntity(i);
 		if (entity->ToDraw) {
-			Graphics::DrawMesh(entity->mesh, World::Entities->GetComponent<LocalToWorld>(entity).Value, entity->material, World::MainCamera);
+			Graphics::DrawMesh(entity->mesh, World::Entities->GetComponent<LocalToWorld>(entity).Value, entity->pointMaterial, World::MainCamera);
 		}
 	}
 

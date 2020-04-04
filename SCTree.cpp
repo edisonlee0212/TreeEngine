@@ -1,18 +1,28 @@
 #include "SCTree.h"
 
-SCTree::SCTree(glm::vec3 pos, Material* mat)
-	: pos(pos),
-	material(mat),
+SCTree::SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial)
+	: position(position),
+	pointMaterial(pointMaterial),
+	meshMaterial(meshMaterial),
 	mGrowingBranches(std::vector<SCBranch*>()),
 	needsToGrow(false),
-	mRoot(new SCBranch(mat, pos, nullptr, true, 1)),
-	maxGrowIteration(mRoot->growIteration)
+	mRoot(new SCBranch(pointMaterial, position, nullptr, true, 1)),
+	maxGrowIteration(mRoot->growIteration),
+	meshGenerated(false)
 {
 
 }
 
 void SCTree::Draw() {
-	if (matrices.size() > 0)Graphics::DrawMeshInstanced(Default::Primitives::Cube, material, &matrices[0], World::MainCamera, matrices.size());
+	
+	if (matrices.size() > 0) {
+		if (meshGenerated) {
+			glm::mat4 matrix = glm::translate(glm::mat4(1.0f), position);
+			matrix = glm::scale(matrix, glm::vec3(1.0f));
+			Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
+		}
+		else Graphics::DrawMeshInstanced(Default::Primitives::Cube, pointMaterial, &matrices[0], World::MainCamera, matrices.size());
+	}
 }
 
 SCTree::~SCTree() {
@@ -28,13 +38,13 @@ void SCTree::GrowTrunk(float growDist, float attractionDist, SCEnvelope* envelop
 	while (!found && timeOut > 0) {
 		for (int i = 0; i < size; i++) {
 			auto point = pointsList->at(i);
-			float dist = glm::distance(currentBranch->pos, point);
+			float dist = glm::distance(currentBranch->position, point);
 			if (dist < attractionDist) {
 				found = true;
 				currentBranch->growDir = glm::vec3(0.0f);
 				mGrowingBranches.push_back(currentBranch);
 			}
-			currentBranch->growDir += point - currentBranch->pos;
+			currentBranch->growDir += point - currentBranch->position;
 		}
 		if (!found) {
 			auto newBranch = currentBranch->Grow(growDist, true, tropism);
@@ -58,14 +68,14 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 		int minIndex = -1;
 		int size = mGrowingBranches.size();
 		for (int i = 0; i < size; i++) {
-			float dist = glm::distance(point, mGrowingBranches[i]->pos);
+			float dist = glm::distance(point, mGrowingBranches[i]->position);
 			if (dist < minDist) {
 				minDist = dist;
 				minIndex = i;
 			}
 		}
 		if (minDist <= attractionDist && minIndex >= 0) {
-			mGrowingBranches[minIndex]->growDir += glm::normalize(point - mGrowingBranches[minIndex]->pos);
+			mGrowingBranches[minIndex]->growDir += glm::normalize(point - mGrowingBranches[minIndex]->position);
 		}
 	}
 
@@ -89,7 +99,7 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 	size = pointsList->size();
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < mGrowingBranches.size(); j++) {
-			if (glm::distance(pointsList->at(i), mGrowingBranches[j]->pos) <= removeDist) {
+			if (glm::distance(pointsList->at(i), mGrowingBranches[j]->position) <= removeDist) {
 				envelope->DeletePointSwapBack(i);
 				size--;
 				i--;
@@ -108,9 +118,16 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 		Debug::Log("Node Relocation complete.");
 
 		CalculateRadius();
+		Debug::Log("Radius Calculation complete.");
+
 		NodeSubdivision();
 		Debug::Log("Node Subdivision complete.");
+
 		CollectPoints();
+		Debug::Log("Points Collection complete.");
+
+		CalculateMesh();
+		Debug::Log("Mesh Generation complete.");
 		return;
 	}
 
@@ -118,9 +135,16 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 	CollectPoints();
 }
 
-void SCTree::CalculateMesh(Mesh* mesh) {
+void SCTree::CalculateMesh() {
+	meshGenerated = false;
+	if (mesh != nullptr) delete mesh;
+	mesh = new Mesh();
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> triangles;
-	mRoot->CalculateMesh(pos, &vertices, &triangles);
+	mRoot->CalculateMesh(position, &vertices);
+	for (int i = 0; i < vertices.size(); i++) {
+		triangles.push_back(i);
+	}
 	mesh->Set(&vertices, &triangles);
+	meshGenerated = true;
 }

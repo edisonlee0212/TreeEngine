@@ -14,11 +14,19 @@ void SCTreeSystem::OnCreate() {
 	_EnvelopeTexture->LoadTexture(FileSystem::GetPath("Textures/white.png"), "");
 	_EnvelopePointMaterial->textures.push_back(_EnvelopeTexture);
 
-	_TreeBranchMaterial = new Material();
-	_TreeBranchMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
-	_BranchTexture = new Texture(Material_Type::DIFFUSE);
-	_BranchTexture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
-	_TreeBranchMaterial->textures.push_back(_BranchTexture);
+	_TreePointMaterial = new Material();
+	_TreePointMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
+	_TreePointTexture = new Texture(Material_Type::DIFFUSE);
+	_TreePointTexture->LoadTexture(FileSystem::GetPath("Textures/brown.png"), "");
+	_TreePointMaterial->textures.push_back(_TreePointTexture);
+
+	_TreeMeshMaterial = new Material();
+	_TreeMeshMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
+	_TreeMeshTexture = new Texture(Material_Type::DIFFUSE);
+	_TreeMeshTexture->LoadTexture(FileSystem::GetPath("Textures/tree.png"), "");
+	_TreeMeshMaterial->textures.push_back(_TreeMeshTexture);
+
+
 	_GrowDist = 0.3f;
 	_AttractDitsMult = 3.0f;
 	_RemoveDistMult = 0.5f;
@@ -56,7 +64,7 @@ void SCTreeSystem::BuildTree() {
 	if (_Envelope == nullptr || !_Envelope->PointsGenerated()) BuildEnvelope();
 	RemoveTree();
 	_Iteration = 0;
-	_Tree = new SCTree(glm::vec3(0.0f), _TreeBranchMaterial);
+	_Tree = new SCTree(glm::vec3(0.0f), _TreePointMaterial, _TreeMeshMaterial);
 	_AttractDist = _GrowDist * _AttractDitsMult;
 	_RemoveDist = _GrowDist * _RemoveDistMult;
 	Debug::Log("Trunk growing...");
@@ -78,8 +86,8 @@ void SCTreeSystem::OnDestroy() {
 	Disable();
 	delete _EnvelopePointMaterial;
 	delete _EnvelopeTexture;
-	delete _TreeBranchMaterial;
-	delete _BranchTexture;
+	delete _TreePointMaterial;
+	delete _TreePointTexture;
 	RemoveEnvelope();
 	RemoveTree();
 }

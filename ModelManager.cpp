@@ -92,22 +92,22 @@ Entity* ModelManager::ReadMesh(std::string directory, Shader* shader, std::vecto
             indices.push_back(face.mIndices[j]);
     }
     // process materials
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+    aiMaterial* pointMaterial = scene->mMaterials[mesh->mMaterialIndex];
 
     entity->mesh = new Mesh(vertices, indices);
-    entity->material = new Material();
-    entity->material->shader = shader;
-    std::vector<Texture*>* textures = &(entity->material->textures);
-    std::vector<Texture*> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_DIFFUSE, Material_Type::DIFFUSE);
+    entity->pointMaterial = new Material();
+    entity->pointMaterial->shader = shader;
+    std::vector<Texture*>* textures = &(entity->pointMaterial->textures);
+    std::vector<Texture*> diffuseMaps = LoadMaterialTextures(directory, texturesLoaded, pointMaterial, aiTextureType_DIFFUSE, Material_Type::DIFFUSE);
     textures->insert(textures->end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    std::vector<Texture*> specularMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_SPECULAR, Material_Type::SPECULAR);
+    std::vector<Texture*> specularMaps = LoadMaterialTextures(directory, texturesLoaded, pointMaterial, aiTextureType_SPECULAR, Material_Type::SPECULAR);
     textures->insert(textures->end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
-    std::vector<Texture*> normalMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_HEIGHT, Material_Type::NORMAL);
+    std::vector<Texture*> normalMaps = LoadMaterialTextures(directory, texturesLoaded, pointMaterial, aiTextureType_HEIGHT, Material_Type::NORMAL);
     textures->insert(textures->end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
-    std::vector<Texture*> heightMaps = LoadMaterialTextures(directory, texturesLoaded, material, aiTextureType_AMBIENT, Material_Type::HEIGHT);
+    std::vector<Texture*> heightMaps = LoadMaterialTextures(directory, texturesLoaded, pointMaterial, aiTextureType_AMBIENT, Material_Type::HEIGHT);
     textures->insert(textures->end(), heightMaps.begin(), heightMaps.end());
     return entity;
 }

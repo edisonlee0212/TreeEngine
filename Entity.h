@@ -7,7 +7,7 @@
 class Entity {
 public:
 	Entity* parent;
-	Material* material;
+	Material* pointMaterial;
 	Mesh* mesh;
 	bool ToDraw;
 	Entity(unsigned int key) :_Index(key), parent(nullptr) {

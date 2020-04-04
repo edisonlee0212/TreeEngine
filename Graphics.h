@@ -11,6 +11,6 @@ class Graphics {
 public:
 	static unsigned int Triangles;
 	static unsigned int DrawCall;
-	static void DrawMeshInstanced(Mesh* mesh, Material* material, glm::mat4* matrices, Camera* camera, size_t count);
-	static void DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* material, Camera* camera);
+	static void DrawMeshInstanced(Mesh* mesh, Material* pointMaterial, glm::mat4* matrices, Camera* camera, size_t count);
+	static void DrawMesh(Mesh* mesh, glm::mat4 matrix, Material* pointMaterial, Camera* camera);
 };

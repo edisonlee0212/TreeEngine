@@ -165,7 +165,7 @@
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="SCBranch.cpp" />
-    <ClCompile Include="SCBranchMesh.cpp" />
+    <ClCompile Include="SCBranchRingMesh.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="SCEnvelope.cpp" />
@@ -198,7 +198,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="LightingSystem.h" />
-    <ClInclude Include="SCBranchMesh.h" />
+    <ClInclude Include="SCBranchRingMesh.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="SCEnvelope.h" />
     <ClInclude Include="Graphics.h" />

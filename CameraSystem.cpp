@@ -34,25 +34,25 @@ void CameraSystem::Update() {
 #pragma endregion
 
 #pragma region HandleMouse
-	auto pos = Input::GetMousePosition();
+	auto position = Input::GetMousePosition();
 	if (!startMouse) {
-		_LastX = pos.x;
-		_LastY = pos.y;
+		_LastX = position.x;
+		_LastY = position.y;
 		startMouse = true;
 	}
-	float xoffset = pos.x - _LastX;
-	float yoffset = -pos.y + _LastY;
-	_LastX = pos.x;
-	_LastY = pos.y;
+	float xoffset = position.x - _LastX;
+	float yoffset = -position.y + _LastY;
+	_LastX = position.x;
+	_LastY = position.y;
 	if (Input::GetMouse(GLFW_MOUSE_BUTTON_RIGHT)) {
 		if (xoffset != 0 || yoffset != 0)World::MainCamera->ProcessMouseMovement(xoffset, yoffset);
-		pos = Input::GetMouseScroll();
+		position = Input::GetMouseScroll();
 		if (!startScroll) {
-			_LastScrollY = pos.y;
+			_LastScrollY = position.y;
 			startScroll = true;
 		}
-		float yscrolloffset = -pos.y + _LastScrollY;
-		_LastScrollY = pos.y;
+		float yscrolloffset = -position.y + _LastScrollY;
+		_LastScrollY = position.y;
 		if (yscrolloffset != 0)World::MainCamera->ProcessMouseScroll(yscrolloffset);
 
 
