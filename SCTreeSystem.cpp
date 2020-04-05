@@ -104,7 +104,7 @@ void SCTreeSystem::Update() {
 void SCTreeSystem::FixedUpdate() {
 	if (_Envelope != nullptr && _Tree != nullptr && _Tree->needsToGrow) {
 		_Iteration++;
-		_Tree->Grow(_GrowDist, _AttractDist, _RemoveDist, _Envelope, glm::vec3(0.0f), 0.015f, 0.1f, 0.05f, 0.05f);
+		_Tree->Grow(_GrowDist, _AttractDist, _RemoveDist, _Envelope, glm::vec3(0.0f), 0.015f, 0.05f, 0.02f, 0.02f);
 	}
 }
 

@@ -15,11 +15,14 @@ void SCBranchRingMesh::AppendPoints(std::vector<Vertex>* vertices, int resolutio
 	std::vector<Vertex> startRing;
 	std::vector<Vertex> endRing;
 	float angleStep = 360.0f / (float)(resolution);
+	Vertex archetype;
 	for (int i = 0; i < resolution; i++) {
-		startRing.push_back(GetPoint(angleStep * i, true));
+		archetype.Position = GetPoint(angleStep * i, true);
+		startRing.push_back(archetype);
 	}
 	for (int i = 0; i < resolution; i++) {
-		endRing.push_back(GetPoint(angleStep * i, false));
+		archetype.Position = GetPoint(angleStep * i, false);
+		endRing.push_back(archetype);
 	}
 	float textureXstep = 1.0f / resolution * 4;
 	for (int i = 0; i < resolution - 1; i++) {
@@ -47,17 +50,21 @@ void SCBranchRingMesh::AppendPoints(std::vector<Vertex>* vertices, int resolutio
 	vertices->push_back(startRing[0]);
 }
 
-inline Vertex SCBranchRingMesh::GetPoint(float angle, bool isStart) {
-	Vertex retVal;
-
+inline glm::vec3 SCBranchRingMesh::GetPoint(float angle, bool isStart) {
+	glm::vec3 position;
 	glm::vec3 tmp = glm::vec3(0.0f);
 	tmp.x = glm::sin(3.1415926f * angle / 180.0f);
 	tmp.y = 0;
 	tmp.z = glm::cos(3.1415926f * angle / 180.0f);
 	
-	glm::vec3 direction = glm::normalize(glm::cross(tmp, isStart ? this->StartAxis : this->EndAxis));
+	glm::vec3 direction = glm::cross(tmp, isStart ? this->StartAxis : this->EndAxis);
 
-	retVal.Position = (isStart ? this->StartPosition : this->EndPosition) + direction * (isStart ? this->StartRadius : this->EndRadius);
+	if (direction.x == 0 && direction.y == 0 && direction.z == 0) {
+		Debug::Log("ERRRRRRRR!");
+	}
 
-	return retVal;
+	direction = glm::normalize(direction);
+	position = (isStart ? this->StartPosition : this->EndPosition) + direction * (isStart ? this->StartRadius : this->EndRadius);
+
+	return position;
 }

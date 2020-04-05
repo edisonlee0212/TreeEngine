@@ -32,7 +32,7 @@ public:
 
     void Clear();
 
-    void Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles);
+    void Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles, int offset = 0);
 
     void RecalculateNormal();
 

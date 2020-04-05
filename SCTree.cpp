@@ -19,7 +19,7 @@ void SCTree::Draw() {
 		if (meshGenerated) {
 			glm::mat4 matrix = glm::translate(glm::mat4(1.0f), position);
 			matrix = glm::scale(matrix, glm::vec3(1.0f));
-			Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
+			for(auto mesh : mMeshList)Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
 		}
 		else Graphics::DrawMeshInstanced(Default::Primitives::Cube, pointMaterial, &matrices[0], World::MainCamera, matrices.size());
 	}
@@ -135,20 +135,55 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 	CollectPoints();
 }
 
-void SCTree::CalculateMesh() {
+void SCTree::CalculateMesh(int triangleLimit) {
+	int maxVerticesAmount = triangleLimit * 3;
 	meshGenerated = false;
-	if (mesh != nullptr) delete mesh;
-	mesh = new Mesh();
+	if (!mMeshList.empty()) for (auto i : mMeshList) delete i;
+	mMeshList.clear();
 	std::vector<Vertex>* vertices = new std::vector<Vertex>();
 	std::vector<unsigned int>* triangles = new std::vector<unsigned int>();
-	mRoot->CalculateMesh(position, vertices);
-	int size = vertices->size();
-	for (int i = 0; i < size; i++) {
-		triangles->push_back(i);
+	mRoot->CalculateMesh(position, vertices, 4);
+	size_t size = vertices->size();
+	int amount = size / maxVerticesAmount;
+	int residue = size % maxVerticesAmount;
+	for (int i = 0; i < maxVerticesAmount; i++) triangles->push_back(i);
+	for (int i = 0; i < amount; i++) {
+		auto mesh = new Mesh();
+		mesh->Set(vertices, triangles, i * maxVerticesAmount);
+		mesh->RecalculateNormal();
+		mMeshList.push_back(mesh);
 	}
-	mesh->Set(vertices, triangles);
+
+	if (residue != 0) {
+		triangles->clear();
+		for (int i = 0; i < residue; i++) triangles->push_back(i);
+		auto mesh = new Mesh();
+		mesh->Set(vertices, triangles, amount * maxVerticesAmount);
+		mesh->RecalculateNormal();
+		mMeshList.push_back(mesh);
+	}
+	
 	delete vertices;
 	delete triangles;
-	mesh->RecalculateNormal();
+	
 	meshGenerated = true;
+}
+
+inline void SCTree::CalculateRadius() {
+	mRoot->CalculateRadius(maxGrowIteration, 3.0f);
+}
+
+inline void SCTree::CollectPoints() {
+	matrices.clear();
+	mRoot->CollectPoint(&matrices);
+}
+
+inline void SCTree::NodeRelocation() {
+	Debug::Log("Node Relocation...");
+	mRoot->Relocation();
+}
+
+inline void SCTree::NodeSubdivision() {
+	Debug::Log("Node Subdivision...");
+	mRoot->Subdivision(position, glm::vec3(0.0f, 1.0f, 0.0f), 1);
 }

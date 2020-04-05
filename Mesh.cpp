@@ -19,14 +19,14 @@ Mesh::~Mesh() {
     delete triangles;
 }
 
-void Mesh::Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles) {
+void Mesh::Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles, int offset) {
     this->vertices->clear();
     this->triangles->clear();
     size_t size = triangles->size() / 3;
     for (size_t i = 0; i < size; i++) {
-        this->vertices->push_back(vertices->at(triangles->at(3 * i)));
-        this->vertices->push_back(vertices->at(triangles->at(3 * i + 1)));
-        this->vertices->push_back(vertices->at(triangles->at(3 * i + 2)));
+        this->vertices->push_back(vertices->at(offset + triangles->at(3 * i)));
+        this->vertices->push_back(vertices->at(offset + triangles->at(3 * i + 1)));
+        this->vertices->push_back(vertices->at(offset + triangles->at(3 * i + 2)));
         this->triangles->push_back(3 * i);
         this->triangles->push_back(3 * i + 1);
         this->triangles->push_back(3 * i + 2);

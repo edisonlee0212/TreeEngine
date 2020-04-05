@@ -59,7 +59,7 @@ SCBranch* SCBranch::Grow(float growDist, bool growTrunk, glm::vec3 tropism, floa
 	if (growDir == glm::vec3(0.0f)) return nullptr;
 	float actualDist = growDist - distDec * growIteration;
 	if (actualDist < minDist) actualDist = minDist;
-	glm::vec3 newPos = position + glm::normalize(glm::normalize(growDir) + tropism) * actualDist / (float)(mChildren.size() + 1);
+	glm::vec3 newPos = position + glm::normalize(glm::normalize(growDir) + tropism) * actualDist;
 
 	growDir = glm::vec3(0.0f);
 	for (auto child : mChildren) {
@@ -83,7 +83,7 @@ void SCBranch::Relocation() {
 void SCBranch::Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadius) {
 	auto distance = glm::distance(fromPos, position);
 	int amount = distance / ((fromRadius + radius) / 2.0f);
-	
+
 	auto direction = glm::normalize(position - fromPos);
 	BezierCurve curve = BezierCurve(fromPos, fromPos + distance / 3.0f * fromDir, position - distance / 3.0f * direction, position);
 	float posStep = 1.0f / (float)amount;
@@ -97,7 +97,7 @@ void SCBranch::Subdivision(glm::vec3 fromPos, glm::vec3 fromDir, float fromRadiu
 			fromRadius + (float)(i - 1) * radiusStep, fromRadius + (float)i * radiusStep));
 	}
 	if (amount > 1)mRings.push_back(SCBranchRingMesh(curve.GetPoint(1.0f - posStep), position, direction - dirStep, direction, radius - radiusStep, radius));
-
+	else mRings.push_back(SCBranchRingMesh(fromPos, position, fromDir, direction, fromRadius, radius));
 	isSubdivided = true;
 
 	for (auto i : mChildren) {
@@ -112,13 +112,15 @@ void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, i
 	if (mChildren.empty() && !mRings.empty()) {
 		std::vector<Vertex> endRing;
 		float angleStep = 360.0f / (float)(resolution);
+		Vertex archetype;
 		for (int i = 0; i < resolution; i++) {
-			endRing.push_back(mRings.back().GetPoint(angleStep * i, false));
+			archetype.Position = mRings.back().GetPoint(angleStep * i, false);
+			endRing.push_back(archetype);
 		}
 		Vertex center = Vertex();
 		center.Position = mRings.back().EndPosition;
 		center.TexCoords = glm::vec2(1.0f, 1.0f);
-		for (int i = 0; i < resolution - 1; i++) {
+		for (size_t i = 0; i < resolution - 1; i++) {
 			endRing[i].TexCoords = glm::vec2(0.0f, 0.0f);
 			endRing[i + 1].TexCoords = glm::vec2(0.0f, 1.0f);
 			vertices->push_back(endRing[i]);
@@ -129,9 +131,7 @@ void SCBranch::CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, i
 		vertices->push_back(endRing[0]);
 		vertices->push_back(center);
 	}
-	else {
-		for (auto i : mChildren) {
-			i->CalculateMesh(rootPos, vertices);
-		}
+	for (auto i : mChildren) {
+		i->CalculateMesh(rootPos, vertices, resolution);
 	}
 }
