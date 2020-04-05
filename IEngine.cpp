@@ -1,6 +1,6 @@
-#include "TreeEngine.h"
+#include "IEngine.h"
 #include "Default.h"
-void TreeEngine::GLInit() {
+void IEngine::GLInit() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -25,7 +25,7 @@ void TreeEngine::GLInit() {
 	}
 }
 
-void TreeEngine::Start() {
+void IEngine::Start() {
 	_Looping = false;
 	GLInit();
 	Default::Load();
@@ -38,7 +38,7 @@ void TreeEngine::Start() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 }
-void TreeEngine::Loop() {
+void IEngine::Loop() {
 	if (_Looping) return;
 	_Looping = true;
 	while (_Looping && !glfwWindowShouldClose(WindowManager::GetWindow()))
@@ -46,7 +46,7 @@ void TreeEngine::Loop() {
 		world->Update();
 	}
 }
-void TreeEngine::End() {
+void IEngine::End() {
 	delete world;
 	glfwTerminate();
 }

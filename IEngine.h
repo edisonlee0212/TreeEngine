@@ -9,7 +9,7 @@
 #include "ModelManager.h"
 
 
-class TreeEngine {
+class IEngine {
 public:
 	void GLInit();
 

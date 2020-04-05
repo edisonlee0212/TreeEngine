@@ -23,6 +23,7 @@
     <ProjectGuid>{B9DC8702-6AD6-4D39-B5ED-DCF8AD54E844}</ProjectGuid>
     <RootNamespace>TreeEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>IEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -153,6 +154,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="IEngine.cpp" />
     <ClCompile Include="includes\glad\src\glad.c" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_glfw.cpp" />
     <ClCompile Include="includes\ImGUI\examples\imgui_impl_opengl3.cpp" />
@@ -182,7 +184,6 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Time.h" />
-    <ClCompile Include="TreeEngine.cpp" />
     <ClCompile Include="TRSToLocalToParentSystem.cpp" />
     <ClCompile Include="TRSToLocalToWorldSystem.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="CylinderEnvelope.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="IEngine.h" />
     <ClInclude Include="InternalComponents.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
@@ -228,7 +230,6 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemBase.h" />
-    <ClInclude Include="TreeEngine.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

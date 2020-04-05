@@ -173,9 +173,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TreeEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>Source Files\Misc\Graphics</Filter>
     </ClCompile>
@@ -221,11 +218,11 @@
     <ClCompile Include="Curve.cpp">
       <Filter>Source Files\Misc\Math</Filter>
     </ClCompile>
+    <ClCompile Include="IEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TreeEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -345,6 +342,9 @@
     </ClInclude>
     <ClInclude Include="Curve.h">
       <Filter>Header Files\Misc\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IEngine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

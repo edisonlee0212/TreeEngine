@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TreeEngine", "TreeEngine.vcxproj", "{B9DC8702-6AD6-4D39-B5ED-DCF8AD54E844}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IEngine", "IEngine.vcxproj", "{B9DC8702-6AD6-4D39-B5ED-DCF8AD54E844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A13C3196-A7B6-497D-9F13-95D0028CDFAD}
+		SolutionGuid = {CFFC4CFD-294C-45EF-A06F-D113F285A879}
 	EndGlobalSection
 EndGlobal
