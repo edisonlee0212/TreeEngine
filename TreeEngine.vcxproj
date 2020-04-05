@@ -77,6 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>includes;includes\assimp-5.0.1\x64\include;includes\assimp-5.0.1\include;includes\glfw-3.3.2\include;includes\glad\include;includes\ImGUI\examples;includes\ImGUI;$(IncludePath)</IncludePath>
+    <SourcePath>includes\glfw-3.3.2\src;includes\glad\src;src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -94,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;includes\glfw-3.3\build\src\Debug\glfw3.lib;includes\assimp-5.0.1\lib\Debug\assimp-vc142-mtd.lib;includes\assimp-5.0.1\lib\Debug\IrrXMLd.lib;includes\assimp-5.0.1\lib\Debug\zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;includes\glfw-3.3\x86\src\Debug\glfw3.lib;includes\assimp-5.0.1\lib\Debug\assimp-vc142-mtd.lib;includes\assimp-5.0.1\lib\Debug\IrrXMLd.lib;includes\assimp-5.0.1\lib\Debug\zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,6 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;includes\glfw-3.3.2\x64\src\Debug\glfw3.lib;includes\assimp-5.0.1\x64\code\Debug\assimp-vc142-mtd.lib;includes\assimp-5.0.1\x64\contrib\irrXML\Debug\IrrXMLd.lib;includes\assimp-5.0.1\x64\contrib\zlib\Debug\zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -22,8 +22,8 @@ Mesh::~Mesh() {
 void Mesh::Set(std::vector<Vertex>* vertices, std::vector<unsigned int>* triangles) {
     this->vertices->clear();
     this->triangles->clear();
-    int size = triangles->size() / 3;
-    for (int i = 0; i < size; i++) {
+    size_t size = triangles->size() / 3;
+    for (size_t i = 0; i < size; i++) {
         this->vertices->push_back(vertices->at(triangles->at(3 * i)));
         this->vertices->push_back(vertices->at(triangles->at(3 * i + 1)));
         this->vertices->push_back(vertices->at(triangles->at(3 * i + 2)));

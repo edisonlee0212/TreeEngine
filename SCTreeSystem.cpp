@@ -23,7 +23,7 @@ void SCTreeSystem::OnCreate() {
 	_TreeMeshMaterial = new Material();
 	_TreeMeshMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	_TreeMeshTexture = new Texture(Material_Type::DIFFUSE);
-	_TreeMeshTexture->LoadTexture(FileSystem::GetPath("Textures/tree.png"), "");
+	_TreeMeshTexture->LoadTexture(FileSystem::GetPath("Textures/border.jpg"), "");
 	_TreeMeshMaterial->textures.push_back(_TreeMeshTexture);
 
 
