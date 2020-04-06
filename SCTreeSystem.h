@@ -29,6 +29,8 @@ private:
 	Texture* _TreePointTexture;
 	Material* _TreeMeshMaterial;
 	Texture* _TreeMeshTexture;
+	Material* _TreeLeafMaterial;
+	Texture* _TreeLeafTexture;
 
 	float _EnvelopeRadius, _MaxHeight, _MinHeight;
 	int _PointsCount;

@@ -1,27 +1,37 @@
 #include "SCTree.h"
 
-SCTree::SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial)
+SCTree::SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial, Material* organMaterial)
 	: position(position),
 	pointMaterial(pointMaterial),
 	meshMaterial(meshMaterial),
+	organMaterial(organMaterial),
 	mGrowingBranches(std::vector<SCBranch*>()),
 	needsToGrow(false),
 	mRoot(new SCBranch(pointMaterial, position, nullptr, true, 1)),
 	maxGrowIteration(mRoot->growIteration),
-	meshGenerated(false)
+	meshGenerated(false),
+	organGenerated(false)
 {
 
 }
 
 void SCTree::Draw() {
 	
-	if (matrices.size() > 0) {
+	if (mPointMatrices.size() > 0) {
 		if (meshGenerated) {
 			glm::mat4 matrix = glm::translate(glm::mat4(1.0f), position);
 			matrix = glm::scale(matrix, glm::vec3(1.0f));
 			for(auto mesh : mMeshList)Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
+			if (organGenerated) {
+				glDisable(GL_CULL_FACE);
+				/*for (auto i : mLeafList) {
+					Graphics::DrawMesh(Default::Primitives::Quad, i, organMaterial, World::MainCamera);
+				}*/
+				Graphics::DrawMeshInstanced(Default::Primitives::Quad, organMaterial, &mLeafList[0], World::MainCamera, mLeafList.size());
+				glEnable(GL_CULL_FACE);
+			}
 		}
-		else Graphics::DrawMeshInstanced(Default::Primitives::Cube, pointMaterial, &matrices[0], World::MainCamera, matrices.size());
+		else Graphics::DrawMeshInstanced(Default::Primitives::Cube, pointMaterial, &mPointMatrices[0], World::MainCamera, mPointMatrices.size());
 	}
 }
 
@@ -48,7 +58,6 @@ void SCTree::GrowTrunk(float growDist, float attractionDist, SCEnvelope* envelop
 		}
 		if (!found) {
 			auto newBranch = currentBranch->Grow(growDist, true, tropism);
-			if (newBranch->growIteration > maxGrowIteration) maxGrowIteration = newBranch->growIteration;
 			currentBranch = newBranch;
 		}
 		timeOut--;
@@ -128,6 +137,9 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 
 		CalculateMesh();
 		Debug::Log("Mesh Generation complete.");
+
+		GenerateOrgan();
+		Debug::Log("Organ Generation complete.");
 		return;
 	}
 
@@ -142,7 +154,7 @@ void SCTree::CalculateMesh(int triangleLimit) {
 	mMeshList.clear();
 	std::vector<Vertex>* vertices = new std::vector<Vertex>();
 	std::vector<unsigned int>* triangles = new std::vector<unsigned int>();
-	mRoot->CalculateMesh(position, vertices, 4);
+	mRoot->CalculateMesh(position, vertices, 16);
 	size_t size = vertices->size();
 	int amount = size / maxVerticesAmount;
 	int residue = size % maxVerticesAmount;
@@ -174,8 +186,8 @@ inline void SCTree::CalculateRadius() {
 }
 
 inline void SCTree::CollectPoints() {
-	matrices.clear();
-	mRoot->CollectPoint(&matrices);
+	mPointMatrices.clear();
+	mRoot->CollectPoint(&mPointMatrices);
 }
 
 inline void SCTree::NodeRelocation() {
@@ -186,4 +198,10 @@ inline void SCTree::NodeRelocation() {
 inline void SCTree::NodeSubdivision() {
 	Debug::Log("Node Subdivision...");
 	mRoot->Subdivision(position, glm::vec3(0.0f, 1.0f, 0.0f), 1);
+}
+
+inline void SCTree::GenerateOrgan() {
+	Debug::Log("Generating Organ...");
+	mRoot->GenerateOrgan(&mLeafList, maxGrowIteration);
+	organGenerated = true;
 }

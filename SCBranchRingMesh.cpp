@@ -59,10 +59,6 @@ inline glm::vec3 SCBranchRingMesh::GetPoint(float angle, bool isStart) {
 	
 	glm::vec3 direction = glm::cross(tmp, isStart ? this->StartAxis : this->EndAxis);
 
-	if (direction.x == 0 && direction.y == 0 && direction.z == 0) {
-		Debug::Log("ERRRRRRRR!");
-	}
-
 	direction = glm::normalize(direction);
 	position = (isStart ? this->StartPosition : this->EndPosition) + direction * (isStart ? this->StartRadius : this->EndRadius);
 

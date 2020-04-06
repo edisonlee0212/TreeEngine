@@ -23,14 +23,21 @@ void SCTreeSystem::OnCreate() {
 	_TreeMeshMaterial = new Material();
 	_TreeMeshMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
 	_TreeMeshTexture = new Texture(Material_Type::DIFFUSE);
-	_TreeMeshTexture->LoadTexture(FileSystem::GetPath("Textures/border.jpg"), "");
+	_TreeMeshTexture->LoadTexture(FileSystem::GetPath("Textures/tree.jpg"), "");
 	_TreeMeshMaterial->textures.push_back(_TreeMeshTexture);
 
+	_TreeLeafMaterial = new Material();
+	_TreeLeafMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefaultInstanced.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
+	//_TreeLeafMaterial->shader = new Shader(FileSystem::GetPath("Shaders/Vertex/LightDefault.vert"), FileSystem::GetPath("Shaders/Fragment/MultipleLights.frag"));
+	_TreeLeafTexture = new Texture(Material_Type::DIFFUSE);
+	_TreeLeafTexture->LoadTexture(FileSystem::GetPath("Textures/Leaf/PrunusAvium/A/level0.png"), "");
+	//_TreeLeafTexture->LoadTexture(FileSystem::GetPath("Textures/green.png"), "");
+	_TreeLeafMaterial->textures.push_back(_TreeLeafTexture);
 
 	_GrowDist = 0.3f;
-	_AttractDitsMult = 5.0f;
+	_AttractDitsMult = 2.5f;
 	_RemoveDistMult = 0.5f;
-	_EnvelopeRadius = 1.5f;
+	_EnvelopeRadius = 2.4f;
 	_MaxHeight = 6.5f;
 	_MinHeight = 1.0f;
 	_PointsCount = 4000;
@@ -64,7 +71,7 @@ void SCTreeSystem::BuildTree() {
 	if (_Envelope == nullptr || !_Envelope->PointsGenerated()) BuildEnvelope();
 	RemoveTree();
 	_Iteration = 0;
-	_Tree = new SCTree(glm::vec3(0.0f), _TreePointMaterial, _TreeMeshMaterial);
+	_Tree = new SCTree(glm::vec3(0.0f), _TreePointMaterial, _TreeMeshMaterial, _TreeLeafMaterial);
 	_AttractDist = _GrowDist * _AttractDitsMult;
 	_RemoveDist = _GrowDist * _RemoveDistMult;
 	Debug::Log("Trunk growing...");

@@ -7,14 +7,16 @@ class SCTree {
 public:
 	SCBranch* mRoot;
 	std::vector<SCBranch*> mGrowingBranches;
-	bool needsToGrow, meshGenerated;
+	bool needsToGrow, meshGenerated, organGenerated;
 	int maxGrowIteration;
 	glm::vec3 position;
 	Material* pointMaterial;
 	Material* meshMaterial;
+	Material* organMaterial;
 	std::vector<Mesh*> mMeshList;
-	std::vector<glm::mat4> matrices;
-	SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial);
+	std::vector<glm::mat4> mPointMatrices;
+	std::vector<glm::mat4> mLeafList;
+	SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial, Material* organMaterial);
 
 	void Draw();
 
@@ -34,4 +36,6 @@ private:
 	inline void NodeRelocation();
 
 	inline void NodeSubdivision();
+
+	inline void GenerateOrgan();
 };

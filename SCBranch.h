@@ -25,7 +25,7 @@ public:
 
 	void CollectPoint(std::vector<glm::mat4>* matrices);
 
-	float CalculateRadius(int maxGrowIteration, float n = 3.0f);
+	float CalculateRadius(int maxGrowIteration, float n = 3.0f, float minRadius = 0.01f);
 
 	SCBranch* Grow(float growDist, bool growTrunk, glm::vec3 tropism, float distDec = 0.015f, float minDist = 0.1f, float decimationDistChild = 0.05f, float decimationDistParent = 0.05f);
 
@@ -35,5 +35,5 @@ public:
 
 	void CalculateMesh(glm::vec3 rootPos, std::vector<Vertex>* vertices, int resolution = 32);
 
-
+	void GenerateOrgan(std::vector<glm::mat4>* matrices, int maxGrowIteration, int maxLeaf = 5);
 };

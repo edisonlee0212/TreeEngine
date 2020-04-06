@@ -10,7 +10,7 @@ Camera* World::MainCamera;
 EntityManager* World::Entities;
 
 World::World() {
-	_DrawSkybox = true;
+	_DrawSkybox = false;
 	_DrawWireframe = false;
 	Time::WorldTime = 0;
 	Time::DeltaTime = 0;
