@@ -41,6 +41,8 @@ private:
 	int _Iteration;
 	SCTree* _Tree;
 
+	bool _DrawOrgan;
+
 	inline void EnvelopeGUIMenu();
 	inline void TreeGUIMenu();
 };

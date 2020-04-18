@@ -221,6 +221,9 @@
     <ClCompile Include="IEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CoilEnvelope.cpp">
+      <Filter>Source Files\Tree\SCTree\Envelopes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World.h">
@@ -345,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="IEngine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoilEnvelope.h">
+      <Filter>Header Files\Tree\SCTree\Envelopes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -106,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +151,7 @@
     <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraSystem.cpp" />
+    <ClCompile Include="CoilEnvelope.cpp" />
     <ClCompile Include="Curve.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Default.cpp" />
@@ -194,6 +196,7 @@
     <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
+    <ClInclude Include="CoilEnvelope.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="CubeEnvelope.h" />
     <ClInclude Include="Curve.h" />

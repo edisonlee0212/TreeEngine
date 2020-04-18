@@ -4,12 +4,14 @@
 #include <sstream>
 #include <iostream>
 #include <map>
+#include <list>
 #include <vector>
 #include <memory>
 #include <utility>
 #include <unordered_map>
 #include <cstddef>
-
+#include <omp.h>
+#define OMP_THREAD_AMOUNT 8
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>

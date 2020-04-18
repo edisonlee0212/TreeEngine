@@ -1,5 +1,5 @@
 #include "SCTree.h"
-
+#include <omp.h>
 SCTree::SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMaterial, Material* organMaterial)
 	: position(position),
 	pointMaterial(pointMaterial),
@@ -15,18 +15,15 @@ SCTree::SCTree(glm::vec3 position, Material* pointMaterial, Material* meshMateri
 
 }
 
-void SCTree::Draw() {
-	
+void SCTree::Draw(bool drawOrgan) {
+
 	if (mPointMatrices.size() > 0) {
 		if (meshGenerated) {
 			glm::mat4 matrix = glm::translate(glm::mat4(1.0f), position);
 			matrix = glm::scale(matrix, glm::vec3(1.0f));
-			for(auto mesh : mMeshList)Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
-			if (organGenerated) {
+			for (auto mesh : mMeshList)Graphics::DrawMesh(mesh, matrix, meshMaterial, World::MainCamera);
+			if (drawOrgan && organGenerated) {
 				glDisable(GL_CULL_FACE);
-				/*for (auto i : mLeafList) {
-					Graphics::DrawMesh(Default::Primitives::Quad, i, organMaterial, World::MainCamera);
-				}*/
 				Graphics::DrawMeshInstanced(Default::Primitives::Quad, organMaterial, &mLeafList[0], World::MainCamera, mLeafList.size());
 				glEnable(GL_CULL_FACE);
 			}
@@ -53,6 +50,7 @@ void SCTree::GrowTrunk(float growDist, float attractionDist, SCEnvelope* envelop
 				found = true;
 				currentBranch->growDir = glm::vec3(0.0f);
 				mGrowingBranches.push_back(currentBranch);
+				break;
 			}
 			currentBranch->growDir += point - currentBranch->position;
 		}
@@ -71,39 +69,69 @@ void SCTree::GrowTrunk(float growDist, float attractionDist, SCEnvelope* envelop
 void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnvelope* envelope, glm::vec3 tropism,
 	float distDec, float minDist, float decimationDistChild, float decimationDistParent) {
 	auto pointsList = envelope->GetPointPositions();
-	for (int i = 0; i < pointsList->size(); i++) {
+	auto size = mGrowingBranches.size();
+	int pointSize = pointsList->size();
+
+	for (int i = 0; i < pointSize; i++) {
 		auto point = pointsList->at(i);
-		float minDist = 9999999;
-		int minIndex = -1;
-		int size = mGrowingBranches.size();
-		for (int i = 0; i < size; i++) {
-			float dist = glm::distance(point, mGrowingBranches[i]->position);
-			if (dist < minDist) {
-				minDist = dist;
-				minIndex = i;
+		float minDists[OMP_THREAD_AMOUNT];
+		int minIndices[OMP_THREAD_AMOUNT];
+		for (int j = 0; j < OMP_THREAD_AMOUNT; j++) {
+			minDists[j] = 9999999;
+			minIndices[j] = -1;
+		}
+		omp_set_num_threads(OMP_THREAD_AMOUNT);
+#pragma omp parallel for shared(pointsList, minDists, minIndices)
+		for (int j = 0; j < size; j++) {
+			float dist = glm::distance(point, mGrowingBranches[j]->position);
+			if (dist < minDists[omp_get_thread_num()]) {
+				minDists[omp_get_thread_num()] = dist;
+				minIndices[omp_get_thread_num()] = j;
 			}
 		}
-		if (minDist <= attractionDist && minIndex >= 0) {
+		float minDistance = 9999999;
+		int minIndex = -1;
+		for (int j = 0; j < OMP_THREAD_AMOUNT; j++) {
+			if (minDistance > minDists[j]) {
+				minDistance = minDists[j];
+				minIndex = minIndices[j];
+			}
+		}
+		if (minDistance <= attractionDist && minIndex >= 0) {
 			mGrowingBranches[minIndex]->growDir += glm::normalize(point - mGrowingBranches[minIndex]->position);
 		}
 	}
 
 	bool addedNewBranch = false;
-	auto size = mGrowingBranches.size();
+
+	std::vector<SCBranch*> resultsList[OMP_THREAD_AMOUNT];
+	omp_set_num_threads(OMP_THREAD_AMOUNT);
+#pragma omp parallel for shared(resultsList)
 	for (int i = 0; i < size; i++) {
 		SCBranch* newBranch = mGrowingBranches[i]->Grow(growDist, false, tropism, distDec, minDist, decimationDistChild, decimationDistParent);
-		if (newBranch == nullptr) {
+		if (newBranch == nullptr) mGrowingBranches[i] = nullptr;
+		else resultsList[omp_get_thread_num()].push_back(newBranch);
+	}
+	for (size_t i = 0; i < size; i++) {
+		if (mGrowingBranches[i] == nullptr) {
 			mGrowingBranches.erase(mGrowingBranches.begin() + i);
 			i--;
 			size--;
 		}
-		else
-		{
+	}
+
+	for (size_t i = 0; i < OMP_THREAD_AMOUNT; i++) {
+		int resultSize = resultsList[i].size();
+		for (size_t j = 0; j < resultSize; j++) {
+			auto newBranch = resultsList[i][j];
 			mGrowingBranches.push_back(newBranch);
 			if (newBranch->growIteration > maxGrowIteration) maxGrowIteration = newBranch->growIteration;
 			addedNewBranch = true;
 		}
 	}
+
+	
+	
 
 	size = pointsList->size();
 	for (int i = 0; i < size; i++) {
@@ -135,7 +163,7 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 		CollectPoints();
 		Debug::Log("Points Collection complete.");
 
-		CalculateMesh();
+		CalculateMesh(16, 16384);
 		Debug::Log("Mesh Generation complete.");
 
 		GenerateOrgan();
@@ -147,14 +175,14 @@ void SCTree::Grow(float growDist, float attractionDist, float removeDist, SCEnve
 	CollectPoints();
 }
 
-void SCTree::CalculateMesh(int triangleLimit) {
+void SCTree::CalculateMesh(int resolution, int triangleLimit) {
 	int maxVerticesAmount = triangleLimit * 3;
 	meshGenerated = false;
 	if (!mMeshList.empty()) for (auto i : mMeshList) delete i;
 	mMeshList.clear();
 	std::vector<Vertex>* vertices = new std::vector<Vertex>();
 	std::vector<unsigned int>* triangles = new std::vector<unsigned int>();
-	mRoot->CalculateMesh(position, vertices, 16);
+	mRoot->CalculateMesh(position, vertices, resolution);
 	size_t size = vertices->size();
 	int amount = size / maxVerticesAmount;
 	int residue = size % maxVerticesAmount;
@@ -174,10 +202,10 @@ void SCTree::CalculateMesh(int triangleLimit) {
 		mesh->RecalculateNormal();
 		mMeshList.push_back(mesh);
 	}
-	
+
 	delete vertices;
 	delete triangles;
-	
+
 	meshGenerated = true;
 }
 

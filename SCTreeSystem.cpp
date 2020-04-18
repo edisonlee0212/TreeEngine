@@ -5,7 +5,7 @@
 #include "SurfaceOfRevolutionEnvelope.h"
 #include "CylinderEnvelope.h"
 #include "CubeEnvelope.h"
-
+#include "CoilEnvelope.h"
 
 void SCTreeSystem::OnCreate() {
 	_EnvelopePointMaterial = new Material();
@@ -41,6 +41,8 @@ void SCTreeSystem::OnCreate() {
 	_MaxHeight = 6.5f;
 	_MinHeight = 1.0f;
 	_PointsCount = 4000;
+
+	_DrawOrgan = true;
 	Enable();
 }
 
@@ -56,6 +58,9 @@ void SCTreeSystem::BuildEnvelope() {
 		break;
 	case 2:
 		_Envelope = new CylinderEnvelope(_EnvelopeRadius, _MaxHeight, _EnvelopeRadius, -_EnvelopeRadius, _MinHeight, -_EnvelopeRadius, _EnvelopePointMaterial);
+		break;
+	case 3:
+		_Envelope = new CoilEnvelope(_EnvelopeRadius, _MaxHeight, _EnvelopeRadius, -_EnvelopeRadius, _MinHeight, -_EnvelopeRadius, _EnvelopePointMaterial);
 		break;
 	default:
 		_Envelope = new SurfaceOfRevelutionEnvelope(_EnvelopeRadius, _MaxHeight, _EnvelopeRadius, -_EnvelopeRadius, _MinHeight, -_EnvelopeRadius, _EnvelopePointMaterial);
@@ -99,13 +104,13 @@ void SCTreeSystem::OnDestroy() {
 	RemoveTree();
 }
 
-static const char* EnvelopeTypes[]{ "SurfaceOfRevo", "Cube", "Cylinder" };
+static const char* EnvelopeTypes[]{ "SurfaceOfRevo", "Cube", "Cylinder", "Coil" };
 
 void SCTreeSystem::Update() {
 	EnvelopeGUIMenu();
 	TreeGUIMenu();
 	if (_Envelope != nullptr) _Envelope->Draw();
-	if (_Tree != nullptr) _Tree->Draw();
+	if (_Tree != nullptr) _Tree->Draw(_DrawOrgan);
 }
 
 void SCTreeSystem::FixedUpdate() {
@@ -129,6 +134,8 @@ inline void SCTreeSystem::EnvelopeGUIMenu() {
 
 inline void SCTreeSystem::TreeGUIMenu() {
 	ImGui::Begin("Tree Controller");
+	std::string text = std::string(_DrawOrgan ? "Hide" : "Draw") + " Leaves";
+	if (ImGui::Button(text.c_str())) _DrawOrgan = !_DrawOrgan;
 	ImGui::SliderFloat("Grow Distance", &_GrowDist, 0.2f, 0.5f);
 	ImGui::SliderFloat("Attract Distance Multiplier", &_AttractDitsMult, 1.0f, 5.0f);
 	ImGui::SliderFloat("Remove Distance Multiplier", &_RemoveDistMult, 0.1f, 0.9f);
