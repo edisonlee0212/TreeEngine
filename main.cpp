@@ -42,7 +42,7 @@ int main()
 	
 	IEngine* engine = new IEngine();
 	engine->Start();
-	//LoadNanoSuit(glm::vec3(-4.0f, 0.0f, 0.0f), glm::vec3(0.2f));
+	LoadNanoSuit(glm::vec3(-4.0f, 0.0f, 0.0f), glm::vec3(0.2f));
 	InitGround();
 	engine->Loop();
 	engine->End();

@@ -28,7 +28,7 @@ World::World() {
 	CreateSystem<CameraSystem>();
 	CreateSystem<RenderSystem>();
 	CreateSystem<LightingSystem>();
-	CreateSystem<SCTreeSystem>();
+	//CreateSystem<SCTreeSystem>();
 }
 template <class T>
 T* World::CreateSystem() {
